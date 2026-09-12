@@ -103,6 +103,16 @@
         }
       }
     },
+    "All day": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Весь день"
+          }
+        }
+      }
+    },
     "All done": {
       "extractionState": "stale",
       "localizations": {

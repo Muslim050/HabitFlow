@@ -10,13 +10,16 @@ struct ActivityEntry: TimelineEntry {
     let today: DayKey
     /// Presets that are not already in the store, so the widget never offers a duplicate.
     let availablePresets: [HabitPreset]
+    /// Written by the app after it reads EventKit; a widget cannot ask for that permission.
+    let agenda: [AgendaItem]
 
     var hasHabits: Bool { !matrix.rows.isEmpty }
 
     static var placeholder: ActivityEntry {
         let calendar = AppSettings.shared.dayCalendar
         return ActivityEntry(date: Date(), matrix: .empty, calendar: calendar,
-                             today: calendar.today(), availablePresets: HabitPreset.allCases)
+                             today: calendar.today(), availablePresets: HabitPreset.allCases,
+                             agenda: [])
     }
 }
 
@@ -56,7 +59,8 @@ struct ActivityProvider: TimelineProvider {
             today: today,
             availablePresets: HabitPreset.allCases.filter { preset in
                 !habits.contains { $0.rule == preset.rule }
-            }
+            },
+            agenda: AgendaSnapshot.read()?.items ?? []
         )
     }
 }
@@ -84,7 +88,7 @@ struct ActivityWidgetView: View {
     // Content room is about 306x126 on medium and 306x322 on large.
     private var gap: CGFloat { isLarge ? 4 : 3 }
     private var labelWidth: CGFloat { isLarge ? 96 : 78 }
-    private var maxRows: Int { isLarge ? 5 : 3 }
+    private var maxRows: Int { isLarge ? (visibleAgenda.isEmpty ? 5 : 4) : 3 }
     /// Today's column is wider so it is worth tapping, and reads as the one that matters.
     private var todayExtra: CGFloat { isLarge ? 10 : 6 }
     private var cell: CGFloat {
@@ -116,11 +120,43 @@ struct ActivityWidgetView: View {
             }
 
             if isLarge {
+                if !visibleAgenda.isEmpty {
+                    agendaStrip
+                }
                 Spacer(minLength: 0)
                 quickAdd
             }
         }
         .widgetURL(URL(string: "habitflow://today"))
+    }
+
+    /// Two lines at most: the matrix and the add row own the rest of the box.
+    private var visibleAgenda: [AgendaItem] {
+        Array(AgendaBuilder.arrange(entry.agenda, now: entry.date, limit: 2))
+    }
+
+    private var agendaStrip: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            Divider().opacity(0.5)
+            ForEach(visibleAgenda) { item in
+                HStack(spacing: 8) {
+                    Capsule()
+                        .fill(item.colorHex.map { Color(hex: $0) } ?? Color.accentColor)
+                        .frame(width: 2.5, height: 16)
+                    Text(item.title).font(.system(size: 12, weight: .medium)).lineLimit(1)
+                    Spacer(minLength: 4)
+                    Text(timeLabel(item))
+                        .font(.system(size: 10).monospacedDigit())
+                        .foregroundStyle(item.isOverdue(now: entry.date) ? Color.red : Color.secondary)
+                }
+            }
+        }
+    }
+
+    private func timeLabel(_ item: AgendaItem) -> String {
+        if item.isAllDay { return String(localized: "All day") }
+        guard let start = item.start else { return "" }
+        return start.formatted(date: .omitted, time: .shortened)
     }
 
     private func isDone(_ row: HabitMatrix.Row) -> Bool {

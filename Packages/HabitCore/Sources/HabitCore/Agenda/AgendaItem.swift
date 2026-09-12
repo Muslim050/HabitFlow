@@ -2,8 +2,8 @@ import Foundation
 
 /// One thing from the system Calendar or Reminders, flattened to what the day strip needs.
 /// Read from EventKit in the app; kept here so the ordering rules can be tested on their own.
-public struct AgendaItem: Identifiable, Sendable, Equatable {
-    public enum Kind: String, Sendable, Equatable {
+public struct AgendaItem: Identifiable, Sendable, Equatable, Codable {
+    public enum Kind: String, Sendable, Equatable, Codable {
         case event, reminder
     }
 
@@ -75,5 +75,33 @@ public enum AgendaBuilder {
     public static func overflow(_ items: [AgendaItem], now: Date, limit: Int = 5) -> Int {
         let live = items.filter { !$0.isCompleted && !$0.hasFinished(now: now) }
         return max(0, live.count - limit)
+    }
+}
+
+/// The app reads EventKit and leaves a small snapshot in the App Group; the widget reads
+/// that. A widget extension cannot ask for calendar permission, so it must not try to.
+public enum AgendaSnapshot {
+    public static let key = "agendaSnapshot"
+
+    private struct Payload: Codable {
+        var items: [AgendaItem]
+        var writtenAt: Date
+    }
+
+    public static func write(_ items: [AgendaItem], at date: Date = Date(),
+                             defaults: UserDefaults = AppSettings.store) {
+        // Keep it small: the strip shows a handful, and UserDefaults is not a database.
+        let payload = Payload(items: Array(items.prefix(12)), writtenAt: date)
+        defaults.set(try? JSONEncoder().encode(payload), forKey: key)
+    }
+
+    public static func read(defaults: UserDefaults = AppSettings.store) -> (items: [AgendaItem], writtenAt: Date)? {
+        guard let data = defaults.data(forKey: key),
+              let payload = try? JSONDecoder().decode(Payload.self, from: data) else { return nil }
+        return (payload.items, payload.writtenAt)
+    }
+
+    public static func clear(defaults: UserDefaults = AppSettings.store) {
+        defaults.removeObject(forKey: key)
     }
 }

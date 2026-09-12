@@ -1,6 +1,7 @@
 import EventKit
 import Foundation
 import Observation
+import WidgetKit
 import HabitCore
 
 /// Reads today's calendar events and reminders. Read-mostly: the one write is ticking a
@@ -43,6 +44,8 @@ final class CalendarService {
     func refresh(now: Date = Date(), dayStart: Date? = nil, dayEnd: Date? = nil) async {
         guard hasAnyAccess else {
             items = []
+            AgendaSnapshot.clear()
+            WidgetCenter.shared.reloadAllTimelines()
             return
         }
         isRefreshing = true
@@ -62,6 +65,9 @@ final class CalendarService {
         }
         items = collected
         lastRefreshedAt = now
+        // The widget cannot read EventKit itself, so hand it what we just read.
+        AgendaSnapshot.write(AgendaBuilder.arrange(collected, now: now, limit: 6), at: now)
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     private func events(from start: Date, to end: Date) -> [AgendaItem] {
