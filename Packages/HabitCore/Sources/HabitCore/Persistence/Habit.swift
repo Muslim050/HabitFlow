@@ -17,6 +17,12 @@ public final class Habit {
     /// Soft delete; archived habits are hidden and never evaluated.
     public var archivedAt: Date? = nil
     public var updatedAt: Date = Date()
+    /// How the goal may change over time: off / suggest / automatic.
+    public var adaptationModeRaw: String = GoalAdaptationMode.suggest.rawValue
+    /// Last time the goal was raised or lowered by adaptation (cooldown anchor).
+    public var lastGoalChangeAt: Date? = nil
+    /// Last time the user dismissed a proposal (so it does not nag every day).
+    public var lastProposalDismissedAt: Date? = nil
 
     @Relationship(deleteRule: .cascade, inverse: \DailyLog.habit)
     public var logs: [DailyLog]? = []
@@ -54,6 +60,20 @@ public final class Habit {
     }
 
     public var kind: HabitSourceKind { HabitSourceKind(rawValue: kindRaw) ?? .manual }
+
+    public var adaptationMode: GoalAdaptationMode {
+        get { GoalAdaptationMode(rawValue: adaptationModeRaw) ?? .suggest }
+        set { adaptationModeRaw = newValue.rawValue; updatedAt = Date() }
+    }
+
+    /// Applies a new numeric target to the current rule and stamps the cooldown.
+    public func applyGoal(_ target: Double, at date: Date = Date()) {
+        guard let updated = rule.withTarget(target) else { return }
+        rule = updated
+        lastGoalChangeAt = date
+        lastProposalDismissedAt = nil
+        updatedAt = date
+    }
     public var isAutomatic: Bool { kind.isAutomatic }
     public var isArchived: Bool { archivedAt != nil }
 

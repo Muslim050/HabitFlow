@@ -19,6 +19,7 @@ final class AppEnvironment {
     let location: LocationProvider
     let notifications: NotificationService
     let engine: AutoTrackingEngine
+    let analysis: AnalysisService
     let isUsingFallbackStore: Bool
 
     /// Bumps after every engine run so views can refresh derived data.
@@ -53,6 +54,7 @@ final class AppEnvironment {
         registry.register(healthKit)
         registry.register(location)
         self.engine = AutoTrackingEngine(repository: repository, providers: registry, settings: settings)
+        self.analysis = AnalysisService(repository: repository, settings: settings)
 
         engine.onAutoCompleted = { [weak self] event in
             self?.handleAutoCompleted(event)
@@ -103,6 +105,7 @@ final class AppEnvironment {
         currentDayKey = today
         await engine.finalizeDay(previous)
         await engine.evaluateAll(reason: .dayRollover)
+        analysis.refreshIfNeeded(force: true)
     }
 
     private func nextRefreshDate() -> Date {
@@ -127,6 +130,7 @@ final class AppEnvironment {
             } else {
                 await engine.evaluateAll(reason: .habitChanged)
             }
+            analysis.refreshIfNeeded(force: true)
         }
     }
 
@@ -155,6 +159,7 @@ final class AppEnvironment {
     private func handleDidEvaluate(_ summary: EvaluationSummary) {
         lastSummary = summary
         evaluationTick &+= 1
+        analysis.refreshIfNeeded()
         WidgetCenter.shared.reloadTimelines(ofKind: TodayRingsWidgetKind)
         Task { await rescheduleNudge() }
     }

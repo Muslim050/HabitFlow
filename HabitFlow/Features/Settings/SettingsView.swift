@@ -37,6 +37,18 @@ struct SettingsView: View {
                 }
 
                 Section {
+                    Picker("New habits", selection: adaptationBinding) {
+                        ForEach(GoalAdaptationMode.allCases, id: \.self) { mode in
+                            Text(mode.displayName).tag(mode)
+                        }
+                    }
+                } header: {
+                    Text("Adaptive goals")
+                } footer: {
+                    Text("Default for habits you create next. Each habit can be changed on its own.")
+                }
+
+                Section {
                     Stepper("Forgiven misses per week: \(grace)", value: $grace, in: 0...3)
                 } header: {
                     Text("Streaks")
@@ -89,6 +101,13 @@ struct SettingsView: View {
             }
             .navigationTitle("Settings")
         }
+    }
+
+    private var adaptationBinding: Binding<GoalAdaptationMode> {
+        Binding(
+            get: { env.settings.defaultAdaptationMode },
+            set: { env.settings.defaultAdaptationMode = $0 }
+        )
     }
 
     private var healthStatusText: String {

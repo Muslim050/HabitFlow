@@ -6,10 +6,23 @@ visit (geofences). Everything stays on the device.
 
 ## Layout
 
-- `Packages/HabitCore` — domain, SwiftData models, auto-tracking engine, scoring. Tested with `make test-core` (runs on macOS, no simulator needed).
+- `Packages/HabitCore` — domain, SwiftData models, auto-tracking engine, scoring, insights and adaptive goals. Tested with `make test-core` (runs on macOS, no simulator needed).
 - `HabitFlow` — the iOS app (SwiftUI). HealthKit / CoreLocation providers, notifications, background tasks, screens.
 - `HabitFlowWidget` — interactive home-screen widget (small/medium/large). Tapping a ring or row runs `ToggleHabitIntent`, which writes the shared store and queues the action; the app replays the queue on foreground so its own context stays in sync.
 - `project.yml` — XcodeGen spec. Run `make gen` to (re)create `HabitFlow.xcodeproj`.
+
+## Insights and adaptive goals
+
+`InsightEngine` looks for patterns (weekly trend, weak weekday, pairing between two habits, near miss,
+typical time of day). Every rule has a minimum sample size and a minimum effect size, so a couple of
+lucky days never produce a claim, and the wording stays associative rather than causal.
+
+`GoalAdaptation` raises a goal when it is reached on at least 85% of the last 14 scheduled days with a
+median result of 110% or more, and lowers it at 40% or less with a median of 80% or less. It needs 10
+days of data, never moves the goal more than 50% at once, and waits 14 days after a change or a
+dismissal. Each habit is fixed, suggesting, or automatic; the default for new habits is in Settings.
+
+`AnalysisEngine` ties both to the store; the app wraps it in `AnalysisService` for the UI.
 
 ## Localization
 

@@ -71,6 +71,26 @@ struct HabitDetailView: View {
                     .padding(.vertical, 4)
             }
 
+            if let proposal = env.analysis.proposal(for: habit.id) {
+                Section("Goal suggestion") {
+                    GoalProposalCard(proposal: proposal)
+                }
+            }
+
+            let habitInsights = env.analysis.insights(for: habit.id)
+            if !habitInsights.isEmpty {
+                Section("Patterns") {
+                    ForEach(habitInsights) { insight in
+                        InsightCard(presentation: InsightPresentation(
+                            insight: insight,
+                            habitName: env.analysis.habitName(insight.habitID),
+                            relatedName: env.analysis.habitName(insight.relatedHabitID),
+                            rule: habit.rule
+                        ))
+                    }
+                }
+            }
+
             Section {
                 if habit.isAutomatic {
                     Button {
@@ -94,6 +114,7 @@ struct HabitDetailView: View {
             ToolbarItem(placement: .primaryAction) { Button("Edit") { showEditor = true } }
         }
         .sheet(isPresented: $showEditor) { HabitEditorView(habit: habit) }
+        .task { env.analysis.refreshIfNeeded() }
         .confirmationDialog("Archive this habit? History is kept.", isPresented: $confirmArchive, titleVisibility: .visible) {
             Button("Archive", role: .destructive) {
                 habit.archivedAt = Date()

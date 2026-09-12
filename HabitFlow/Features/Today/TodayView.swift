@@ -42,6 +42,13 @@ struct TodayView: View {
                 TodayHeaderView(completed: completed, total: scheduled.count, lastRun: env.settings.lastEngineRunAt)
                     .listRowInsets(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16))
             }
+            if !env.analysis.proposals.isEmpty {
+                Section("Goal suggestions") {
+                    ForEach(env.analysis.proposals) { proposal in
+                        GoalProposalCard(proposal: proposal)
+                    }
+                }
+            }
             if scheduled.isEmpty {
                 Section {
                     ContentUnavailableView(
@@ -62,7 +69,9 @@ struct TodayView: View {
         }
         .refreshable {
             await env.engine.evaluateAll(reason: .manualRefresh)
+            env.analysis.refresh()
         }
+        .task { env.analysis.refreshIfNeeded() }
     }
 }
 

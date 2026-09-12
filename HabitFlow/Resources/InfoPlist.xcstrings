@@ -1,66 +1,114 @@
 {
-  "sourceLanguage": "en",
-  "strings": {
-    "CFBundleDisplayName": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "HabitFlow"
+  "sourceLanguage" : "en",
+  "strings" : {
+    "CFBundleDisplayName" : {
+      "comment" : "Bundle display name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "HabitFlow"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "HabitFlow"
           }
         }
       }
     },
-    "CFBundleName": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "HabitFlow"
+    "CFBundleName" : {
+      "comment" : "Bundle name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "HabitFlow"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "HabitFlow"
           }
         }
       }
     },
-    "NSHealthShareUsageDescription": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "HabitFlow читает шаги, сон, тренировки, минуты осознанности, воду и энергию из Здоровья, чтобы отмечать привычки автоматически. Данные не покидают устройство."
+    "NSHealthShareUsageDescription" : {
+      "comment" : "Privacy - Health Share Usage Description",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "HabitFlow reads your steps, sleep, workouts, mindful minutes, water and energy from Health to mark habits as done automatically. Nothing leaves your device."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "HabitFlow читает шаги, сон, тренировки, минуты осознанности, воду и энергию из Здоровья, чтобы отмечать привычки автоматически. Данные не покидают устройство."
           }
         }
       }
     },
-    "NSHealthUpdateUsageDescription": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Отладочные сборки записывают тестовые данные в Здоровье, чтобы проверять авто-трекинг в симуляторе."
+    "NSHealthUpdateUsageDescription" : {
+      "comment" : "Privacy - Health Update Usage Description",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Debug builds write sample data to Health so you can test automatic tracking in the Simulator."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Отладочные сборки записывают тестовые данные в Здоровье, чтобы проверять авто-трекинг в симуляторе."
           }
         }
       }
     },
-    "NSLocationAlwaysAndWhenInUseUsageDescription": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Разрешите геолокацию в фоне, чтобы HabitFlow отмечал гео-привычку даже при закрытом приложении. Геолокация никуда не отправляется."
+    "NSLocationAlwaysAndWhenInUseUsageDescription" : {
+      "comment" : "Privacy - Location Always and When In Use Usage Description",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Allow location in the background so HabitFlow can mark a place-based habit done even when the app is closed. Locations are never uploaded."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Разрешите геолокацию в фоне, чтобы HabitFlow отмечал гео-привычку даже при закрытом приложении. Геолокация никуда не отправляется."
           }
         }
       }
     },
-    "NSLocationWhenInUseUsageDescription": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "HabitFlow использует геолокацию, чтобы замечать, когда вы приходите в выбранные места, например в зал, и отмечать привычку."
+    "NSLocationWhenInUseUsageDescription" : {
+      "comment" : "Privacy - Location When In Use Usage Description",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "HabitFlow uses your location to notice when you arrive at places you chose, such as your gym, and mark that habit done."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "HabitFlow использует геолокацию, чтобы замечать, когда вы приходите в выбранные места, например в зал, и отмечать привычку."
           }
         }
       }
     }
   },
-  "version": "1.0"
+  "version" : "1.0"
 }

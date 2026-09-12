@@ -4,13 +4,17 @@ import SwiftData
 @MainActor
 public final class SwiftDataHabitRepository: HabitRepository {
     public let context: ModelContext
+    /// Kept so the container outlives the repository: a `ModelContext` does not retain its
+    /// container, and inserting into a context whose container has been deallocated traps.
+    private let container: ModelContainer?
 
-    public init(context: ModelContext) {
+    public init(context: ModelContext, container: ModelContainer? = nil) {
         self.context = context
+        self.container = container
     }
 
     public convenience init(container: ModelContainer) {
-        self.init(context: container.mainContext)
+        self.init(context: container.mainContext, container: container)
     }
 
     // MARK: Habits
@@ -49,6 +53,12 @@ public final class SwiftDataHabitRepository: HabitRepository {
         let raw = dayKey.raw
         let descriptor = FetchDescriptor<DailyLog>(predicate: #Predicate { $0.dayKey == raw })
         return try context.fetch(descriptor)
+    }
+
+    public func logs(from: DayKey, to: DayKey) throws -> [DailyLog] {
+        // String range comparison inside #Predicate is unreliable; filter in memory.
+        try context.fetch(FetchDescriptor<DailyLog>())
+            .filter { $0.dayKey >= from.raw && $0.dayKey <= to.raw }
     }
 
     public func log(habitID: UUID, dayKey: DayKey) throws -> DailyLog? {

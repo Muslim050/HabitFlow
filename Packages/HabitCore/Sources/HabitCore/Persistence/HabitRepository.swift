@@ -16,6 +16,8 @@ public protocol HabitRepository: AnyObject {
 
     func logs(habitID: UUID, from: DayKey, to: DayKey) throws -> [DailyLog]
     func logs(dayKey: DayKey) throws -> [DailyLog]
+    /// Every habit's logs in the range, for cross-habit analysis.
+    func logs(from: DayKey, to: DayKey) throws -> [DailyLog]
     func log(habitID: UUID, dayKey: DayKey) throws -> DailyLog?
     func fetchOrCreateLog(habitID: UUID, dayKey: DayKey, dayStart: Date, target: Double) throws -> DailyLog
 

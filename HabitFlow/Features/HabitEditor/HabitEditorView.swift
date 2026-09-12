@@ -23,6 +23,7 @@ struct HabitEditorView: View {
     @State private var dwellMinutes: Double
     @State private var placeName: String
     @State private var scheduleMask: Int
+    @State private var adaptationMode: GoalAdaptationMode
     @State private var showPlacePicker = false
 
     init(habit: Habit?) {
@@ -33,6 +34,7 @@ struct HabitEditorView: View {
         _colorHex = State(initialValue: habit?.colorHex ?? HabitPalette.hexes[0])
         _kind = State(initialValue: rule.kind)
         _scheduleMask = State(initialValue: habit?.scheduleMask ?? Habit.everyDayMask)
+        _adaptationMode = State(initialValue: habit?.adaptationMode ?? AppSettings.shared.defaultAdaptationMode)
 
         var metric = HealthMetric.steps
         var quantityTarget = HealthMetric.steps.defaultTarget
@@ -114,6 +116,18 @@ struct HabitEditorView: View {
                 }
 
                 sourceConfiguration
+
+                if rule?.withTarget(rule?.target ?? 0) != nil {
+                    Section {
+                        Picker("Adaptive goal", selection: $adaptationMode) {
+                            ForEach(GoalAdaptationMode.allCases, id: \.self) { mode in
+                                Text(mode.displayName).tag(mode)
+                            }
+                        }
+                    } footer: {
+                        Text(adaptationMode.explanation)
+                    }
+                }
 
                 Section("Days") {
                     WeekdayPicker(mask: $scheduleMask)
@@ -224,11 +238,13 @@ struct HabitEditorView: View {
             habit.colorHex = colorHex
             habit.rule = rule
             habit.scheduleMask = scheduleMask
+            habit.adaptationMode = adaptationMode
             habit.updatedAt = Date()
         } else {
             let count = (try? env.repository.activeHabits().count) ?? 0
             habit = Habit(name: trimmed, emoji: emoji.isEmpty ? "✅" : emoji, colorHex: colorHex, rule: rule,
                           scheduleMask: scheduleMask, sortOrder: count)
+            habit.adaptationMode = adaptationMode
             env.repository.insert(habit)
         }
         do {
@@ -238,6 +254,24 @@ struct HabitEditorView: View {
         }
         env.habitDidChange(habit)
         dismiss()
+    }
+}
+
+extension GoalAdaptationMode {
+    var displayName: String {
+        switch self {
+        case .off: return String(localized: "Fixed")
+        case .suggest: return String(localized: "Suggest changes")
+        case .automatic: return String(localized: "Adjust automatically")
+        }
+    }
+
+    var explanation: String {
+        switch self {
+        case .off: return String(localized: "The goal never changes on its own.")
+        case .suggest: return String(localized: "When you consistently overshoot or fall short, HabitFlow offers a new goal. You decide.")
+        case .automatic: return String(localized: "HabitFlow adjusts the goal itself and tells you what changed. At most one change every two weeks.")
+        }
     }
 }
 

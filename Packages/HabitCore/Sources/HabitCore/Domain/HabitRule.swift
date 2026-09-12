@@ -50,6 +50,43 @@ public enum HabitRule: Codable, Sendable, Hashable {
 
     public var localizedUnit: String { ValueFormatting.unit(unitLabel) }
 
+    /// Same rule with a different numeric target. `nil` for rules that have no adjustable goal.
+    public func withTarget(_ target: Double) -> HabitRule? {
+        switch self {
+        case .manual: return nil
+        case .healthQuantity(let metric, _): return .healthQuantity(metric: metric, target: target)
+        case .healthSleep: return .healthSleep(minHours: target)
+        case .healthMindful: return .healthMindful(minMinutes: target)
+        case .healthWorkout(let activityRaw, _): return .healthWorkout(activityRaw: activityRaw, minMinutes: target)
+        case .geofence(let lat, let lon, let radius, _, let placeName):
+            return .geofence(latitude: lat, longitude: lon, radius: radius, minDwellMinutes: target, placeName: placeName)
+        }
+    }
+
+    /// Granularity used when proposing a new goal.
+    public var goalStep: Double {
+        switch self {
+        case .manual: return 0
+        case .healthQuantity(let metric, _): return metric.stepIncrement
+        case .healthSleep: return 0.25
+        case .healthMindful: return 1
+        case .healthWorkout: return 5
+        case .geofence: return 5
+        }
+    }
+
+    /// Smallest sensible goal, so adaptation never proposes something meaningless.
+    public var goalFloor: Double {
+        switch self {
+        case .manual: return 0
+        case .healthQuantity(let metric, _): return metric.stepIncrement
+        case .healthSleep: return 4
+        case .healthMindful: return 1
+        case .healthWorkout: return 5
+        case .geofence: return 5
+        }
+    }
+
     /// Localized short label for the "auto-detected from …" badge.
     public var sourceLabel: String? {
         switch self {

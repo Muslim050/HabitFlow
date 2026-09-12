@@ -20,6 +20,9 @@ struct MainTabView: View {
             Tab("Today", systemImage: "circle.circle") {
                 TodayScreen()
             }
+            Tab("Insights", systemImage: "chart.line.uptrend.xyaxis") {
+                InsightsView()
+            }
             Tab("Settings", systemImage: "gearshape") {
                 SettingsView()
             }

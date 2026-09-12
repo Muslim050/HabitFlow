@@ -10,6 +10,7 @@ public final class AppSettings: @unchecked Sendable {
         public static let hasCompletedOnboarding = "hasCompletedOnboarding"
         public static let healthAuthorizationRequested = "healthAuthorizationRequested"
         public static let lastEngineRunAt = "lastEngineRunAt"
+        public static let defaultAdaptationMode = "defaultAdaptationMode"
     }
 
     public static let store: UserDefaults = UserDefaults(suiteName: AppGroup.id) ?? .standard
@@ -54,6 +55,12 @@ public final class AppSettings: @unchecked Sendable {
     public var lastEngineRunAt: Date? {
         get { defaults.object(forKey: Key.lastEngineRunAt) as? Date }
         set { defaults.set(newValue, forKey: Key.lastEngineRunAt) }
+    }
+
+    /// Applied to newly created habits that have an adjustable goal.
+    public var defaultAdaptationMode: GoalAdaptationMode {
+        get { GoalAdaptationMode(rawValue: defaults.string(forKey: Key.defaultAdaptationMode) ?? "") ?? .suggest }
+        set { defaults.set(newValue.rawValue, forKey: Key.defaultAdaptationMode) }
     }
 
     public var dayCalendar: DayCalendar { DayCalendar(dayStartHour: dayStartHour) }
