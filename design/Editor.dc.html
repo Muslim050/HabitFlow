@@ -7,77 +7,73 @@
 <body>
 <x-dc>
 <helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Martian+Mono:wght@400;500;700&display=swap">
   <style>
-    body { margin: 0; font-family: -apple-system, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
-    a { color: #4F8EF7; } a:hover { color: #3A6FD8; }
+    body { margin: 0; background: #0A0B0D; }
+    .sans { font-family: "Instrument Sans", "Helvetica Neue", Arial, sans-serif; }
+    .mono { font-family: "Martian Mono", "SF Mono", Menlo, monospace; font-variant-numeric: tabular-nums; letter-spacing: -0.04em; }
+    .lbl { font-family: "Martian Mono", "SF Mono", Menlo, monospace; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; }
+    a { color: #A8E84C; } a:hover { color: #C4F17E; }
   </style>
 </helmet>
+<div style="width: 390px; height: 844px; background: #0A0B0D; background-image: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 6px); color: #ECEEF2; display: flex; flex-direction: column; overflow: hidden;">
+  <div style="height: 26px; flex-shrink: 0;"></div>
+  <div style="flex-grow: 1; background: #14161A; border-radius: 22px 22px 0 0; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06); display: flex; flex-direction: column; overflow: hidden;">
 
-<div style="width: 390px; height: 844px; background: #F2F2F7; color: #000000; display: flex; flex-direction: column; overflow: hidden;">
-  <div style="height: 26px; flex-shrink: 0; background: #000000;"></div>
-  <div style="height: 12px; flex-shrink: 0; background: #F2F2F7; border-radius: 12px 12px 0 0;"></div>
-
-  <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 16px; height: 56px; flex-shrink: 0;">
-    <div style="font-size: 17px; color: #4F8EF7;">Отмена</div>
-    <div style="font-size: 17px; font-weight: 600;">Новая привычка</div>
-    <div style="font-size: 17px; color: #4F8EF7; font-weight: 600;">Сохранить</div>
-  </div>
-
-  <div style="flex-grow: 1; overflow: hidden;">
-    <div style="padding: 24px 20px 6px 36px; font-size: 13px; line-height: 18px; color: rgba(60, 60, 67, 0.6); text-transform: uppercase; letter-spacing: -0.08px;">Привычка</div>
-    <div style="margin: 0 20px; background: #FFFFFF; border-radius: 10px; overflow: hidden;">
-      <div style="display: flex; align-items: center; gap: 12px; padding: 11px 16px;">
-        <div style="width: 44px; text-align: center; font-size: 22px;">🚶</div>
-        <div style="font-size: 17px;">Прогулка</div>
-      </div>
-      <div style="height: 0.5px; background: rgba(60, 60, 67, 0.29); margin-left: 16px;"></div>
-      <div style="display: flex; gap: 10px; padding: 12px 16px;"><div style="width: 28px; height: 28px; border-radius: 999px; background: #4F8EF7; display: flex; align-items: center; justify-content: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 L10 17.5 L19 7"></path></svg></div><div style="width: 28px; height: 28px; border-radius: 999px; background: #34C759; display: flex; align-items: center; justify-content: center;"></div><div style="width: 28px; height: 28px; border-radius: 999px; background: #FF9500; display: flex; align-items: center; justify-content: center;"></div><div style="width: 28px; height: 28px; border-radius: 999px; background: #FF2D55; display: flex; align-items: center; justify-content: center;"></div><div style="width: 28px; height: 28px; border-radius: 999px; background: #AF52DE; display: flex; align-items: center; justify-content: center;"></div><div style="width: 28px; height: 28px; border-radius: 999px; background: #5AC8FA; display: flex; align-items: center; justify-content: center;"></div><div style="width: 28px; height: 28px; border-radius: 999px; background: #FFCC00; display: flex; align-items: center; justify-content: center;"></div><div style="width: 28px; height: 28px; border-radius: 999px; background: #8E8E93; display: flex; align-items: center; justify-content: center;"></div></div>
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 18px; height: 54px; flex-shrink: 0;">
+      <div class="sans" style="font-size: 14px; color: #9BA3AE;">Отмена</div>
+      <div class="sans" style="font-size: 15px; font-weight: 600;">Новая привычка</div>
+      <div class="sans" style="font-size: 14px; color: #A8E84C; font-weight: 600;">Готово</div>
     </div>
 
-    <div style="padding: 24px 20px 6px 36px; font-size: 13px; line-height: 18px; color: rgba(60, 60, 67, 0.6); text-transform: uppercase; letter-spacing: -0.08px;">Как отслеживать?</div>
-    <div style="margin: 0 20px; background: #FFFFFF; border-radius: 10px; overflow: hidden;">
-      <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 16px;">
-        <div style="font-size: 17px; line-height: 22px;">Источник</div>
-        <div style="display: flex; align-items: center; gap: 6px; color: rgba(60, 60, 67, 0.6); font-size: 17px;">
-          <span>Показатель Здоровья</span><svg width="12" height="18" viewBox="0 0 12 18" fill="none" stroke="rgba(60,60,67,0.45)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7 L6 4 L9 7"></path><path d="M3 11 L6 14 L9 11"></path></svg>
-        </div>
-      </div>
-    </div>
-    <div style="padding: 6px 20px 0 36px; font-size: 13px; line-height: 18px; color: rgba(60, 60, 67, 0.6);">Закрывается автоматически из Здоровья. Фоновые обновления шагов приходят примерно раз в час.</div>
+    <div style="padding: 6px 18px 0; display: flex; flex-direction: column; gap: 18px;">
 
-    <div style="padding: 24px 20px 6px 36px; font-size: 13px; line-height: 18px; color: rgba(60, 60, 67, 0.6); text-transform: uppercase; letter-spacing: -0.08px;">Цель</div>
-    <div style="margin: 0 20px; background: #FFFFFF; border-radius: 10px; overflow: hidden;">
-      <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 16px;">
-        <div style="font-size: 17px; line-height: 22px;">Метрика</div>
-        <div style="display: flex; align-items: center; gap: 6px; color: rgba(60, 60, 67, 0.6); font-size: 17px;">
-          <span>Шаги</span><svg width="12" height="18" viewBox="0 0 12 18" fill="none" stroke="rgba(60,60,67,0.45)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7 L6 4 L9 7"></path><path d="M3 11 L6 14 L9 11"></path></svg>
+      <div style="display: flex; align-items: center; gap: 13px;">
+        <div style="width: 46px; height: 46px; border-radius: 13px; background: #5B9DFF1F; box-shadow: inset 0 0 0 1px #5B9DFF33; display: flex; align-items: center; justify-content: center; font-size: 21px; flex-shrink: 0;">🚶</div>
+        <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 4px;">
+          <div class="sans" style="font-size: 20px; font-weight: 600;">Прогулка</div>
+          <div style="height: 1px; background: #24282F;"></div>
         </div>
       </div>
-      <div style="height: 0.5px; background: rgba(60, 60, 67, 0.29); margin-left: 16px;"></div>
-      <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 16px;">
-        <div style="font-size: 17px; line-height: 22px; font-variant-numeric: tabular-nums;">Не менее 8 000 шагов</div>
-        <div style="display: flex; align-items: stretch; background: rgba(118, 118, 128, 0.12); border-radius: 8px; overflow: hidden;">
-          <div style="padding: 6px 14px; display: flex; align-items: center;"><svg width="14" height="2" viewBox="0 0 14 2"><rect width="14" height="2" rx="1" fill="#000000"></rect></svg></div>
-          <div style="width: 0.5px; background: rgba(60, 60, 67, 0.29);"></div>
-          <div style="padding: 6px 14px; display: flex; align-items: center;"><svg width="14" height="14" viewBox="0 0 14 14"><rect y="6" width="14" height="2" rx="1" fill="#000000"></rect><rect x="6" width="2" height="14" rx="1" fill="#000000"></rect></svg></div>
-        </div>
-      </div>
-    </div>
 
-    <div style="padding: 24px 20px 6px 36px; font-size: 13px; line-height: 18px; color: rgba(60, 60, 67, 0.6); text-transform: uppercase; letter-spacing: -0.08px;">Адаптивная цель</div>
-    <div style="margin: 0 20px; background: #FFFFFF; border-radius: 10px; overflow: hidden;">
-      <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 16px;">
-        <div style="font-size: 17px; line-height: 22px; white-space: nowrap;">Цель</div>
-        <div style="display: flex; align-items: center; gap: 6px; color: rgba(60, 60, 67, 0.6); font-size: 17px;">
-          <span style="white-space: nowrap;">Предлагать изменения</span><svg width="12" height="18" viewBox="0 0 12 18" fill="none" stroke="rgba(60,60,67,0.45)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7 L6 4 L9 7"></path><path d="M3 11 L6 14 L9 11"></path></svg>
+      <div style="display: flex; gap: 9px;"><div style="width: 30px; height: 30px; border-radius: 999px; background: #5B9DFF; box-shadow: 0 0 0 2px #0A0B0D, 0 0 0 4px #5B9DFF; display: flex; align-items: center; justify-content: center;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0A0B0D" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 L10 17.5 L19 7"></path></svg></div><div style="width: 30px; height: 30px; border-radius: 999px; background: #4ADE80;  display: flex; align-items: center; justify-content: center;"></div><div style="width: 30px; height: 30px; border-radius: 999px; background: #FFA23D;  display: flex; align-items: center; justify-content: center;"></div><div style="width: 30px; height: 30px; border-radius: 999px; background: #FF5D7A;  display: flex; align-items: center; justify-content: center;"></div><div style="width: 30px; height: 30px; border-radius: 999px; background: #C07CF5;  display: flex; align-items: center; justify-content: center;"></div><div style="width: 30px; height: 30px; border-radius: 999px; background: #4FD4E8;  display: flex; align-items: center; justify-content: center;"></div><div style="width: 30px; height: 30px; border-radius: 999px; background: #FFD84F;  display: flex; align-items: center; justify-content: center;"></div><div style="width: 30px; height: 30px; border-radius: 999px; background: #8A93A0;  display: flex; align-items: center; justify-content: center;"></div></div>
+
+      <div style="display: flex; flex-direction: column; gap: 9px;">
+        <div class="lbl" style="color: #6B7480;">Что считает за выполнено</div>
+        <div style="display: flex; gap: 7px; flex-wrap: wrap;"><div class="sans" style="background: #1B1E24; color: #9BA3AE; font-weight: 500; border-radius: 10px; padding: 9px 13px; font-size: 13px; white-space: nowrap;">Вручную</div><div class="sans" style="background: #A8E84C; color: #10160A; font-weight: 700; border-radius: 10px; padding: 9px 13px; font-size: 13px; white-space: nowrap;">Здоровье</div><div class="sans" style="background: #1B1E24; color: #9BA3AE; font-weight: 500; border-radius: 10px; padding: 9px 13px; font-size: 13px; white-space: nowrap;">Сон</div><div class="sans" style="background: #1B1E24; color: #9BA3AE; font-weight: 500; border-radius: 10px; padding: 9px 13px; font-size: 13px; white-space: nowrap;">Тренировка</div><div class="sans" style="background: #1B1E24; color: #9BA3AE; font-weight: 500; border-radius: 10px; padding: 9px 13px; font-size: 13px; white-space: nowrap;">Место</div></div>
+      </div>
+
+      <div style="background: #1B1E24; border-radius: 16px; padding: 15px 16px; display: flex; flex-direction: column; gap: 13px;">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div class="lbl" style="color: #6B7480;">Показатель</div>
+          <div class="sans" style="font-size: 13px; color: #ECEEF2;">Шаги ⌄</div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 14px;">
+          <div style="display: flex; align-items: baseline; gap: 6px;">
+            <div class="mono" style="font-size: 30px; font-weight: 700;">8 000</div>
+            <div class="mono" style="font-size: 11px; color: #6B7480;">шагов</div>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <div style="width: 44px; height: 44px; border-radius: 13px; background: #14161A; display: flex; align-items: center; justify-content: center;"><svg width="14" height="2" viewBox="0 0 14 2"><rect width="14" height="2" rx="1" fill="#9BA3AE"></rect></svg></div>
+            <div style="width: 44px; height: 44px; border-radius: 13px; background: #14161A; display: flex; align-items: center; justify-content: center;"><svg width="14" height="14" viewBox="0 0 14 14"><rect y="6" width="14" height="2" rx="1" fill="#9BA3AE"></rect><rect x="6" width="2" height="14" rx="1" fill="#9BA3AE"></rect></svg></div>
+          </div>
         </div>
       </div>
-    </div>
-    <div style="padding: 6px 20px 0 36px; font-size: 13px; line-height: 18px; color: rgba(60, 60, 67, 0.6);">Когда вы стабильно перевыполняете или не дотягиваете, HabitFlow предложит новую цель. Решение за вами.</div>
 
-    <div style="padding: 24px 20px 6px 36px; font-size: 13px; line-height: 18px; color: rgba(60, 60, 67, 0.6); text-transform: uppercase; letter-spacing: -0.08px;">Дни</div>
-    <div style="margin: 0 20px; background: #FFFFFF; border-radius: 10px; padding: 12px 16px;">
-      <div style="display: flex; gap: 8px;"><div style="width: 34px; height: 34px; border-radius: 999px; background: #4F8EF7; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600;">В</div><div style="width: 34px; height: 34px; border-radius: 999px; background: #4F8EF7; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600;">П</div><div style="width: 34px; height: 34px; border-radius: 999px; background: #4F8EF7; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600;">В</div><div style="width: 34px; height: 34px; border-radius: 999px; background: #4F8EF7; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600;">С</div><div style="width: 34px; height: 34px; border-radius: 999px; background: #4F8EF7; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600;">Ч</div><div style="width: 34px; height: 34px; border-radius: 999px; background: #4F8EF7; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600;">П</div><div style="width: 34px; height: 34px; border-radius: 999px; background: #4F8EF7; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600;">С</div></div>
+      <div style="display: flex; flex-direction: column; gap: 9px;">
+        <div style="display: flex; align-items: baseline; justify-content: space-between;">
+          <div class="lbl" style="color: #6B7480;">Адаптивная цель</div>
+          <div class="lbl" style="color: #A8E84C;">раз в 14 дней</div>
+        </div>
+        <div style="display: flex; gap: 7px;"><div class="sans" style="background: #1B1E24; color: #9BA3AE; font-weight: 500; border-radius: 10px; padding: 7px 11px; font-size: 12px; white-space: nowrap;">Фиксированная</div><div class="sans" style="background: #A8E84C; color: #10160A; font-weight: 700; border-radius: 10px; padding: 7px 11px; font-size: 12px; white-space: nowrap;">Предлагать</div><div class="sans" style="background: #1B1E24; color: #9BA3AE; font-weight: 500; border-radius: 10px; padding: 7px 11px; font-size: 12px; white-space: nowrap;">Сама</div></div>
+        <div class="sans" style="font-size: 11px; line-height: 16px; color: #6B7480;">Стабильно перевыполняете или не дотягиваете — HabitFlow предложит новую цель. Решение за вами.</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 9px;">
+        <div class="lbl" style="color: #6B7480;">Дни</div>
+        <div style="display: flex; gap: 7px;"><div class="mono" style="width: 38px; height: 38px; border-radius: 12px; background: #1B1E24; color: #6B7480; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700;">В</div><div class="mono" style="width: 38px; height: 38px; border-radius: 12px; background: #A8E84C; color: #10160A; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700;">П</div><div class="mono" style="width: 38px; height: 38px; border-radius: 12px; background: #A8E84C; color: #10160A; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700;">В</div><div class="mono" style="width: 38px; height: 38px; border-radius: 12px; background: #A8E84C; color: #10160A; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700;">С</div><div class="mono" style="width: 38px; height: 38px; border-radius: 12px; background: #A8E84C; color: #10160A; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700;">Ч</div><div class="mono" style="width: 38px; height: 38px; border-radius: 12px; background: #A8E84C; color: #10160A; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700;">П</div><div class="mono" style="width: 38px; height: 38px; border-radius: 12px; background: #1B1E24; color: #6B7480; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700;">С</div></div>
+      </div>
+
     </div>
   </div>
 </div>
