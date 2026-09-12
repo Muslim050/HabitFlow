@@ -1,0 +1,121 @@
+name: HabitFlow
+options:
+  bundleIdPrefix: com.muslimahaev
+  deploymentTarget:
+    iOS: "18.0"
+  xcodeVersion: "26.0"
+  createIntermediateGroups: true
+  groupSortPosition: top
+
+packages:
+  HabitCore:
+    path: Packages/HabitCore
+
+settings:
+  base:
+    SWIFT_VERSION: "5"
+    SWIFT_APPROACHABLE_CONCURRENCY: YES
+    SWIFT_STRICT_CONCURRENCY: targeted
+    TARGETED_DEVICE_FAMILY: "1"
+    CODE_SIGN_STYLE: Automatic
+    # Set to your personal/paid team id when running on a physical device.
+    DEVELOPMENT_TEAM: ""
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    # Add ENABLE_CLOUDKIT here once a paid developer team is available.
+    SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited)"
+    GENERATE_INFOPLIST_FILE: NO
+
+targets:
+  HabitFlow:
+    type: application
+    platform: iOS
+    sources:
+      - path: HabitFlow
+    dependencies:
+      - package: HabitCore
+      - target: HabitFlowWidget
+        embed: true
+    info:
+      path: Config/HabitFlow-Info.plist
+      properties:
+        CFBundleDisplayName: HabitFlow
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        ITSAppUsesNonExemptEncryption: false
+        NSHealthShareUsageDescription: "HabitFlow reads your steps, sleep, workouts, mindful minutes, water and energy from Health to mark habits as done automatically. Nothing leaves your device."
+        NSHealthUpdateUsageDescription: "Debug builds write sample data to Health so you can test automatic tracking in the Simulator."
+        NSLocationWhenInUseUsageDescription: "HabitFlow uses your location to notice when you arrive at places you chose, such as your gym, and mark that habit done."
+        NSLocationAlwaysAndWhenInUseUsageDescription: "Allow location in the background so HabitFlow can mark a place-based habit done even when the app is closed. Locations are never uploaded."
+        UIBackgroundModes: [fetch, processing]
+        BGTaskSchedulerPermittedIdentifiers: [com.muslimahaev.habitflow.refresh]
+        CFBundleURLTypes:
+          - CFBundleURLName: com.muslimahaev.habitflow
+            CFBundleURLSchemes: [habitflow]
+    entitlements:
+      path: Config/HabitFlow.entitlements
+      properties:
+        com.apple.developer.healthkit: true
+        com.apple.developer.healthkit.access: []
+        com.apple.developer.healthkit.background-delivery: true
+        com.apple.security.application-groups: [group.com.muslimahaev.habitflow]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.muslimahaev.habitflow
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+
+  HabitFlowWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: HabitFlowWidget
+    dependencies:
+      - package: HabitCore
+    info:
+      path: Config/HabitFlowWidget-Info.plist
+      properties:
+        CFBundleDisplayName: HabitFlow
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    entitlements:
+      path: Config/HabitFlowWidget.entitlements
+      properties:
+        com.apple.security.application-groups: [group.com.muslimahaev.habitflow]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.muslimahaev.habitflow.widget
+        SKIP_INSTALL: YES
+
+  HabitFlowTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: HabitFlowTests
+    dependencies:
+      - target: HabitFlow
+    info:
+      path: Config/HabitFlowTests-Info.plist
+      properties: {}
+
+schemes:
+  HabitFlow:
+    build:
+      targets:
+        HabitFlow: all
+        HabitFlowWidget: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - HabitFlowTests
+    profile:
+      config: Release
+    archive:
+      config: Release

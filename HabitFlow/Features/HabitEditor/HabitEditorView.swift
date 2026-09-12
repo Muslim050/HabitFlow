@@ -1,0 +1,310 @@
+import CoreLocation
+import SwiftUI
+import HabitCore
+
+struct HabitEditorView: View {
+    @Environment(AppEnvironment.self) private var env
+    @Environment(\.dismiss) private var dismiss
+
+    private let existing: Habit?
+
+    @State private var name: String
+    @State private var emoji: String
+    @State private var colorHex: String
+    @State private var kind: HabitSourceKind
+    @State private var metric: HealthMetric
+    @State private var quantityTarget: Double
+    @State private var sleepHours: Double
+    @State private var mindfulMinutes: Double
+    @State private var workoutMinutes: Double
+    @State private var workoutActivity: WorkoutActivity
+    @State private var coordinate: CLLocationCoordinate2D?
+    @State private var radius: Double
+    @State private var dwellMinutes: Double
+    @State private var placeName: String
+    @State private var scheduleMask: Int
+    @State private var showPlacePicker = false
+
+    init(habit: Habit?) {
+        existing = habit
+        let rule = habit?.rule ?? .manual
+        _name = State(initialValue: habit?.name ?? "")
+        _emoji = State(initialValue: habit?.emoji ?? "✅")
+        _colorHex = State(initialValue: habit?.colorHex ?? HabitPalette.hexes[0])
+        _kind = State(initialValue: rule.kind)
+        _scheduleMask = State(initialValue: habit?.scheduleMask ?? Habit.everyDayMask)
+
+        var metric = HealthMetric.steps
+        var quantityTarget = HealthMetric.steps.defaultTarget
+        var sleepHours = 7.5
+        var mindfulMinutes = 10.0
+        var workoutMinutes = 30.0
+        var workoutActivity = WorkoutActivity.any
+        var coordinate: CLLocationCoordinate2D?
+        var radius = 150.0
+        var dwellMinutes = 30.0
+        var placeName = ""
+        switch rule {
+        case .manual: break
+        case .healthQuantity(let m, let t): metric = m; quantityTarget = t
+        case .healthSleep(let h): sleepHours = h
+        case .healthMindful(let m): mindfulMinutes = m
+        case .healthWorkout(let raw, let m): workoutActivity = WorkoutActivity.from(raw: raw); workoutMinutes = m
+        case .geofence(let lat, let lon, let r, let d, let p):
+            coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon); radius = r; dwellMinutes = d; placeName = p
+        }
+        _metric = State(initialValue: metric)
+        _quantityTarget = State(initialValue: quantityTarget)
+        _sleepHours = State(initialValue: sleepHours)
+        _mindfulMinutes = State(initialValue: mindfulMinutes)
+        _workoutMinutes = State(initialValue: workoutMinutes)
+        _workoutActivity = State(initialValue: workoutActivity)
+        _coordinate = State(initialValue: coordinate)
+        _radius = State(initialValue: radius)
+        _dwellMinutes = State(initialValue: dwellMinutes)
+        _placeName = State(initialValue: placeName)
+    }
+
+    private var rule: HabitRule? {
+        switch kind {
+        case .manual: return .manual
+        case .healthQuantity: return .healthQuantity(metric: metric, target: quantityTarget)
+        case .healthSleep: return .healthSleep(minHours: sleepHours)
+        case .healthMindful: return .healthMindful(minMinutes: mindfulMinutes)
+        case .healthWorkout: return .healthWorkout(activityRaw: workoutActivity.healthKitType?.rawValue, minMinutes: workoutMinutes)
+        case .geofence:
+            guard let coordinate else { return nil }
+            return .geofence(latitude: coordinate.latitude, longitude: coordinate.longitude, radius: radius,
+                             minDwellMinutes: dwellMinutes, placeName: placeName.isEmpty ? "Place" : placeName)
+        case .screenTime: return nil
+        }
+    }
+
+    private var geofenceLimitReached: Bool {
+        guard kind == .geofence, existing?.kind != .geofence else { return false }
+        let count = ((try? env.repository.activeHabits()) ?? []).filter { $0.kind == .geofence }.count
+        return count >= LocationProvider.maxRegions
+    }
+
+    private var canSave: Bool {
+        !name.trimmingCharacters(in: .whitespaces).isEmpty && rule != nil && !geofenceLimitReached
+    }
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section("Habit") {
+                    HStack {
+                        TextField("Emoji", text: $emoji)
+                            .frame(width: 44)
+                            .multilineTextAlignment(.center)
+                            .onChange(of: emoji) { _, new in emoji = String(new.suffix(1)) }
+                        TextField("Name", text: $name)
+                    }
+                    ColorPaletteRow(selected: $colorHex)
+                }
+
+                Section("How is it tracked?") {
+                    Picker("Source", selection: $kind) {
+                        ForEach(HabitSourceKind.selectable, id: \.self) { kind in
+                            Label(kind.displayName, systemImage: kind.systemImage).tag(kind)
+                        }
+                    }
+                    sourceHint
+                }
+
+                sourceConfiguration
+
+                Section("Days") {
+                    WeekdayPicker(mask: $scheduleMask)
+                }
+            }
+            .navigationTitle(existing == nil ? "New habit" : "Edit habit")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }
+                ToolbarItem(placement: .confirmationAction) { Button("Save") { save() }.disabled(!canSave) }
+            }
+            .sheet(isPresented: $showPlacePicker) {
+                PlacePickerView(coordinate: $coordinate, radius: $radius, placeName: $placeName)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var sourceHint: some View {
+        switch kind {
+        case .manual: Text("You tap it. Good for things no sensor can see.").font(.footnote).foregroundStyle(.secondary)
+        case .healthQuantity, .healthSleep, .healthMindful, .healthWorkout:
+            Text("Completed automatically from Health. Background updates for steps arrive about once an hour.")
+                .font(.footnote).foregroundStyle(.secondary)
+        case .geofence:
+            Text("Completed when you stay at the place long enough. Needs “Always” location for background detection.")
+                .font(.footnote).foregroundStyle(.secondary)
+        case .screenTime: EmptyView()
+        }
+    }
+
+    @ViewBuilder
+    private var sourceConfiguration: some View {
+        switch kind {
+        case .manual, .screenTime:
+            EmptyView()
+        case .healthQuantity:
+            Section("Goal") {
+                Picker("Metric", selection: $metric) {
+                    ForEach(HealthMetric.allCases, id: \.self) { Text($0.displayName).tag($0) }
+                }
+                .onChange(of: metric) { _, new in quantityTarget = new.defaultTarget }
+                Stepper(value: $quantityTarget, in: metric.stepIncrement...(metric.defaultTarget * 10), step: metric.stepIncrement) {
+                    Text("At least \(ValueFormatting.value(quantityTarget, unit: metric.unitLabel)) \(metric.unitLabel)")
+                }
+            }
+        case .healthSleep:
+            Section("Goal") {
+                Stepper(value: $sleepHours, in: 4...12, step: 0.5) {
+                    Text("At least \(ValueFormatting.value(sleepHours, unit: "h")) h asleep")
+                }
+                Text("Counted from the night before the day starts.").font(.footnote).foregroundStyle(.secondary)
+            }
+        case .healthMindful:
+            Section("Goal") {
+                Stepper(value: $mindfulMinutes, in: 1...120, step: 1) {
+                    Text("At least \(Int(mindfulMinutes)) mindful minutes")
+                }
+            }
+        case .healthWorkout:
+            Section("Goal") {
+                Picker("Activity", selection: $workoutActivity) {
+                    ForEach(WorkoutActivity.allCases) { Text($0.displayName).tag($0) }
+                }
+                Stepper(value: $workoutMinutes, in: 5...240, step: 5) {
+                    Text("A workout of at least \(Int(workoutMinutes)) min")
+                }
+            }
+        case .geofence:
+            Section("Place") {
+                Button {
+                    showPlacePicker = true
+                } label: {
+                    HStack {
+                        Label(coordinate == nil ? "Choose a place" : (placeName.isEmpty ? "Place selected" : placeName),
+                              systemImage: "mappin.and.ellipse")
+                        Spacer()
+                        if let coordinate {
+                            Text(String(format: "%.4f, %.4f", coordinate.latitude, coordinate.longitude))
+                                .font(.caption.monospacedDigit()).foregroundStyle(.secondary)
+                        }
+                    }
+                }
+                Stepper(value: $dwellMinutes, in: 1...240, step: 5) {
+                    Text("Stay at least \(Int(dwellMinutes)) min")
+                }
+                Text("Radius \(Int(radius)) m").font(.footnote).foregroundStyle(.secondary)
+                if geofenceLimitReached {
+                    Label("iOS allows at most \(LocationProvider.maxRegions) place habits.", systemImage: "exclamationmark.triangle")
+                        .font(.footnote).foregroundStyle(.orange)
+                }
+            }
+        }
+    }
+
+    private func save() {
+        guard let rule else { return }
+        let trimmed = name.trimmingCharacters(in: .whitespaces)
+        let habit: Habit
+        if let existing {
+            habit = existing
+            habit.name = trimmed
+            habit.emoji = emoji.isEmpty ? "✅" : emoji
+            habit.colorHex = colorHex
+            habit.rule = rule
+            habit.scheduleMask = scheduleMask
+            habit.updatedAt = Date()
+        } else {
+            let count = (try? env.repository.activeHabits().count) ?? 0
+            habit = Habit(name: trimmed, emoji: emoji.isEmpty ? "✅" : emoji, colorHex: colorHex, rule: rule,
+                          scheduleMask: scheduleMask, sortOrder: count)
+            env.repository.insert(habit)
+        }
+        do {
+            try env.repository.save()
+        } catch {
+            Log.app.error("Save failed: \(error.localizedDescription)")
+        }
+        env.habitDidChange(habit)
+        dismiss()
+    }
+}
+
+extension HabitSourceKind {
+    var displayName: String {
+        switch self {
+        case .manual: return "Manual"
+        case .healthQuantity: return "Health metric"
+        case .healthSleep: return "Sleep"
+        case .healthMindful: return "Mindfulness"
+        case .healthWorkout: return "Workout"
+        case .geofence: return "Place"
+        case .screenTime: return "Screen Time"
+        }
+    }
+
+    var systemImage: String {
+        switch self {
+        case .manual: return "hand.tap"
+        case .healthQuantity: return "heart.text.square"
+        case .healthSleep: return "bed.double"
+        case .healthMindful: return "brain.head.profile"
+        case .healthWorkout: return "figure.run"
+        case .geofence: return "mappin.and.ellipse"
+        case .screenTime: return "hourglass"
+        }
+    }
+}
+
+struct ColorPaletteRow: View {
+    @Binding var selected: String
+
+    var body: some View {
+        HStack(spacing: 10) {
+            ForEach(HabitPalette.hexes, id: \.self) { hex in
+                Circle()
+                    .fill(Color(hex: hex))
+                    .frame(width: 28, height: 28)
+                    .overlay {
+                        if hex == selected {
+                            Image(systemName: "checkmark").font(.caption.bold()).foregroundStyle(.white)
+                        }
+                    }
+                    .onTapGesture { selected = hex }
+                    .accessibilityLabel("Color \(hex)")
+            }
+        }
+        .padding(.vertical, 4)
+    }
+}
+
+struct WeekdayPicker: View {
+    @Binding var mask: Int
+    private let symbols = Calendar.current.veryShortStandaloneWeekdaySymbols  // Sunday first
+
+    var body: some View {
+        HStack(spacing: 8) {
+            ForEach(0..<7, id: \.self) { index in
+                let on = mask & (1 << index) != 0
+                Text(symbols[index])
+                    .font(.footnote.weight(.semibold))
+                    .frame(width: 34, height: 34)
+                    .background(on ? Color.accentColor : Color.secondary.opacity(0.15), in: Circle())
+                    .foregroundStyle(on ? .white : .primary)
+                    .onTapGesture {
+                        if on { mask &= ~(1 << index) } else { mask |= (1 << index) }
+                    }
+                    .accessibilityLabel(Calendar.current.standaloneWeekdaySymbols[index])
+                    .accessibilityAddTraits(on ? .isSelected : [])
+            }
+        }
+        .padding(.vertical, 4)
+    }
+}
