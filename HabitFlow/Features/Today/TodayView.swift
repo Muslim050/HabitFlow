@@ -7,6 +7,7 @@ struct TodayView: View {
     @Query private var habits: [Habit]
     @Query private var logs: [DailyLog]
     let dayKey: DayKey
+    @State private var showComposer = false
 
     init(dayKey: DayKey) {
         self.dayKey = dayKey
@@ -71,7 +72,16 @@ struct TodayView: View {
                 Section {
                     AgendaSection()
                 } header: {
-                    Text("Also today")
+                    HStack {
+                        Text("Also today")
+                        Spacer()
+                        Button { showComposer = true } label: {
+                            Label("New", systemImage: "plus")
+                                .labelStyle(.iconOnly)
+                                .font(.footnote.bold())
+                        }
+                        .accessibilityLabel(Text("New event or reminder"))
+                    }
                 }
             }
         }
@@ -80,6 +90,7 @@ struct TodayView: View {
             env.analysis.refresh()
         }
         .task { env.analysis.refreshIfNeeded() }
+        .sheet(isPresented: $showComposer) { AgendaComposer() }
     }
 }
 

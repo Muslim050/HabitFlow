@@ -9,6 +9,7 @@ struct HabitDetailView: View {
     let habit: Habit
     @State private var showEditor = false
     @State private var confirmArchive = false
+    @State private var scheduling: AgendaDraft?
 
     init(habit: Habit) {
         self.habit = habit
@@ -25,6 +26,13 @@ struct HabitDetailView: View {
     }
 
     private var todayLog: DailyLog? { logs.first { $0.dayKey == env.currentDayKey.raw } }
+
+    /// The one thing the system Calendar cannot offer: a slot drawn from when this habit
+    /// actually closes.
+    private var suggestion: HabitSchedulingSuggestion.Result {
+        HabitSchedulingSuggestion.suggest(habit: habit, logs: logs, calendar: env.settings.dayCalendar,
+                                          fallbackHour: env.settings.nudgeHour)
+    }
     private var color: Color { Color(hex: habit.colorHex) }
 
     var body: some View {
@@ -91,6 +99,18 @@ struct HabitDetailView: View {
                 }
             }
 
+            if env.settings.agendaEnabled {
+                Section {
+                    Button { scheduling = suggestion.draft } label: {
+                        Label("Put it in the calendar", systemImage: "calendar.badge.plus")
+                    }
+                } footer: {
+                    Text(suggestion.fromHistory
+                         ? "Prefilled for the time you usually close it, from \(suggestion.sampleCount) completions."
+                         : "Prefilled for your reminder time; there is not enough history yet to know when you do it.")
+                }
+            }
+
             Section {
                 if habit.isAutomatic {
                     Button {
@@ -114,6 +134,11 @@ struct HabitDetailView: View {
             ToolbarItem(placement: .primaryAction) { Button("Edit") { showEditor = true } }
         }
         .sheet(isPresented: $showEditor) { HabitEditorView(habit: habit) }
+        .sheet(item: $scheduling) { draft in
+            AgendaComposer(draft: draft, origin: suggestion.fromHistory
+                           ? String(localized: "Time taken from \(suggestion.sampleCount) completions of this habit.")
+                           : nil)
+        }
         .task { env.analysis.refreshIfNeeded() }
         .confirmationDialog("Archive this habit? History is kept.", isPresented: $confirmArchive, titleVisibility: .visible) {
             Button("Archive", role: .destructive) {

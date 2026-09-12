@@ -1,184 +1,130 @@
 {
-  "sourceLanguage" : "en",
-  "strings" : {
-    "" : {
-
-    },
-    "%@ %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@ %2$@"
+  "sourceLanguage": "en",
+  "strings": {
+    "": {},
+    "%@ %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@ %2$@"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ %2$@"
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ %2$@"
           }
         }
       }
     },
-    "%@ %@ — done automatically" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ %2$@ — выполнено автоматически"
+    "%@ %@ — done automatically": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ %2$@ — выполнено автоматически"
           }
         }
       }
     },
-    "%@ → %@ %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@ → %2$@ %3$@"
+    "%@ from %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · %2$@"
+          }
+        }
+      }
+    },
+    "%@ is the weakest day: %@ completed": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@ is the weakest day: %2$@ completed"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ → %2$@ %3$@"
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — самый слабый день: выполнено %2$@"
           }
         }
       }
     },
-    "%@ from %@" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ · %2$@"
-          }
-        }
-      }
-    },
-    "%@ is the weakest day: %@ completed" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@ is the weakest day: %2$@ completed"
+    "%@ → %@ %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@ → %2$@ %3$@"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ — самый слабый день: выполнено %2$@"
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ → %2$@ %3$@"
           }
         }
       }
     },
-    "%lld / 100" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld / 100"
+    "%lld / 100": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld / 100"
           }
         }
       }
     },
-    "%lld days" : {
-      "localizations" : {
-        "en" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld day"
+    "%lld days": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld day"
                 }
               },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld days"
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld days"
                 }
               }
             }
           }
         },
-        "ru" : {
-          "variations" : {
-            "plural" : {
-              "few" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld дня"
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld дня"
                 }
               },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld дней"
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld дней"
                 }
               },
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld день"
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld день"
                 }
               },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld дня"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "%lld forgiven misses" : {
-      "localizations" : {
-        "en" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld forgiven miss"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld forgiven misses"
-                }
-              }
-            }
-          }
-        },
-        "ru" : {
-          "variations" : {
-            "plural" : {
-              "few" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld прощённых пропуска"
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld прощённых пропусков"
-                }
-              },
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld прощённый пропуск"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld прощённых пропуска"
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld дня"
                 }
               }
             }
@@ -186,119 +132,51 @@
         }
       }
     },
-    "%lld habits left today" : {
-      "localizations" : {
-        "en" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld habit left today"
+    "%lld forgiven misses": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld forgiven miss"
                 }
               },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld habits left today"
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld forgiven misses"
                 }
               }
             }
           }
         },
-        "ru" : {
-          "variations" : {
-            "plural" : {
-              "few" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Осталось %lld привычки"
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld прощённых пропуска"
                 }
               },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Осталось %lld привычек"
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld прощённых пропусков"
                 }
               },
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Осталась %lld привычка"
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld прощённый пропуск"
                 }
               },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Осталось %lld привычки"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "%lld of %lld" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$lld of %2$lld"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$lld из %2$lld"
-          }
-        }
-      }
-    },
-    "%lld to go" : {
-      "localizations" : {
-        "en" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld to go"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld to go"
-                }
-              }
-            }
-          }
-        },
-        "ru" : {
-          "variations" : {
-            "plural" : {
-              "few" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Осталось %lld"
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Осталось %lld"
-                }
-              },
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Осталась %lld"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Осталось %lld"
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld прощённых пропуска"
                 }
               }
             }
@@ -306,361 +184,51 @@
         }
       }
     },
-    "%lld/%lld" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld/%lld"
-          }
-        }
-      }
-    },
-    "%lld/%lld days of history" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld из %lld дней истории"
-          }
-        }
-      }
-    },
-    "+%lld more" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ещё %lld"
-          }
-        }
-      }
-    },
-    "2 weeks" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "2 недели"
-          }
-        }
-      }
-    },
-    "6 months" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Полгода"
-          }
-        }
-      }
-    },
-    "A connection, not a cause. Based on %lld days" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Связь, а не причина. По данным за %lld дн."
-          }
-        }
-      }
-    },
-    "A late night still belongs to the previous day until this hour. Sleep is counted around it." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Поздняя ночь относится к предыдущему дню до этого часа. Сон считается вокруг него."
-          }
-        }
-      }
-    },
-    "A slightly lower goal would make this a streak" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Чуть меньшая цель превратила бы это в серию"
-          }
-        }
-      }
-    },
-    "A streak survives this many misses in any 7 scheduled days." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Серия выживает при таком числе пропусков за любые 7 плановых дней."
-          }
-        }
-      }
-    },
-    "A workout of at least %lld min" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Тренировка не менее %lld мин"
-          }
-        }
-      }
-    },
-    "Active days" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Активных дней"
-          }
-        }
-      }
-    },
-    "Activity" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Активность"
-          }
-        }
-      }
-    },
-    "Adaptive goal" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Адаптивная цель"
-          }
-        }
-      }
-    },
-    "Adaptive goals" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Адаптивные цели"
-          }
-        }
-      }
-    },
-    "Add a habit and let Health or your location complete it for you." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Добавьте привычку — Здоровье или геолокация закроют её за вас."
-          }
-        }
-      }
-    },
-    "Add a habit to see activity here." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Добавьте привычку, чтобы здесь появилась активность."
-          }
-        }
-      }
-    },
-    "Add a place habit like “Gym, 45 min” and HabitFlow marks it done when you actually stay there. You can set this up later when you create the habit." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Добавьте гео-привычку вроде «Зал, 45 мин» — HabitFlow отметит её, когда вы действительно там побудете. Это можно настроить позже при создании привычки."
-          }
-        }
-      }
-    },
-    "Add habit" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Добавить привычку"
-          }
-        }
-      }
-    },
-    "Add your first habit" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Добавьте первую привычку"
-          }
-        }
-      }
-    },
-    "Adjust automatically" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Менять автоматически"
-          }
-        }
-      }
-    },
-    "All day" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Весь день"
-          }
-        }
-      }
-    },
-    "All done for today" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "На сегодня всё сделано"
-          }
-        }
-      }
-    },
-    "Allow Health access" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Разрешить доступ к Здоровью"
-          }
-        }
-      }
-    },
-    "Also today" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ещё сегодня"
-          }
-        }
-      }
-    },
-    "Always" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Всегда"
-          }
-        }
-      }
-    },
-    "Any workout" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Любая тренировка"
-          }
-        }
-      }
-    },
-    "Archive" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "В архив"
-          }
-        }
-      }
-    },
-    "Archive habit" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Архивировать привычку"
-          }
-        }
-      }
-    },
-    "Archive this habit? History is kept." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Архивировать привычку? История сохранится."
-          }
-        }
-      }
-    },
-    "At least %@ %@" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Не менее %1$@ %2$@"
-          }
-        }
-      }
-    },
-    "At least %@ %@ asleep" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Сон не менее %1$@ %2$@"
-          }
-        }
-      }
-    },
-    "At least %lld mindful minutes" : {
-      "localizations" : {
-        "en" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "At least %lld mindful minute"
+    "%lld habits left today": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld habit left today"
                 }
               },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "At least %lld mindful minutes"
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld habits left today"
                 }
               }
             }
           }
         },
-        "ru" : {
-          "variations" : {
-            "plural" : {
-              "few" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Не менее %lld минут осознанности"
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Осталось %lld привычки"
                 }
               },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Не менее %lld минут осознанности"
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Осталось %lld привычек"
                 }
               },
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Не менее %lld минуты осознанности"
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Осталась %lld привычка"
                 }
               },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Не менее %lld минуты осознанности"
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Осталось %lld привычки"
                 }
               }
             }
@@ -668,1551 +236,2343 @@
         }
       }
     },
-    "Auto from %@" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Авто: %@"
+    "%lld min": {
+      "localizations": {
+        "ru": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld мин"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld мин"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld мин"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld мин"
+                }
+              }
+            }
           }
         }
       }
     },
-    "Auto-tracking checked %@ ago" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Авто-проверка была %@ назад"
-          }
-        }
-      }
-    },
-    "Based on %lld days" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "По данным за %lld дн."
-          }
-        }
-      }
-    },
-    "Based on %lld such days" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "По данным за %lld таких дней"
-          }
-        }
-      }
-    },
-    "Best streak" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Лучшая серия"
-          }
-        }
-      }
-    },
-    "Better this week: %@ against %@ last week" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Better this week: %1$@ against %2$@ last week"
+    "%lld of %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$lld of %2$lld"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "На этой неделе лучше: %1$@ против %2$@ на прошлой"
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld из %2$lld"
           }
         }
       }
     },
-    "Calendar and Reminders" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Календарь и Напоминания"
-          }
-        }
-      }
-    },
-    "Cancel" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Отмена"
-          }
-        }
-      }
-    },
-    "Choose a place" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Выбрать место"
-          }
-        }
-      }
-    },
-    "Color %@" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Цвет %@"
-          }
-        }
-      }
-    },
-    "Coming soon. Everything currently stays on this device." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Скоро. Пока всё хранится только на этом устройстве."
-          }
-        }
-      }
-    },
-    "Complete %@" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Выполнить «%@»"
-          }
-        }
-      }
-    },
-    "Completed" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Выполнено"
-          }
-        }
-      }
-    },
-    "Completed %@ of the last %lld days, typically reaching %@." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Completed %1$@ of the last %2$lld days, typically reaching %3$@."
+    "%lld to go": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld to go"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld to go"
+                }
+              }
+            }
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Выполнено %1$@ из последних %2$lld дней, обычно доходит до %3$@."
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Осталось %lld"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Осталось %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Осталась %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Осталось %lld"
+                }
+              }
+            }
           }
         }
       }
     },
-    "Completed automatically from Health. Background updates for steps arrive about once an hour." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Закрывается автоматически из Здоровья. Фоновые обновления шагов приходят примерно раз в час."
+    "%lld/%lld": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld/%lld"
           }
         }
       }
     },
-    "Completed more often on days when “%@” is done: %@ against %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Completed more often on days when “%1$@” is done: %2$@ against %3$@"
+    "%lld/%lld days of history": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld из %lld дней истории"
+          }
+        }
+      }
+    },
+    "+%lld more": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ещё %lld"
+          }
+        }
+      }
+    },
+    "2 weeks": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2 недели"
+          }
+        }
+      }
+    },
+    "6 months": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Полгода"
+          }
+        }
+      }
+    },
+    "A connection, not a cause. Based on %lld days": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Связь, а не причина. По данным за %lld дн."
+          }
+        }
+      }
+    },
+    "A late night still belongs to the previous day until this hour. Sleep is counted around it.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поздняя ночь относится к предыдущему дню до этого часа. Сон считается вокруг него."
+          }
+        }
+      }
+    },
+    "A slightly lower goal would make this a streak": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чуть меньшая цель превратила бы это в серию"
+          }
+        }
+      }
+    },
+    "A streak survives this many misses in any 7 scheduled days.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Серия выживает при таком числе пропусков за любые 7 плановых дней."
+          }
+        }
+      }
+    },
+    "A workout of at least %lld min": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тренировка не менее %lld мин"
+          }
+        }
+      }
+    },
+    "Active days": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Активных дней"
+          }
+        }
+      }
+    },
+    "Activity": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Активность"
+          }
+        }
+      }
+    },
+    "Adaptive goal": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Адаптивная цель"
+          }
+        }
+      }
+    },
+    "Adaptive goals": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Адаптивные цели"
+          }
+        }
+      }
+    },
+    "Add": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавить"
+          }
+        }
+      }
+    },
+    "Add a habit and let Health or your location complete it for you.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавьте привычку — Здоровье или геолокация закроют её за вас."
+          }
+        }
+      }
+    },
+    "Add a habit to see activity here.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавьте привычку, чтобы здесь появилась активность."
+          }
+        }
+      }
+    },
+    "Add a place habit like “Gym, 45 min” and HabitFlow marks it done when you actually stay there. You can set this up later when you create the habit.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавьте гео-привычку вроде «Зал, 45 мин» — HabitFlow отметит её, когда вы действительно там побудете. Это можно настроить позже при создании привычки."
+          }
+        }
+      }
+    },
+    "Add habit": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавить привычку"
+          }
+        }
+      }
+    },
+    "Add your first habit": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавьте первую привычку"
+          }
+        }
+      }
+    },
+    "Adjust automatically": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Менять автоматически"
+          }
+        }
+      }
+    },
+    "All day": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Весь день"
+          }
+        }
+      }
+    },
+    "All done for today": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На сегодня всё сделано"
+          }
+        }
+      }
+    },
+    "Allow Health access": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разрешить доступ к Здоровью"
+          }
+        }
+      }
+    },
+    "Also today": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ещё сегодня"
+          }
+        }
+      }
+    },
+    "Always": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Всегда"
+          }
+        }
+      }
+    },
+    "Any workout": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Любая тренировка"
+          }
+        }
+      }
+    },
+    "Archive": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В архив"
+          }
+        }
+      }
+    },
+    "Archive habit": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Архивировать привычку"
+          }
+        }
+      }
+    },
+    "Archive this habit? History is kept.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Архивировать привычку? История сохранится."
+          }
+        }
+      }
+    },
+    "At least %@ %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не менее %1$@ %2$@"
+          }
+        }
+      }
+    },
+    "At least %@ %@ asleep": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сон не менее %1$@ %2$@"
+          }
+        }
+      }
+    },
+    "At least %lld mindful minutes": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "At least %lld mindful minute"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "At least %lld mindful minutes"
+                }
+              }
+            }
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Чаще закрывается в дни, когда выполнено «%1$@»: %2$@ против %3$@"
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Не менее %lld минут осознанности"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Не менее %lld минут осознанности"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Не менее %lld минуты осознанности"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Не менее %lld минуты осознанности"
+                }
+              }
+            }
           }
         }
       }
     },
-    "Completed only %@ of the last %lld days, typically reaching %@." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Completed only %1$@ of the last %2$lld days, typically reaching %3$@."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Выполнено лишь %1$@ из последних %2$lld дней, обычно доходит до %3$@."
+    "Auto from %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Авто: %@"
           }
         }
       }
     },
-    "Completed when you stay at the place long enough. Needs “Always” location for background detection." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Закрывается, когда вы пробыли в месте достаточно долго. Для фоновой работы нужен доступ к геолокации «Всегда»."
+    "Auto-tracking checked %@ ago": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Авто-проверка была %@ назад"
           }
         }
       }
     },
-    "Completion history for the last %lld weeks" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "История выполнения за последние %lld недель"
+    "Based on %lld days": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По данным за %lld дн."
           }
         }
       }
     },
-    "Connect Calendar and Reminders" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Подключить Календарь и Напоминания"
+    "Based on %lld such days": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По данным за %lld таких дней"
           }
         }
       }
     },
-    "Connect Health" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Подключить Здоровье"
+    "Best streak": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лучшая серия"
           }
         }
       }
     },
-    "Consistency" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Стабильность"
-          }
-        }
-      }
-    },
-    "Continue" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Продолжить"
-          }
-        }
-      }
-    },
-    "Counted from the night before the day starts." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Считается ночь перед началом дня."
-          }
-        }
-      }
-    },
-    "Current streak" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Текущая серия"
-          }
-        }
-      }
-    },
-    "Cycling" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Велосипед"
-          }
-        }
-      }
-    },
-    "Day boundary" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Граница дня"
-          }
-        }
-      }
-    },
-    "Day starts at" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "День начинается в"
-          }
-        }
-      }
-    },
-    "Days" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Дни"
-          }
-        }
-      }
-    },
-    "Default for habits you create next. Each habit can be changed on its own." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Значение по умолчанию для новых привычек. Каждую можно настроить отдельно."
-          }
-        }
-      }
-    },
-    "Denied" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Запрещено"
-          }
-        }
-      }
-    },
-    "Done" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Готово"
-          }
-        }
-      }
-    },
-    "Each habit in its own colour. A day with nothing scheduled is an off day, not a miss." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Каждая привычка своим цветом. День без запланированных привычек — выходной, а не пропуск."
-          }
-        }
-      }
-    },
-    "Edit" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Изменить"
-          }
-        }
-      }
-    },
-    "Edit habit" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Изменить привычку"
-          }
-        }
-      }
-    },
-    "Emoji" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Эмодзи"
-          }
-        }
-      }
-    },
-    "Enable location" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Включить геолокацию"
-          }
-        }
-      }
-    },
-    "Enjoy the day off." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Наслаждайтесь выходным."
-          }
-        }
-      }
-    },
-    "Evening reminder" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Вечернее напоминание"
-          }
-        }
-      }
-    },
-    "Every day across all habits. A day with nothing scheduled is an off day, not a miss." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Каждый день по всем привычкам. День без запланированных привычек — выходной, а не пропуск."
-          }
-        }
-      }
-    },
-    "Fixed" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Фиксированная"
-          }
-        }
-      }
-    },
-    "Forgiven misses per week: %lld" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Прощённых пропусков в неделю: %lld"
-          }
-        }
-      }
-    },
-    "Functional strength" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Функциональная силовая"
-          }
-        }
-      }
-    },
-    "Goal" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Цель"
-          }
-        }
-      }
-    },
-    "Goal adjusted automatically: now %@ %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Goal adjusted automatically: now %1$@ %2$@"
+    "Better this week: %@ against %@ last week": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Better this week: %1$@ against %2$@ last week"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Цель изменена автоматически: теперь %1$@ %2$@"
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На этой неделе лучше: %1$@ против %2$@ на прошлой"
           }
         }
       }
     },
-    "Goal suggestion" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Предложение по цели"
+    "Calendar": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Календарь"
           }
         }
       }
     },
-    "Goal suggestions" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Предложения по целям"
+    "Calendar and Reminders": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Календарь и Напоминания"
           }
         }
       }
     },
-    "Goals follow what you actually do, so a habit stays challenging without becoming impossible." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Цели подстраиваются под то, что вы действительно делаете: привычка остаётся сложной, но выполнимой."
+    "Cancel": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отмена"
           }
         }
       }
     },
-    "Habit" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Привычка"
+    "Choose a place": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выбрать место"
           }
         }
       }
     },
-    "HabitFlow adjusts the goal itself and tells you what changed. At most one change every two weeks." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "HabitFlow сам меняет цель и сообщает об этом. Не чаще одного раза в две недели."
+    "Color %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цвет %@"
           }
         }
       }
     },
-    "HabitFlow watches Health and the places you choose, and ticks habits off for you. Everything is processed on this iPhone. No account, no servers." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "HabitFlow следит за Здоровьем и выбранными местами и отмечает привычки за вас. Всё обрабатывается на этом iPhone. Без аккаунта, без серверов."
+    "Coming soon. Everything currently stays on this device.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скоро. Пока всё хранится только на этом устройстве."
           }
         }
       }
     },
-    "Habits" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Привычки"
+    "Complete %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выполнить «%@»"
           }
         }
       }
     },
-    "Habits that complete themselves" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Привычки, которые закрываются сами"
+    "Completed": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выполнено"
           }
         }
       }
     },
-    "Health" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Здоровье"
-          }
-        }
-      }
-    },
-    "Health is not available on this device. You can still use manual and place-based habits." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Здоровье недоступно на этом устройстве. Ручные и гео-привычки по-прежнему работают."
-          }
-        }
-      }
-    },
-    "Health metric" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Показатель Здоровья"
-          }
-        }
-      }
-    },
-    "HIIT" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "HIIT"
-          }
-        }
-      }
-    },
-    "Hiking" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Хайкинг"
-          }
-        }
-      }
-    },
-    "How is it tracked?" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Как отслеживать?"
-          }
-        }
-      }
-    },
-    "iCloud sync" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Синхронизация iCloud"
-          }
-        }
-      }
-    },
-    "Insights" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Инсайты"
-          }
-        }
-      }
-    },
-    "iOS allows at most %lld place habits." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "iOS позволяет не более %lld гео-привычек."
-          }
-        }
-      }
-    },
-    "iOS does not reveal whether Health read access was granted. If a Health habit stays at 0, check Settings → Health → Data Access." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "iOS не сообщает, выдан ли доступ на чтение Здоровья. Если привычка из Здоровья держится на 0, проверьте Настройки → Здоровье → Доступ к данным."
-          }
-        }
-      }
-    },
-    "Keep as is" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Оставить"
-          }
-        }
-      }
-    },
-    "Keep going for a week or two. Patterns appear once there is enough data to be honest about." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Продолжайте неделю-другую. Закономерности появятся, когда данных хватит, чтобы говорить о них честно."
-          }
-        }
-      }
-    },
-    "Last 16 weeks" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Последние 16 недель"
-          }
-        }
-      }
-    },
-    "Last 30 days, recent days weigh more" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "За 30 дней, недавние дни весят больше"
-          }
-        }
-      }
-    },
-    "Let auto-tracking decide" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Пусть решает авто-трекинг"
-          }
-        }
-      }
-    },
-    "Let auto-tracking decide today" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Пусть сегодня решает авто-трекинг"
-          }
-        }
-      }
-    },
-    "Location" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Геолокация"
-          }
-        }
-      }
-    },
-    "Lower goal" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Снизить цель"
-          }
-        }
-      }
-    },
-    "Manual" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Вручную"
-          }
-        }
-      }
-    },
-    "Manual habit" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ручная привычка"
-          }
-        }
-      }
-    },
-    "Mark done" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Отметить выполненной"
-          }
-        }
-      }
-    },
-    "Mark not done" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Снять отметку"
-          }
-        }
-      }
-    },
-    "Mark today done" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Отметить сегодня выполненной"
-          }
-        }
-      }
-    },
-    "Mark today not done" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Снять отметку за сегодня"
-          }
-        }
-      }
-    },
-    "Metric" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Показатель"
-          }
-        }
-      }
-    },
-    "Mindfulness" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Осознанность"
-          }
-        }
-      }
-    },
-    "Name" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Название"
-          }
-        }
-      }
-    },
-    "New habit" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Новая привычка"
-          }
-        }
-      }
-    },
-    "New habits" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Новые привычки"
-          }
-        }
-      }
-    },
-    "No date" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Без даты"
-          }
-        }
-      }
-    },
-    "No habits yet" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Привычек пока нет"
-          }
-        }
-      }
-    },
-    "Not enough history yet" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Пока мало истории"
-          }
-        }
-      }
-    },
-    "Not now" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Не сейчас"
-          }
-        }
-      }
-    },
-    "Not requested" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Не запрошено"
-          }
-        }
-      }
-    },
-    "Nothing else scheduled today." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "На сегодня больше ничего не запланировано."
-          }
-        }
-      }
-    },
-    "Nothing pending" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ничего не запланировано"
-          }
-        }
-      }
-    },
-    "Nothing scheduled today" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "На сегодня ничего не запланировано"
-          }
-        }
-      }
-    },
-    "Observations come from your own history on this device. They show connections, not causes." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Наблюдения построены на вашей истории на этом устройстве. Они показывают связи, а не причины."
-          }
-        }
-      }
-    },
-    "One cell per day across all habits. Colour shows how much of the day closed." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Одна клетка — день по всем привычкам. Цвет показывает, какая часть дня закрылась."
-          }
-        }
-      }
-    },
-    "One notification per day listing only what is still open. Automatic completions notify on their own." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Одно уведомление в день только о незакрытых привычках. Об автоматических выполнениях приходит отдельное."
-          }
-        }
-      }
-    },
-    "Open iOS Settings" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Открыть настройки iOS"
-          }
-        }
-      }
-    },
-    "Overdue · %@" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Просрочено · %@"
-          }
-        }
-      }
-    },
-    "Patterns" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Закономерности"
-          }
-        }
-      }
-    },
-    "Pending" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Запланированные"
-          }
-        }
-      }
-    },
-    "Permissions" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Разрешения"
-          }
-        }
-      }
-    },
-    "Pinned place" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Отмеченное место"
-          }
-        }
-      }
-    },
-    "Place" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Место"
-          }
-        }
-      }
-    },
-    "Place name" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Название места"
-          }
-        }
-      }
-    },
-    "Place selected" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Место выбрано"
-          }
-        }
-      }
-    },
-    "Places (optional)" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Места (необязательно)"
-          }
-        }
-      }
-    },
-    "Project call" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Созвон по проекту"
-          }
-        }
-      }
-    },
-    "Pull down to check Health and places now" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Потяните вниз, чтобы проверить Здоровье и места"
-          }
-        }
-      }
-    },
-    "Radius %lld m" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Радиус %lld м"
-          }
-        }
-      }
-    },
-    "Raise goal" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Повысить цель"
-          }
-        }
-      }
-    },
-    "Range" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Период"
-          }
-        }
-      }
-    },
-    "Read-only, except ticking a reminder off. Nothing is copied into HabitFlow." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Только чтение, кроме отметки напоминания. Ничего не копируется в HabitFlow."
-          }
-        }
-      }
-    },
-    "Reminders" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Напоминания"
-          }
-        }
-      }
-    },
-    "Requested" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Запрошено"
-          }
-        }
-      }
-    },
-    "Running" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Бег"
-          }
-        }
-      }
-    },
-    "Save" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Сохранить"
-          }
-        }
-      }
-    },
-    "Screen Time" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Экранное время"
-          }
-        }
-      }
-    },
-    "Search a place" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Найти место"
-          }
-        }
-      }
-    },
-    "Send the report" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Отправить отчёт"
-          }
-        }
-      }
-    },
-    "Settings" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Настройки"
-          }
-        }
-      }
-    },
-    "Shows today's events and due reminders under your habits. Read-only, except ticking a reminder off." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Показывает события на сегодня и напоминания со сроком под вашими привычками. Только чтение, кроме отметки напоминания."
-          }
-        }
-      }
-    },
-    "Skip" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Пропустить"
-          }
-        }
-      }
-    },
-    "Sleep" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Сон"
-          }
-        }
-      }
-    },
-    "Source" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Источник"
-          }
-        }
-      }
-    },
-    "Stats" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Статистика"
-          }
-        }
-      }
-    },
-    "Stay at least %lld min" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Пробыть не менее %lld мин"
-          }
-        }
-      }
-    },
-    "Steps, sleep, workouts, mindful minutes, water and active energy can complete habits automatically. You choose what to share on the next screen." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Шаги, сон, тренировки, минуты осознанности, вода и активная энергия могут закрывать привычки автоматически. Что открыть — выберете на следующем экране."
-          }
-        }
-      }
-    },
-    "Storage unavailable — data will not be saved." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Хранилище недоступно — данные не сохранятся."
-          }
-        }
-      }
-    },
-    "Streaks" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Серии"
-          }
-        }
-      }
-    },
-    "Strength training" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Силовая"
-          }
-        }
-      }
-    },
-    "Suggest changes" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Предлагать изменения"
-          }
-        }
-      }
-    },
-    "Swimming" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Плавание"
-          }
-        }
-      }
-    },
-    "Tap the circle when done" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Нажмите кружок, когда сделаете"
-          }
-        }
-      }
-    },
-    "Tap the map or search. Radius below 100 m is unreliable on iOS." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Нажмите на карту или найдите место. Радиус меньше 100 м в iOS ненадёжен."
-          }
-        }
-      }
-    },
-    "The goal never changes on its own." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Цель не меняется сама."
-          }
-        }
-      }
-    },
-    "Time" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Время"
-          }
-        }
-      }
-    },
-    "Today" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Сегодня"
-          }
-        }
-      }
-    },
-    "Unavailable" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Недоступно"
-          }
-        }
-      }
-    },
-    "Unknown" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Неизвестно"
-          }
-        }
-      }
-    },
-    "Unnamed" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Без названия"
-          }
-        }
-      }
-    },
-    "Untitled" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Без названия"
-          }
-        }
-      }
-    },
-    "Usually done around %@" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Обычно закрывается около %@"
-          }
-        }
-      }
-    },
-    "Walking" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ходьба"
-          }
-        }
-      }
-    },
-    "Warming up" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Разогрев"
-          }
-        }
-      }
-    },
-    "Weaker this week: %@ against %@ last week" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Weaker this week: %1$@ against %2$@ last week"
+    "Completed %@ of the last %lld days, typically reaching %@.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Completed %1$@ of the last %2$lld days, typically reaching %3$@."
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "На этой неделе хуже: %1$@ против %2$@ на прошлой"
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выполнено %1$@ из последних %2$lld дней, обычно доходит до %3$@."
           }
         }
       }
     },
-    "Week" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Неделя"
+    "Completed automatically from Health. Background updates for steps arrive about once an hour.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Закрывается автоматически из Здоровья. Фоновые обновления шагов приходят примерно раз в час."
           }
         }
       }
     },
-    "When you consistently overshoot or fall short, HabitFlow offers a new goal. You decide." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Когда вы стабильно перевыполняете или не дотягиваете, HabitFlow предложит новую цель. Решение за вами."
-          }
-        }
-      }
-    },
-    "While using (tap for Always)" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "При использовании (нажмите для «Всегда»)"
-          }
-        }
-      }
-    },
-    "Workout" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Тренировка"
-          }
-        }
-      }
-    },
-    "Yoga" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Йога"
-          }
-        }
-      }
-    },
-    "You almost reach it: %@ of the goal on a typical day, but it counted %@ of days" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You almost reach it: %1$@ of the goal on a typical day, but it counted %2$@ of days"
+    "Completed more often on days when “%@” is done: %@ against %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Completed more often on days when “%1$@” is done: %2$@ against %3$@"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Почти дотягиваете: в обычный день %1$@ от цели, но засчитано %2$@ дней"
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чаще закрывается в дни, когда выполнено «%1$@»: %2$@ против %3$@"
           }
         }
       }
     },
-    "You can change it in the habit's settings" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Это можно изменить в настройках привычки"
+    "Completed only %@ of the last %lld days, typically reaching %@.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Completed only %1$@ of the last %2$lld days, typically reaching %3$@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выполнено лишь %1$@ из последних %2$lld дней, обычно доходит до %3$@."
           }
         }
       }
     },
-    "You tap it. Good for things no sensor can see." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Отмечаете сами. Для того, что не видит ни один датчик."
+    "Completed when you stay at the place long enough. Needs “Always” location for background detection.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Закрывается, когда вы пробыли в месте достаточно долго. Для фоновой работы нужен доступ к геолокации «Всегда»."
+          }
+        }
+      }
+    },
+    "Completion history for the last %lld weeks": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "История выполнения за последние %lld недель"
+          }
+        }
+      }
+    },
+    "Connect Calendar and Reminders": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подключить Календарь и Напоминания"
+          }
+        }
+      }
+    },
+    "Connect Health": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подключить Здоровье"
+          }
+        }
+      }
+    },
+    "Consistency": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Стабильность"
+          }
+        }
+      }
+    },
+    "Continue": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продолжить"
+          }
+        }
+      }
+    },
+    "Could not save. Check access in iOS Settings.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось сохранить. Проверьте доступ в настройках iOS."
+          }
+        }
+      }
+    },
+    "Counted from the night before the day starts.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Считается ночь перед началом дня."
+          }
+        }
+      }
+    },
+    "Current streak": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Текущая серия"
+          }
+        }
+      }
+    },
+    "Cycling": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Велосипед"
+          }
+        }
+      }
+    },
+    "Day boundary": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Граница дня"
+          }
+        }
+      }
+    },
+    "Day starts at": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "День начинается в"
+          }
+        }
+      }
+    },
+    "Days": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дни"
+          }
+        }
+      }
+    },
+    "Default": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По умолчанию"
+          }
+        }
+      }
+    },
+    "Default for habits you create next. Each habit can be changed on its own.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Значение по умолчанию для новых привычек. Каждую можно настроить отдельно."
+          }
+        }
+      }
+    },
+    "Denied": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запрещено"
+          }
+        }
+      }
+    },
+    "Done": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Готово"
+          }
+        }
+      }
+    },
+    "Due": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Срок"
+          }
+        }
+      }
+    },
+    "Duration": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Длительность"
+          }
+        }
+      }
+    },
+    "Each habit in its own colour. A day with nothing scheduled is an off day, not a miss.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Каждая привычка своим цветом. День без запланированных привычек — выходной, а не пропуск."
+          }
+        }
+      }
+    },
+    "Edit": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменить"
+          }
+        }
+      }
+    },
+    "Edit habit": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменить привычку"
+          }
+        }
+      }
+    },
+    "Emoji": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эмодзи"
+          }
+        }
+      }
+    },
+    "Enable location": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Включить геолокацию"
+          }
+        }
+      }
+    },
+    "Enjoy the day off.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Наслаждайтесь выходным."
+          }
+        }
+      }
+    },
+    "Evening reminder": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вечернее напоминание"
+          }
+        }
+      }
+    },
+    "Event": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Событие"
+          }
+        }
+      }
+    },
+    "Every day": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Каждый день"
+          }
+        }
+      }
+    },
+    "Every day across all habits. A day with nothing scheduled is an off day, not a miss.": {
+      "extractionState": "stale",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Каждый день по всем привычкам. День без запланированных привычек — выходной, а не пропуск."
+          }
+        }
+      }
+    },
+    "Every week": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Каждую неделю"
+          }
+        }
+      }
+    },
+    "Fixed": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фиксированная"
+          }
+        }
+      }
+    },
+    "Forgiven misses per week: %lld": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прощённых пропусков в неделю: %lld"
+          }
+        }
+      }
+    },
+    "Functional strength": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Функциональная силовая"
+          }
+        }
+      }
+    },
+    "Goal": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цель"
+          }
+        }
+      }
+    },
+    "Goal adjusted automatically: now %@ %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Goal adjusted automatically: now %1$@ %2$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цель изменена автоматически: теперь %1$@ %2$@"
+          }
+        }
+      }
+    },
+    "Goal suggestion": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Предложение по цели"
+          }
+        }
+      }
+    },
+    "Goal suggestions": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Предложения по целям"
+          }
+        }
+      }
+    },
+    "Goals follow what you actually do, so a habit stays challenging without becoming impossible.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цели подстраиваются под то, что вы действительно делаете: привычка остаётся сложной, но выполнимой."
+          }
+        }
+      }
+    },
+    "HIIT": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HIIT"
+          }
+        }
+      }
+    },
+    "Habit": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Привычка"
+          }
+        }
+      }
+    },
+    "HabitFlow adjusts the goal itself and tells you what changed. At most one change every two weeks.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HabitFlow сам меняет цель и сообщает об этом. Не чаще одного раза в две недели."
+          }
+        }
+      }
+    },
+    "HabitFlow watches Health and the places you choose, and ticks habits off for you. Everything is processed on this iPhone. No account, no servers.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HabitFlow следит за Здоровьем и выбранными местами и отмечает привычки за вас. Всё обрабатывается на этом iPhone. Без аккаунта, без серверов."
+          }
+        }
+      }
+    },
+    "Habits": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Привычки"
+          }
+        }
+      }
+    },
+    "Habits that complete themselves": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Привычки, которые закрываются сами"
+          }
+        }
+      }
+    },
+    "Health": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Здоровье"
+          }
+        }
+      }
+    },
+    "Health is not available on this device. You can still use manual and place-based habits.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Здоровье недоступно на этом устройстве. Ручные и гео-привычки по-прежнему работают."
+          }
+        }
+      }
+    },
+    "Health metric": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показатель Здоровья"
+          }
+        }
+      }
+    },
+    "Hiking": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хайкинг"
+          }
+        }
+      }
+    },
+    "How is it tracked?": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Как отслеживать?"
+          }
+        }
+      }
+    },
+    "Insights": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Инсайты"
+          }
+        }
+      }
+    },
+    "Keep as is": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оставить"
+          }
+        }
+      }
+    },
+    "Keep going for a week or two. Patterns appear once there is enough data to be honest about.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продолжайте неделю-другую. Закономерности появятся, когда данных хватит, чтобы говорить о них честно."
+          }
+        }
+      }
+    },
+    "Kind": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тип"
+          }
+        }
+      }
+    },
+    "Last 16 weeks": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Последние 16 недель"
+          }
+        }
+      }
+    },
+    "Last 30 days, recent days weigh more": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За 30 дней, недавние дни весят больше"
+          }
+        }
+      }
+    },
+    "Let auto-tracking decide": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пусть решает авто-трекинг"
+          }
+        }
+      }
+    },
+    "Let auto-tracking decide today": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пусть сегодня решает авто-трекинг"
+          }
+        }
+      }
+    },
+    "List": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Список"
+          }
+        }
+      }
+    },
+    "Location": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Геолокация"
+          }
+        }
+      }
+    },
+    "Lower goal": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Снизить цель"
+          }
+        }
+      }
+    },
+    "Manual": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вручную"
+          }
+        }
+      }
+    },
+    "Manual habit": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ручная привычка"
+          }
+        }
+      }
+    },
+    "Mark done": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отметить выполненной"
+          }
+        }
+      }
+    },
+    "Mark not done": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Снять отметку"
+          }
+        }
+      }
+    },
+    "Mark today done": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отметить сегодня выполненной"
+          }
+        }
+      }
+    },
+    "Mark today not done": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Снять отметку за сегодня"
+          }
+        }
+      }
+    },
+    "Metric": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показатель"
+          }
+        }
+      }
+    },
+    "Mindfulness": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осознанность"
+          }
+        }
+      }
+    },
+    "Name": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Название"
+          }
+        }
+      }
+    },
+    "Never": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Никогда"
+          }
+        }
+      }
+    },
+    "New": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новое"
+          }
+        }
+      }
+    },
+    "New event": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новое событие"
+          }
+        }
+      }
+    },
+    "New event or reminder": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новое событие или напоминание"
+          }
+        }
+      }
+    },
+    "New habit": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новая привычка"
+          }
+        }
+      }
+    },
+    "New habits": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новые привычки"
+          }
+        }
+      }
+    },
+    "New reminder": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новое напоминание"
+          }
+        }
+      }
+    },
+    "No date": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без даты"
+          }
+        }
+      }
+    },
+    "No habits yet": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Привычек пока нет"
+          }
+        }
+      }
+    },
+    "Not enough history yet": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пока мало истории"
+          }
+        }
+      }
+    },
+    "Not now": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не сейчас"
+          }
+        }
+      }
+    },
+    "Not requested": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не запрошено"
+          }
+        }
+      }
+    },
+    "Nothing else scheduled today.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На сегодня больше ничего не запланировано."
+          }
+        }
+      }
+    },
+    "Nothing pending": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ничего не запланировано"
+          }
+        }
+      }
+    },
+    "Nothing scheduled today": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На сегодня ничего не запланировано"
+          }
+        }
+      }
+    },
+    "Observations come from your own history on this device. They show connections, not causes.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Наблюдения построены на вашей истории на этом устройстве. Они показывают связи, а не причины."
+          }
+        }
+      }
+    },
+    "One cell per day across all habits. Colour shows how much of the day closed.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Одна клетка — день по всем привычкам. Цвет показывает, какая часть дня закрылась."
+          }
+        }
+      }
+    },
+    "One notification per day listing only what is still open. Automatic completions notify on their own.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Одно уведомление в день только о незакрытых привычках. Об автоматических выполнениях приходит отдельное."
+          }
+        }
+      }
+    },
+    "Open iOS Settings": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открыть настройки iOS"
+          }
+        }
+      }
+    },
+    "Overdue · %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Просрочено · %@"
+          }
+        }
+      }
+    },
+    "Patterns": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Закономерности"
+          }
+        }
+      }
+    },
+    "Pending": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запланированные"
+          }
+        }
+      }
+    },
+    "Permissions": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разрешения"
+          }
+        }
+      }
+    },
+    "Pinned place": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отмеченное место"
+          }
+        }
+      }
+    },
+    "Place": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Место"
+          }
+        }
+      }
+    },
+    "Place name": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Название места"
+          }
+        }
+      }
+    },
+    "Place selected": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Место выбрано"
+          }
+        }
+      }
+    },
+    "Places (optional)": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Места (необязательно)"
+          }
+        }
+      }
+    },
+    "Prefilled for the time you usually close it, from %lld completions.": {
+      "localizations": {
+        "ru": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Подставлено время, в которое вы обычно её закрываете, по %lld выполнению."
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Подставлено время, в которое вы обычно её закрываете, по %lld выполнениям."
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Подставлено время, в которое вы обычно её закрываете, по %lld выполнениям."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Подставлено время, в которое вы обычно её закрываете, по %lld выполнениям."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Prefilled for your reminder time; there is not enough history yet to know when you do it.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подставлено время вашего напоминания: истории пока мало, чтобы понять, когда вы это делаете."
+          }
+        }
+      }
+    },
+    "Project call": {
+      "extractionState": "stale",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Созвон по проекту"
+          }
+        }
+      }
+    },
+    "Pull down to check Health and places now": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Потяните вниз, чтобы проверить Здоровье и места"
+          }
+        }
+      }
+    },
+    "Put it in the calendar": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поставить в календарь"
+          }
+        }
+      }
+    },
+    "Radius %lld m": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Радиус %lld м"
+          }
+        }
+      }
+    },
+    "Raise goal": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повысить цель"
+          }
+        }
+      }
+    },
+    "Range": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Период"
+          }
+        }
+      }
+    },
+    "Read-only, except ticking a reminder off. Nothing is copied into HabitFlow.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Только чтение, кроме отметки напоминания. Ничего не копируется в HabitFlow."
+          }
+        }
+      }
+    },
+    "Reminder": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Напоминание"
+          }
+        }
+      }
+    },
+    "Reminders": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Напоминания"
+          }
+        }
+      }
+    },
+    "Repeat": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повтор"
+          }
+        }
+      }
+    },
+    "Requested": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запрошено"
+          }
+        }
+      }
+    },
+    "Running": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бег"
+          }
+        }
+      }
+    },
+    "Save": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохранить"
+          }
+        }
+      }
+    },
+    "Saved straight into the system Calendar, so it syncs everywhere you are signed in.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохраняется прямо в системный Календарь и синхронизируется везде, где вы вошли."
+          }
+        }
+      }
+    },
+    "Saved straight into the system Reminders, so it syncs everywhere you are signed in.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохраняется прямо в системные Напоминания и синхронизируются везде, где вы вошли."
+          }
+        }
+      }
+    },
+    "Screen Time": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Экранное время"
+          }
+        }
+      }
+    },
+    "Search a place": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Найти место"
+          }
+        }
+      }
+    },
+    "Send the report": {
+      "extractionState": "stale",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отправить отчёт"
+          }
+        }
+      }
+    },
+    "Set a time": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Указать время"
+          }
+        }
+      }
+    },
+    "Settings": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Настройки"
+          }
+        }
+      }
+    },
+    "Shows today's events and due reminders under your habits. Read-only, except ticking a reminder off.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показывает события на сегодня и напоминания со сроком под вашими привычками. Только чтение, кроме отметки напоминания."
+          }
+        }
+      }
+    },
+    "Skip": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пропустить"
+          }
+        }
+      }
+    },
+    "Sleep": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сон"
+          }
+        }
+      }
+    },
+    "Source": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Источник"
+          }
+        }
+      }
+    },
+    "Starts": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Начало"
+          }
+        }
+      }
+    },
+    "Stats": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Статистика"
+          }
+        }
+      }
+    },
+    "Stay at least %lld min": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пробыть не менее %lld мин"
+          }
+        }
+      }
+    },
+    "Steps, sleep, workouts, mindful minutes, water and active energy can complete habits automatically. You choose what to share on the next screen.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шаги, сон, тренировки, минуты осознанности, вода и активная энергия могут закрывать привычки автоматически. Что открыть — выберете на следующем экране."
+          }
+        }
+      }
+    },
+    "Storage unavailable — data will not be saved.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хранилище недоступно — данные не сохранятся."
+          }
+        }
+      }
+    },
+    "Streaks": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Серии"
+          }
+        }
+      }
+    },
+    "Strength training": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Силовая"
+          }
+        }
+      }
+    },
+    "Suggest changes": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Предлагать изменения"
+          }
+        }
+      }
+    },
+    "Swimming": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Плавание"
+          }
+        }
+      }
+    },
+    "Tap the circle when done": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нажмите кружок, когда сделаете"
+          }
+        }
+      }
+    },
+    "Tap the map or search. Radius below 100 m is unreliable on iOS.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нажмите на карту или найдите место. Радиус меньше 100 м в iOS ненадёжен."
+          }
+        }
+      }
+    },
+    "The goal never changes on its own.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цель не меняется сама."
+          }
+        }
+      }
+    },
+    "Time": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Время"
+          }
+        }
+      }
+    },
+    "Time taken from %lld completions of this habit.": {
+      "localizations": {
+        "ru": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Время взято из %lld выполнения этой привычки."
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Время взято из %lld выполнений этой привычки."
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Время взято из %lld выполнений этой привычки."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Время взято из %lld выполнений этой привычки."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Title": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Название"
+          }
+        }
+      }
+    },
+    "Today": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сегодня"
+          }
+        }
+      }
+    },
+    "Unavailable": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Недоступно"
+          }
+        }
+      }
+    },
+    "Unknown": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неизвестно"
+          }
+        }
+      }
+    },
+    "Unnamed": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без названия"
+          }
+        }
+      }
+    },
+    "Untitled": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без названия"
+          }
+        }
+      }
+    },
+    "Usually done around %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обычно закрывается около %@"
+          }
+        }
+      }
+    },
+    "Walking": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ходьба"
+          }
+        }
+      }
+    },
+    "Warming up": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разогрев"
+          }
+        }
+      }
+    },
+    "Weaker this week: %@ against %@ last week": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Weaker this week: %1$@ against %2$@ last week"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На этой неделе хуже: %1$@ против %2$@ на прошлой"
+          }
+        }
+      }
+    },
+    "Week": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неделя"
+          }
+        }
+      }
+    },
+    "Weekdays": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По будням"
+          }
+        }
+      }
+    },
+    "When you consistently overshoot or fall short, HabitFlow offers a new goal. You decide.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Когда вы стабильно перевыполняете или не дотягиваете, HabitFlow предложит новую цель. Решение за вами."
+          }
+        }
+      }
+    },
+    "While using (tap for Always)": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "При использовании (нажмите для «Всегда»)"
+          }
+        }
+      }
+    },
+    "Workout": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тренировка"
+          }
+        }
+      }
+    },
+    "Yoga": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Йога"
+          }
+        }
+      }
+    },
+    "You almost reach it: %@ of the goal on a typical day, but it counted %@ of days": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "You almost reach it: %1$@ of the goal on a typical day, but it counted %2$@ of days"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Почти дотягиваете: в обычный день %1$@ от цели, но засчитано %2$@ дней"
+          }
+        }
+      }
+    },
+    "You can change it in the habit's settings": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Это можно изменить в настройках привычки"
+          }
+        }
+      }
+    },
+    "You tap it. Good for things no sensor can see.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отмечаете сами. Для того, что не видит ни один датчик."
+          }
+        }
+      }
+    },
+    "iCloud sync": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Синхронизация iCloud"
+          }
+        }
+      }
+    },
+    "iOS allows at most %lld place habits.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS позволяет не более %lld гео-привычек."
+          }
+        }
+      }
+    },
+    "iOS does not reveal whether Health read access was granted. If a Health habit stays at 0, check Settings → Health → Data Access.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS не сообщает, выдан ли доступ на чтение Здоровья. Если привычка из Здоровья держится на 0, проверьте Настройки → Здоровье → Доступ к данным."
           }
         }
       }
     }
   },
-  "version" : "1.0"
+  "version": "1.0"
 }
