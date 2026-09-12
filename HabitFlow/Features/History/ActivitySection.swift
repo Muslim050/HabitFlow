@@ -66,7 +66,7 @@ struct ActivitySection: View {
 
     private func matrix(days: Int) -> some View {
         GeometryReader { geo in
-            let cell = HabitMatrixView.cellThatFits(width: geo.size.width, days: days,
+            let cell = HabitMatrixMetrics.cellThatFits(width: geo.size.width, days: days,
                                                     gap: gap, labelWidth: labelWidth)
             HabitMatrixView(
                 matrix: HabitMatrix.build(habits: habits, logs: logs, calendar: env.settings.dayCalendar,
@@ -81,7 +81,7 @@ struct ActivitySection: View {
 
     /// The grid is laid out by hand, so its height has to be stated rather than measured.
     private func matrixHeight(days: Int) -> CGFloat {
-        let cell = HabitMatrixView.cellThatFits(width: rowWidth, days: days, gap: gap, labelWidth: labelWidth)
+        let cell = HabitMatrixMetrics.cellThatFits(width: rowWidth, days: days, gap: gap, labelWidth: labelWidth)
         let rowCount = min(habits.count, 12)
         let headerHeight = max(7, cell * 0.4) + gap + 2
         return headerHeight + CGFloat(rowCount) * cell + CGFloat(max(0, rowCount - 1)) * (gap + 2)

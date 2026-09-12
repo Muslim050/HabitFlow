@@ -2,7 +2,7 @@ import SwiftUI
 
 /// Habits down the side in their own colours, days across the top. Shared by the app screen
 /// and the widget so both read the same way.
-public struct HabitMatrixView: View {
+public struct HabitMatrixView<TodayOverlay: View>: View {
     public var matrix: HabitMatrix
     public var calendar: DayCalendar
     public var today: DayKey
@@ -13,10 +13,16 @@ public struct HabitMatrixView: View {
     public var showsCounts: Bool
     /// Rows beyond this are folded into a "+N more" line.
     public var maxRows: Int
+    /// Today's column is wider: it is the one a person acts on.
+    public var todayCell: CGFloat
+    /// Placed over today's cell. A widget puts an intent button here; the app passes nothing.
+    private let todayOverlay: (HabitMatrix.Row) -> TodayOverlay
 
     public init(matrix: HabitMatrix, calendar: DayCalendar, today: DayKey,
                 cell: CGFloat = 26, gap: CGFloat = 4, labelWidth: CGFloat = 104,
-                showsDayHeader: Bool = true, showsCounts: Bool = true, maxRows: Int = 8) {
+                showsDayHeader: Bool = true, showsCounts: Bool = true, maxRows: Int = 8,
+                todayCell: CGFloat? = nil,
+                @ViewBuilder todayOverlay: @escaping (HabitMatrix.Row) -> TodayOverlay) {
         self.matrix = matrix
         self.calendar = calendar
         self.today = today
@@ -26,6 +32,8 @@ public struct HabitMatrixView: View {
         self.showsDayHeader = showsDayHeader
         self.showsCounts = showsCounts
         self.maxRows = maxRows
+        self.todayCell = todayCell ?? cell
+        self.todayOverlay = todayOverlay
     }
 
     private var visibleRows: [HabitMatrix.Row] { Array(matrix.rows.prefix(maxRows)) }
@@ -53,7 +61,7 @@ public struct HabitMatrixView: View {
                 Text(weekdayLetter(day))
                     .font(.system(size: max(7, cell * 0.4), weight: day == today ? .bold : .regular))
                     .foregroundStyle(day == today ? Color.primary : Color.secondary)
-                    .frame(width: cell)
+                    .frame(width: day == today ? todayCell : cell)
             }
         }
     }
@@ -78,7 +86,9 @@ public struct HabitMatrixView: View {
             .frame(width: labelWidth, alignment: .leading)
 
             ForEach(Array(row.states.enumerated()), id: \.offset) { index, state in
-                cellView(state: state, color: color, isToday: matrix.days.indices.contains(index) && matrix.days[index] == today)
+                let isToday = matrix.days.indices.contains(index) && matrix.days[index] == today
+                cellView(state: state, color: color, isToday: isToday)
+                    .overlay { if isToday { todayOverlay(row) } }
             }
         }
         .accessibilityElement(children: .ignore)
@@ -86,9 +96,10 @@ public struct HabitMatrixView: View {
     }
 
     private func cellView(state: MatrixState, color: Color, isToday: Bool) -> some View {
-        RoundedRectangle(cornerRadius: cell * 0.28, style: .continuous)
+        let width = isToday ? todayCell : cell
+        return RoundedRectangle(cornerRadius: cell * 0.28, style: .continuous)
             .fill(fill(state, color: color))
-            .frame(width: cell, height: cell)
+            .frame(width: width, height: cell)
             .overlay {
                 if isToday {
                     RoundedRectangle(cornerRadius: cell * 0.28, style: .continuous)
@@ -122,11 +133,25 @@ public struct HabitMatrixView: View {
     }
 }
 
-public extension HabitMatrixView {
-    /// Cell size that makes `days` columns fit the width left after the label column.
-    static func cellThatFits(width: CGFloat, days: Int, gap: CGFloat, labelWidth: CGFloat) -> CGFloat {
+public extension HabitMatrixView where TodayOverlay == EmptyView {
+    /// Read-only matrix: no affordance on today.
+    init(matrix: HabitMatrix, calendar: DayCalendar, today: DayKey,
+         cell: CGFloat = 26, gap: CGFloat = 4, labelWidth: CGFloat = 104,
+         showsDayHeader: Bool = true, showsCounts: Bool = true, maxRows: Int = 8,
+         todayCell: CGFloat? = nil) {
+        self.init(matrix: matrix, calendar: calendar, today: today, cell: cell, gap: gap,
+                  labelWidth: labelWidth, showsDayHeader: showsDayHeader, showsCounts: showsCounts,
+                  maxRows: maxRows, todayCell: todayCell) { _ in EmptyView() }
+    }
+}
+
+public enum HabitMatrixMetrics {
+    /// Cell size that makes `days` columns fit the width left after the label column,
+    /// when today's column is `todayExtra` points wider than the rest.
+    public static func cellThatFits(width: CGFloat, days: Int, gap: CGFloat,
+                                    labelWidth: CGFloat, todayExtra: CGFloat = 0) -> CGFloat {
         guard days > 0 else { return 0 }
-        let free = width - labelWidth - gap * CGFloat(days)
+        let free = width - labelWidth - gap * CGFloat(days) - todayExtra
         return max(6, (free / CGFloat(days)).rounded(.down))
     }
 }

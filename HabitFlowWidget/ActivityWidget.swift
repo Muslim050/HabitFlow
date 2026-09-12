@@ -85,9 +85,12 @@ struct ActivityWidgetView: View {
     private var gap: CGFloat { isLarge ? 4 : 3 }
     private var labelWidth: CGFloat { isLarge ? 96 : 78 }
     private var maxRows: Int { isLarge ? 5 : 3 }
+    /// Today's column is wider so it is worth tapping, and reads as the one that matters.
+    private var todayExtra: CGFloat { isLarge ? 10 : 6 }
     private var cell: CGFloat {
-        let fits = HabitMatrixView.cellThatFits(width: 306, days: ActivityProvider.days,
-                                                gap: gap, labelWidth: labelWidth)
+        let fits = HabitMatrixMetrics.cellThatFits(width: 306, days: ActivityProvider.days,
+                                                   gap: gap, labelWidth: labelWidth,
+                                                   todayExtra: todayExtra)
         return min(isLarge ? 26 : 22, fits)
     }
 
@@ -97,8 +100,16 @@ struct ActivityWidgetView: View {
                 HabitMatrixView(
                     matrix: entry.matrix, calendar: entry.calendar, today: entry.today,
                     cell: cell, gap: gap, labelWidth: labelWidth,
-                    showsDayHeader: true, showsCounts: isLarge, maxRows: maxRows
-                )
+                    showsDayHeader: true, showsCounts: isLarge, maxRows: maxRows,
+                    todayCell: cell + todayExtra
+                ) { row in
+                    // Tapping today's cell closes or reopens the habit without leaving the widget.
+                    Button(intent: ToggleHabitIntent(habitID: row.id, completed: !isDone(row))) {
+                        Color.clear.contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel(Text("\(row.name), today"))
+                }
             } else {
                 Text("No habits yet").font(.subheadline.bold())
                 Text("Pick one below to start.").font(.caption).foregroundStyle(.secondary)
@@ -110,6 +121,11 @@ struct ActivityWidgetView: View {
             }
         }
         .widgetURL(URL(string: "habitflow://today"))
+    }
+
+    private func isDone(_ row: HabitMatrix.Row) -> Bool {
+        if case .done = row.states.last { return true }
+        return false
     }
 
     /// A widget cannot show a form, so it offers ready-made habits and a door to the editor.

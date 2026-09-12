@@ -66,6 +66,14 @@ struct TodayView: View {
                     }
                 }
             }
+
+            if env.settings.agendaEnabled {
+                Section {
+                    AgendaSection()
+                } header: {
+                    Text("Also today")
+                }
+            }
         }
         .refreshable {
             await env.engine.evaluateAll(reason: .manualRefresh)

@@ -37,6 +37,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>HabitFlow shows today's events under your habits, so the day reads as one list. Events are only read, never changed.</string>
 	<key>NSHealthShareUsageDescription</key>
 	<string>HabitFlow reads your steps, sleep, workouts, mindful minutes, water and energy from Health to mark habits as done automatically. Nothing leaves your device.</string>
 	<key>NSHealthUpdateUsageDescription</key>
@@ -45,6 +47,8 @@
 	<string>Allow location in the background so HabitFlow can mark a place-based habit done even when the app is closed. Locations are never uploaded.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>HabitFlow uses your location to notice when you arrive at places you chose, such as your gym, and mark that habit done.</string>
+	<key>NSRemindersFullAccessUsageDescription</key>
+	<string>HabitFlow shows reminders that are due today under your habits, and can tick one off when you tap it.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

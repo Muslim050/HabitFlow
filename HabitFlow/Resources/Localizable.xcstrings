@@ -324,6 +324,16 @@
         }
       }
     },
+    "+%lld more": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ещё %lld"
+          }
+        }
+      }
+    },
     "2 weeks": {
       "localizations": {
         "ru": {
@@ -494,6 +504,16 @@
         }
       }
     },
+    "All day": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Весь день"
+          }
+        }
+      }
+    },
     "All done for today": {
       "localizations": {
         "ru": {
@@ -510,6 +530,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Разрешить доступ к Здоровью"
+          }
+        }
+      }
+    },
+    "Also today": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ещё сегодня"
           }
         }
       }
@@ -702,6 +732,16 @@
         }
       }
     },
+    "Calendar and Reminders": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Календарь и Напоминания"
+          }
+        }
+      }
+    },
     "Cancel": {
       "localizations": {
         "ru": {
@@ -738,6 +778,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Скоро. Пока всё хранится только на этом устройстве."
+          }
+        }
+      }
+    },
+    "Complete %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выполнить «%@»"
           }
         }
       }
@@ -826,6 +876,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "История выполнения за последние %lld недель"
+          }
+        }
+      }
+    },
+    "Connect Calendar and Reminders": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подключить Календарь и Напоминания"
           }
         }
       }
@@ -1416,6 +1476,16 @@
         }
       }
     },
+    "No date": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без даты"
+          }
+        }
+      }
+    },
     "No habits yet": {
       "localizations": {
         "ru": {
@@ -1452,6 +1522,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не запрошено"
+          }
+        }
+      }
+    },
+    "Nothing else scheduled today.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На сегодня больше ничего не запланировано."
           }
         }
       }
@@ -1512,6 +1592,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Открыть настройки iOS"
+          }
+        }
+      }
+    },
+    "Overdue · %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Просрочено · %@"
           }
         }
       }
@@ -1636,6 +1726,16 @@
         }
       }
     },
+    "Read-only, except ticking a reminder off. Nothing is copied into HabitFlow.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Только чтение, кроме отметки напоминания. Ничего не копируется в HabitFlow."
+          }
+        }
+      }
+    },
     "Reminders": {
       "localizations": {
         "ru": {
@@ -1702,6 +1802,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Настройки"
+          }
+        }
+      }
+    },
+    "Shows today's events and due reminders under your habits. Read-only, except ticking a reminder off.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показывает события на сегодня и напоминания со сроком под вашими привычками. Только чтение, кроме отметки напоминания."
           }
         }
       }
@@ -1887,6 +1997,16 @@
       }
     },
     "Unnamed": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без названия"
+          }
+        }
+      }
+    },
+    "Untitled": {
       "localizations": {
         "ru": {
           "stringUnit": {

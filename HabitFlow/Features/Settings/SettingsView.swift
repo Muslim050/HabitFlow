@@ -57,6 +57,14 @@ struct SettingsView: View {
                 }
 
                 Section {
+                    Toggle("Calendar and Reminders", isOn: agendaBinding)
+                } header: {
+                    Text("Also today")
+                } footer: {
+                    Text("Shows today's events and due reminders under your habits. Read-only, except ticking a reminder off.")
+                }
+
+                Section {
                     PermissionRow(title: "Health", status: healthStatusText) {
                         Task { try? await env.healthKit.requestAllReadAuthorization() }
                     }
@@ -107,6 +115,21 @@ struct SettingsView: View {
         Binding(
             get: { env.settings.defaultAdaptationMode },
             set: { env.settings.defaultAdaptationMode = $0 }
+        )
+    }
+
+    private var agendaBinding: Binding<Bool> {
+        Binding(
+            get: { env.settings.agendaEnabled },
+            set: { newValue in
+                env.settings.agendaEnabled = newValue
+                if newValue {
+                    Task {
+                        await env.calendar.requestAccess()
+                        await env.calendar.refresh()
+                    }
+                }
+            }
         )
     }
 

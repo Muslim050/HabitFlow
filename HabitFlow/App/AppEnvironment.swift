@@ -18,6 +18,7 @@ final class AppEnvironment {
     let healthKit: HealthKitProvider
     let location: LocationProvider
     let notifications: NotificationService
+    let calendar = CalendarService()
     let engine: AutoTrackingEngine
     let analysis: AnalysisService
     let isUsingFallbackStore: Bool
@@ -77,6 +78,7 @@ final class AppEnvironment {
 
     func startForegroundSession() {
         Task {
+            if settings.agendaEnabled { await calendar.refresh() }
             await reconcileDayRollover()
             replayWidgetActions()
             await engine.evaluateAll(reason: .foreground)

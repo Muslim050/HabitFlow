@@ -11,6 +11,7 @@ public final class AppSettings: @unchecked Sendable {
         public static let healthAuthorizationRequested = "healthAuthorizationRequested"
         public static let lastEngineRunAt = "lastEngineRunAt"
         public static let defaultAdaptationMode = "defaultAdaptationMode"
+        public static let agendaEnabled = "agendaEnabled"
     }
 
     public static let store: UserDefaults = UserDefaults(suiteName: AppGroup.id) ?? .standard
@@ -61,6 +62,12 @@ public final class AppSettings: @unchecked Sendable {
     public var defaultAdaptationMode: GoalAdaptationMode {
         get { GoalAdaptationMode(rawValue: defaults.string(forKey: Key.defaultAdaptationMode) ?? "") ?? .suggest }
         set { defaults.set(newValue.rawValue, forKey: Key.defaultAdaptationMode) }
+    }
+
+    /// Shows today's calendar events and due reminders under the habits. Off until asked for.
+    public var agendaEnabled: Bool {
+        get { defaults.bool(forKey: Key.agendaEnabled) }
+        set { defaults.set(newValue, forKey: Key.agendaEnabled) }
     }
 
     public var dayCalendar: DayCalendar { DayCalendar(dayStartHour: dayStartHour) }

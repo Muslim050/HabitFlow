@@ -21,6 +21,16 @@
         }
       }
     },
+    "%@, today": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, сегодня"
+          }
+        }
+      }
+    },
     "%lld/%lld": {
       "localizations": {
         "ru": {
