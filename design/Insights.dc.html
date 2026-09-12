@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    body { margin: 0; font-family: -apple-system, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #4F8EF7; } a:hover { color: #3A6FD8; }
+  </style>
+</helmet>
+
+<div style="width: 390px; height: 844px; background: #F2F2F7; color: #000000; display: flex; flex-direction: column; overflow: hidden;">
+  <div style="height: 59px; flex-shrink: 0;"></div>
+  <div style="padding: 8px 20px 8px; flex-shrink: 0;">
+    <div style="font-size: 34px; line-height: 41px; font-weight: 700; letter-spacing: 0.37px;">Инсайты</div>
+  </div>
+
+  <div style="flex-grow: 1; overflow: hidden;">
+    <div style="padding: 24px 20px 6px 36px; font-size: 13px; line-height: 18px; color: rgba(60, 60, 67, 0.6); text-transform: uppercase; letter-spacing: -0.08px;">Предложения по целям</div>
+    <div style="margin: 0 20px; background: #FFFFFF; border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="#34C759"></circle><path d="M8.6 15.4 L15.4 8.6 M10.2 8.6 H15.4 V13.8" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <div style="font-size: 15px; line-height: 20px; font-weight: 600;">🚶 Прогулка</div>
+          <div style="font-size: 13px; line-height: 18px; font-variant-numeric: tabular-nums;">8 000 → 9 500 шагов</div>
+        </div>
+      </div>
+      <div style="font-size: 12px; line-height: 16px; color: rgba(60, 60, 67, 0.6);">Выполнено 93% из последних 14 дней, обычно доходит до 10 240.</div>
+      <div style="display: flex; gap: 10px;">
+        <div style="flex-grow: 1; background: #4F8EF7; color: #FFFFFF; border-radius: 10px; padding: 9px 14px; text-align: center; font-size: 15px; font-weight: 600;">Повысить цель</div>
+        <div style="background: rgba(79, 142, 247, 0.12); color: #4F8EF7; border-radius: 10px; padding: 9px 14px; text-align: center; font-size: 15px; font-weight: 500;">Оставить</div>
+      </div>
+    </div>
+    <div style="padding: 6px 20px 0 36px; font-size: 13px; line-height: 18px; color: rgba(60, 60, 67, 0.6);">Цель подстраивается под то, что вы действительно делаете.</div>
+
+    <div style="padding: 24px 20px 6px 36px; font-size: 13px; line-height: 18px; color: rgba(60, 60, 67, 0.6); text-transform: uppercase; letter-spacing: -0.08px;">Закономерности</div>
+    <div style="margin: 0 20px; background: #FFFFFF; border-radius: 10px; overflow: hidden;">
+      <div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px;">
+        <div style="width: 28px; flex-shrink: 0; display: flex; justify-content: center; padding-top: 1px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#AF52DE" stroke-width="1.8"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><circle cx="12" cy="12" r="1.4" fill="#AF52DE" stroke="none"></circle></svg></div>
+        <div style="display: flex; flex-direction: column; gap: 3px;">
+          <div style="font-size: 15px; line-height: 20px; font-weight: 600;">Зал</div>
+          <div style="font-size: 13px; line-height: 18px;">Почти дотягиваете: в обычный день 91% от цели, но засчитано 36% дней</div>
+          <div style="font-size: 11px; line-height: 14px; color: rgba(60, 60, 67, 0.6);">Чуть меньшая цель превратила бы это в серию</div>
+        </div>
+      </div>
+      <div style="height: 0.5px; background: rgba(60, 60, 67, 0.29); margin-left: 56px;"></div>
+      <div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px;">
+        <div style="width: 28px; flex-shrink: 0; display: flex; justify-content: center; padding-top: 1px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4F8EF7" stroke-width="1.8" stroke-linecap="round"><path d="M10 13.5a4 4 0 0 0 5.7 0l2.8-2.8a4 4 0 1 0-5.7-5.7L11.4 6.4"></path><path d="M14 10.5a4 4 0 0 0-5.7 0l-2.8 2.8a4 4 0 1 0 5.7 5.7l1.4-1.4"></path></svg></div>
+        <div style="display: flex; flex-direction: column; gap: 3px;">
+          <div style="font-size: 15px; line-height: 20px; font-weight: 600;">Чтение</div>
+          <div style="font-size: 13px; line-height: 18px;">Чаще закрывается в дни, когда выполнен «Сон»: 82% против 41%</div>
+          <div style="font-size: 11px; line-height: 14px; color: rgba(60, 60, 67, 0.6);">Связь, а не причина. По данным за 46 дн.</div>
+        </div>
+      </div>
+      <div style="height: 0.5px; background: rgba(60, 60, 67, 0.29); margin-left: 56px;"></div>
+      <div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px;">
+        <div style="width: 28px; flex-shrink: 0; display: flex; justify-content: center; padding-top: 1px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF9500" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16v14H4zM4 10.5h16M8.5 4v4M15.5 4v4"></path><path d="M15.6 14.4v2.4M15.6 18.6v.1"></path></svg></div>
+        <div style="display: flex; flex-direction: column; gap: 3px;">
+          <div style="font-size: 15px; line-height: 20px; font-weight: 600;">Прогулка</div>
+          <div style="font-size: 13px; line-height: 18px;">Суббота — самый слабый день: выполнено 25%</div>
+          <div style="font-size: 11px; line-height: 14px; color: rgba(60, 60, 67, 0.6);">По данным за 8 таких дней</div>
+        </div>
+      </div>
+    </div>
+    <div style="padding: 6px 20px 0 36px; font-size: 13px; line-height: 18px; color: rgba(60, 60, 67, 0.6);">Построено на вашей истории на этом устройстве.</div>
+  </div>
+
+  <div style="flex-shrink: 0; background: rgba(249, 249, 249, 0.94); border-top: 0.5px solid rgba(60, 60, 67, 0.29);">
+    <div style="height: 49px; display: flex; align-items: center;">
+      <div style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 2px;">
+        <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#8E8E93" stroke-width="1.8"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="3.6" fill="#8E8E93" stroke="none"></circle></svg>
+        <div style="font-size: 10px; font-weight: 500; color: #8E8E93;">Сегодня</div>
+      </div>
+      <div style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 2px;">
+        <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#4F8EF7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5 L9 11 L13 15 L21 6.5"></path><path d="M21 11 V6.5 H16.5"></path></svg>
+        <div style="font-size: 10px; font-weight: 500; color: #4F8EF7;">Инсайты</div>
+      </div>
+      <div style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 2px;">
+        <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#8E8E93" stroke-width="1.8"><circle cx="12" cy="12" r="3.2"></circle><path d="M12 3.2v2.4M12 18.4v2.4M20.8 12h-2.4M5.6 12H3.2M18.2 5.8l-1.7 1.7M7.5 16.5l-1.7 1.7M18.2 18.2l-1.7-1.7M7.5 7.5 5.8 5.8"></path></svg>
+        <div style="font-size: 10px; font-weight: 500; color: #8E8E93;">Настройки</div>
+      </div>
+    </div>
+    <div style="height: 34px;"></div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>
