@@ -105,30 +105,6 @@ final class CalendarService {
         }
     }
 
-    // MARK: Containers
-
-    struct Container: Identifiable, Hashable {
-        let id: String
-        let title: String
-        let colorHex: String?
-    }
-
-    /// Calendars that accept new events, or lists that accept new reminders.
-    func containers(for kind: AgendaItem.Kind) -> [Container] {
-        let entity: EKEntityType = kind == .event ? .event : .reminder
-        guard isGranted(entity == .event ? eventsStatus : remindersStatus) else { return [] }
-        return store.calendars(for: entity)
-            .filter(\.allowsContentModifications)
-            .map { Container(id: $0.calendarIdentifier, title: $0.title, colorHex: Self.hex(from: $0.cgColor)) }
-            .sorted { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending }
-    }
-
-    func defaultContainerID(for kind: AgendaItem.Kind) -> String? {
-        kind == .event
-            ? store.defaultCalendarForNewEvents?.calendarIdentifier
-            : store.defaultCalendarForNewReminders()?.calendarIdentifier
-    }
-
     // MARK: Writing
 
     /// Ticks a reminder off in the system Reminders app. Events are never modified.
@@ -141,61 +117,6 @@ final class CalendarService {
             items.removeAll { $0.id == item.id }
         } catch {
             Log.app.error("Could not complete reminder: \(error.localizedDescription)")
-        }
-    }
-
-    /// Creates the draft in the system store, so it shows up in Calendar or Reminders
-    /// on every device the person signs into, not only here.
-    @discardableResult
-    func create(_ draft: AgendaDraft) async -> Bool {
-        guard draft.isValid else { return false }
-        let entity: EKEntityType = draft.kind == .event ? .event : .reminder
-        guard isGranted(entity == .event ? eventsStatus : remindersStatus) else { return false }
-
-        let container = draft.containerID.flatMap { store.calendar(withIdentifier: $0) }
-        do {
-            switch draft.kind {
-            case .event:
-                let event = EKEvent(eventStore: store)
-                event.title = draft.trimmedTitle
-                event.startDate = draft.date
-                event.endDate = draft.endDate
-                event.calendar = container ?? store.defaultCalendarForNewEvents
-                if let rule = Self.recurrence(for: draft) { event.recurrenceRules = [rule] }
-                try store.save(event, span: .futureEvents, commit: true)
-
-            case .reminder:
-                let reminder = EKReminder(eventStore: store)
-                reminder.title = draft.trimmedTitle
-                reminder.calendar = container ?? store.defaultCalendarForNewReminders()
-                let fields: Set<Calendar.Component> = draft.hasTime
-                    ? [.year, .month, .day, .hour, .minute]
-                    : [.year, .month, .day]
-                reminder.dueDateComponents = Calendar.current.dateComponents(fields, from: draft.date)
-                if let rule = Self.recurrence(for: draft) { reminder.recurrenceRules = [rule] }
-                try store.save(reminder, commit: true)
-            }
-        } catch {
-            Log.app.error("Could not create \(draft.kind.rawValue): \(error.localizedDescription)")
-            return false
-        }
-        await refresh()
-        return true
-    }
-
-    private static func recurrence(for draft: AgendaDraft) -> EKRecurrenceRule? {
-        switch draft.repeats {
-        case .never:
-            return nil
-        case .daily:
-            return EKRecurrenceRule(recurrenceWith: .daily, interval: 1, end: nil)
-        case .weekdays, .weekly:
-            let days = (draft.weekdays() ?? []).compactMap { EKWeekday(rawValue: $0) }
-                .map { EKRecurrenceDayOfWeek($0) }
-            guard !days.isEmpty else { return nil }
-            return EKRecurrenceRule(recurrenceWith: .weekly, interval: 1, daysOfTheWeek: days,
-                                    daysOfTheMonth: nil, monthsOfTheYear: nil, weeksOfTheYear: nil,
-                                    daysOfTheYear: nil, setPositions: nil, end: nil)
         }
     }
 

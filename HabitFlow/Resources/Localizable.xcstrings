@@ -236,40 +236,6 @@
         }
       }
     },
-    "%lld min": {
-      "localizations": {
-        "ru": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld мин"
-                }
-              },
-              "few": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld мин"
-                }
-              },
-              "many": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld мин"
-                }
-              },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld мин"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "%lld of %lld": {
       "localizations": {
         "en": {
@@ -474,16 +440,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Адаптивные цели"
-          }
-        }
-      }
-    },
-    "Add": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Добавить"
           }
         }
       }
@@ -776,16 +732,6 @@
         }
       }
     },
-    "Calendar": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Календарь"
-          }
-        }
-      }
-    },
     "Calendar and Reminders": {
       "localizations": {
         "ru": {
@@ -974,16 +920,6 @@
         }
       }
     },
-    "Could not save. Check access in iOS Settings.": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Не удалось сохранить. Проверьте доступ в настройках iOS."
-          }
-        }
-      }
-    },
     "Counted from the night before the day starts.": {
       "localizations": {
         "ru": {
@@ -1044,16 +980,6 @@
         }
       }
     },
-    "Default": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "По умолчанию"
-          }
-        }
-      }
-    },
     "Default for habits you create next. Each habit can be changed on its own.": {
       "localizations": {
         "ru": {
@@ -1080,26 +1006,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Готово"
-          }
-        }
-      }
-    },
-    "Due": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Срок"
-          }
-        }
-      }
-    },
-    "Duration": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Длительность"
           }
         }
       }
@@ -1174,26 +1080,6 @@
         }
       }
     },
-    "Event": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Событие"
-          }
-        }
-      }
-    },
-    "Every day": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Каждый день"
-          }
-        }
-      }
-    },
     "Every day across all habits. A day with nothing scheduled is an off day, not a miss.": {
       "extractionState": "stale",
       "localizations": {
@@ -1201,16 +1087,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Каждый день по всем привычкам. День без запланированных привычек — выходной, а не пропуск."
-          }
-        }
-      }
-    },
-    "Every week": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Каждую неделю"
           }
         }
       }
@@ -1441,16 +1317,6 @@
         }
       }
     },
-    "Kind": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Тип"
-          }
-        }
-      }
-    },
     "Last 16 weeks": {
       "localizations": {
         "ru": {
@@ -1487,16 +1353,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Пусть сегодня решает авто-трекинг"
-          }
-        }
-      }
-    },
-    "List": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Список"
           }
         }
       }
@@ -1611,46 +1467,6 @@
         }
       }
     },
-    "Never": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Никогда"
-          }
-        }
-      }
-    },
-    "New": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Новое"
-          }
-        }
-      }
-    },
-    "New event": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Новое событие"
-          }
-        }
-      }
-    },
-    "New event or reminder": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Новое событие или напоминание"
-          }
-        }
-      }
-    },
     "New habit": {
       "localizations": {
         "ru": {
@@ -1667,16 +1483,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Новые привычки"
-          }
-        }
-      }
-    },
-    "New reminder": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Новое напоминание"
           }
         }
       }
@@ -1891,50 +1697,6 @@
         }
       }
     },
-    "Prefilled for the time you usually close it, from %lld completions.": {
-      "localizations": {
-        "ru": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "Подставлено время, в которое вы обычно её закрываете, по %lld выполнению."
-                }
-              },
-              "few": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "Подставлено время, в которое вы обычно её закрываете, по %lld выполнениям."
-                }
-              },
-              "many": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "Подставлено время, в которое вы обычно её закрываете, по %lld выполнениям."
-                }
-              },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "Подставлено время, в которое вы обычно её закрываете, по %lld выполнениям."
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "Prefilled for your reminder time; there is not enough history yet to know when you do it.": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Подставлено время вашего напоминания: истории пока мало, чтобы понять, когда вы это делаете."
-          }
-        }
-      }
-    },
     "Project call": {
       "extractionState": "stale",
       "localizations": {
@@ -1952,16 +1714,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Потяните вниз, чтобы проверить Здоровье и места"
-          }
-        }
-      }
-    },
-    "Put it in the calendar": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Поставить в календарь"
           }
         }
       }
@@ -2006,32 +1758,12 @@
         }
       }
     },
-    "Reminder": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Напоминание"
-          }
-        }
-      }
-    },
     "Reminders": {
       "localizations": {
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Напоминания"
-          }
-        }
-      }
-    },
-    "Repeat": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Повтор"
           }
         }
       }
@@ -2066,26 +1798,6 @@
         }
       }
     },
-    "Saved straight into the system Calendar, so it syncs everywhere you are signed in.": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Сохраняется прямо в системный Календарь и синхронизируется везде, где вы вошли."
-          }
-        }
-      }
-    },
-    "Saved straight into the system Reminders, so it syncs everywhere you are signed in.": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Сохраняется прямо в системные Напоминания и синхронизируются везде, где вы вошли."
-          }
-        }
-      }
-    },
     "Screen Time": {
       "localizations": {
         "ru": {
@@ -2113,16 +1825,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Отправить отчёт"
-          }
-        }
-      }
-    },
-    "Set a time": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Указать время"
           }
         }
       }
@@ -2173,16 +1875,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Источник"
-          }
-        }
-      }
-    },
-    "Starts": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Начало"
           }
         }
       }
@@ -2307,50 +1999,6 @@
         }
       }
     },
-    "Time taken from %lld completions of this habit.": {
-      "localizations": {
-        "ru": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "Время взято из %lld выполнения этой привычки."
-                }
-              },
-              "few": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "Время взято из %lld выполнений этой привычки."
-                }
-              },
-              "many": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "Время взято из %lld выполнений этой привычки."
-                }
-              },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "Время взято из %lld выполнений этой привычки."
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "Title": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Название"
-          }
-        }
-      }
-    },
     "Today": {
       "localizations": {
         "ru": {
@@ -2453,16 +2101,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Неделя"
-          }
-        }
-      }
-    },
-    "Weekdays": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "По будням"
           }
         }
       }

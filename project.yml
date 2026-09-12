@@ -55,8 +55,8 @@ targets:
         ITSAppUsesNonExemptEncryption: false
         NSHealthShareUsageDescription: "HabitFlow reads your steps, sleep, workouts, mindful minutes, water and energy from Health to mark habits as done automatically. Nothing leaves your device."
         NSHealthUpdateUsageDescription: "Debug builds write sample data to Health so you can test automatic tracking in the Simulator."
-        NSCalendarsFullAccessUsageDescription: "HabitFlow shows today's events under your habits, and can add an event you create here straight to your calendar."
-        NSRemindersFullAccessUsageDescription: "HabitFlow shows reminders due today under your habits, can tick one off, and can add a reminder you create here."
+        NSCalendarsFullAccessUsageDescription: "HabitFlow shows today's events under your habits, so the day reads as one list. Events are only read, never changed."
+        NSRemindersFullAccessUsageDescription: "HabitFlow shows reminders that are due today under your habits, and can tick one off when you tap it."
         NSLocationWhenInUseUsageDescription: "HabitFlow uses your location to notice when you arrive at places you chose, such as your gym, and mark that habit done."
         NSLocationAlwaysAndWhenInUseUsageDescription: "Allow location in the background so HabitFlow can mark a place-based habit done even when the app is closed. Locations are never uploaded."
         UIBackgroundModes: [fetch, processing]
