@@ -4,7 +4,8 @@ import HabitCore
 /// Owns navigation and the "which logical day is it" decision; `TodayView` is recreated on rollover.
 struct TodayScreen: View {
     @Environment(AppEnvironment.self) private var env
-    @State private var showEditor = false
+    /// Owned by the tab view so a deep link can open it from any tab.
+    @Binding var showEditor: Bool
 
     var body: some View {
         NavigationStack {

@@ -42,6 +42,7 @@
       }
     },
     "Active days": {
+      "extractionState": "stale",
       "localizations": {
         "ru": {
           "stringUnit": {
@@ -52,11 +53,22 @@
       }
     },
     "Activity": {
+      "extractionState": "stale",
       "localizations": {
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Активность"
+          }
+        }
+      }
+    },
+    "Add a habit": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Завести привычку"
           }
         }
       }
@@ -71,7 +83,18 @@
         }
       }
     },
+    "Add habit": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Завести привычку"
+          }
+        }
+      }
+    },
     "All done": {
+      "extractionState": "stale",
       "localizations": {
         "ru": {
           "stringUnit": {
@@ -82,6 +105,7 @@
       }
     },
     "Best streak": {
+      "extractionState": "stale",
       "localizations": {
         "ru": {
           "stringUnit": {
@@ -101,7 +125,18 @@
         }
       }
     },
+    "Creates one of the ready-made habits.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Создаёт одну из готовых привычек."
+          }
+        }
+      }
+    },
     "Current streak": {
+      "extractionState": "stale",
       "localizations": {
         "ru": {
           "stringUnit": {
@@ -112,6 +147,7 @@
       }
     },
     "Day off": {
+      "extractionState": "stale",
       "localizations": {
         "ru": {
           "stringUnit": {
@@ -131,7 +167,18 @@
         }
       }
     },
+    "Each habit as its own row, in its own colour. The large size can also add a habit.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Каждая привычка своей строкой и своим цветом. В большом размере можно завести привычку."
+          }
+        }
+      }
+    },
     "Every day across all habits, like a contribution grid.": {
+      "extractionState": "stale",
       "localizations": {
         "ru": {
           "stringUnit": {
@@ -152,6 +199,7 @@
       }
     },
     "Less": {
+      "extractionState": "stale",
       "localizations": {
         "ru": {
           "stringUnit": {
@@ -171,6 +219,46 @@
         }
       }
     },
+    "No habits yet": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Привычек пока нет"
+          }
+        }
+      }
+    },
+    "Own": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Своя"
+          }
+        }
+      }
+    },
+    "Pick one below to start.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выберите готовую ниже."
+          }
+        }
+      }
+    },
+    "Preset": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заготовка"
+          }
+        }
+      }
+    },
     "Rings for today's habits. Tap a ring or a row to mark it done.": {
       "localizations": {
         "ru": {
@@ -182,6 +270,7 @@
       }
     },
     "Today": {
+      "extractionState": "stale",
       "localizations": {
         "ru": {
           "stringUnit": {
@@ -207,6 +296,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Переключить привычку"
+          }
+        }
+      }
+    },
+    "Week by habit": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неделя по привычкам"
+          }
+        }
+      }
+    },
+    "in the app": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "в приложении"
           }
         }
       }

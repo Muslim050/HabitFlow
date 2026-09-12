@@ -1,6 +1,22 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "%@: %lld of %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@: %2$lld of %3$lld"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$lld из %3$lld"
+          }
+        }
+      }
+    },
     "%lld min at %@": {
       "localizations": {
         "ru": {
@@ -17,6 +33,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld процентов"
+          }
+        }
+      }
+    },
+    "+%lld more": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ещё %lld"
           }
         }
       }
@@ -97,6 +123,16 @@
         }
       }
     },
+    "Sleep": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сон"
+          }
+        }
+      }
+    },
     "Steps": {
       "localizations": {
         "ru": {
@@ -123,6 +159,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вода"
+          }
+        }
+      }
+    },
+    "Workout": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тренировка"
           }
         }
       }

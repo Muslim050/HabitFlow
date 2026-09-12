@@ -324,6 +324,26 @@
         }
       }
     },
+    "2 weeks": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2 недели"
+          }
+        }
+      }
+    },
+    "6 months": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Полгода"
+          }
+        }
+      }
+    },
     "A connection, not a cause. Based on %lld days": {
       "localizations": {
         "ru": {
@@ -420,6 +440,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Добавьте привычку — Здоровье или геолокация закроют её за вас."
+          }
+        }
+      }
+    },
+    "Add a habit to see activity here.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавьте привычку, чтобы здесь появилась активность."
           }
         }
       }
@@ -1456,6 +1486,16 @@
         }
       }
     },
+    "One cell per day across all habits. Colour shows how much of the day closed.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Одна клетка — день по всем привычкам. Цвет показывает, какая часть дня закрылась."
+          }
+        }
+      }
+    },
     "One notification per day listing only what is still open. Automatic completions notify on their own.": {
       "localizations": {
         "ru": {
@@ -1582,6 +1622,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Повысить цель"
+          }
+        }
+      }
+    },
+    "Range": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Период"
           }
         }
       }
@@ -1888,6 +1938,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "На этой неделе хуже: %1$@ против %2$@ на прошлой"
+          }
+        }
+      }
+    },
+    "Week": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неделя"
           }
         }
       }

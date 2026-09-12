@@ -36,6 +36,11 @@ public enum ValueFormatting {
         return unit.isEmpty ? text : "\(text) \(Self.unit(unit))"
     }
 
+    /// `8 000 steps` — the goal without the comparison sign, for tight buttons.
+    public static func progressless(target: Double, unit: String) -> String {
+        unit.isEmpty ? value(target, unit: unit) : "\(value(target, unit: unit)) \(Self.unit(unit))"
+    }
+
     /// `≥ 8 000 steps`
     public static func goal(target: Double, unit: String) -> String {
         unit.isEmpty ? "" : "≥ \(Self.value(target, unit: unit)) \(Self.unit(unit))"

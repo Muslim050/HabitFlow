@@ -199,8 +199,15 @@ final class AppEnvironment {
 
     // MARK: Deep links
 
+    /// `habitflow://new` — the widget's "own habit" button, which cannot show a form itself.
+    static let newHabitHost = "new"
+
     func handleDeepLink(_ url: URL) {
         pendingDeepLink = url
+    }
+
+    func consumeDeepLink() {
+        pendingDeepLink = nil
     }
 }
 

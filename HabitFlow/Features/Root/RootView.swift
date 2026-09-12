@@ -15,17 +15,30 @@ struct RootView: View {
 }
 
 struct MainTabView: View {
+    @Environment(AppEnvironment.self) private var env
+    @State private var selection = Tabs.today
+    @State private var showNewHabit = false
+
+    enum Tabs { case today, insights, settings }
+
     var body: some View {
-        TabView {
-            Tab("Today", systemImage: "circle.circle") {
-                TodayScreen()
+        TabView(selection: $selection) {
+            Tab("Today", systemImage: "circle.circle", value: Tabs.today) {
+                TodayScreen(showEditor: $showNewHabit)
             }
-            Tab("Insights", systemImage: "chart.line.uptrend.xyaxis") {
+            Tab("Insights", systemImage: "chart.line.uptrend.xyaxis", value: Tabs.insights) {
                 InsightsView()
             }
-            Tab("Settings", systemImage: "gearshape") {
+            Tab("Settings", systemImage: "gearshape", value: Tabs.settings) {
                 SettingsView()
             }
+        }
+        // The widget's "own habit" button can only hand the app a URL; the form lives here.
+        .onChange(of: env.pendingDeepLink) { _, url in
+            guard let url, url.host() == AppEnvironment.newHabitHost else { return }
+            selection = .today
+            showNewHabit = true
+            env.consumeDeepLink()
         }
     }
 }
