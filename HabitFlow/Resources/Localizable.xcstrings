@@ -1010,6 +1010,16 @@
         }
       }
     },
+    "Each habit in its own colour. A day with nothing scheduled is an off day, not a miss.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Каждая привычка своим цветом. День без запланированных привычек — выходной, а не пропуск."
+          }
+        }
+      }
+    },
     "Edit": {
       "localizations": {
         "ru": {
@@ -1686,6 +1696,16 @@
         }
       }
     },
+    "Project call": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Созвон по проекту"
+          }
+        }
+      }
+    },
     "Pull down to check Health and places now": {
       "localizations": {
         "ru": {
@@ -1792,6 +1812,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Найти место"
+          }
+        }
+      }
+    },
+    "Send the report": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отправить отчёт"
           }
         }
       }

@@ -8,6 +8,7 @@ struct SettingsView: View {
     @AppStorage(AppSettings.Key.nudgeEnabled, store: AppSettings.store) private var nudgeEnabled = true
     @AppStorage(AppSettings.Key.nudgeHour, store: AppSettings.store) private var nudgeHour = 20
     @AppStorage(AppSettings.Key.graceMissesPerWeek, store: AppSettings.store) private var grace = 1
+    @AppStorage(AppSettings.Key.agendaEnabled, store: AppSettings.store) private var agendaEnabled = false
 
     var body: some View {
         NavigationStack {
@@ -57,7 +58,12 @@ struct SettingsView: View {
                 }
 
                 Section {
-                    Toggle("Calendar and Reminders", isOn: agendaBinding)
+                    Toggle("Calendar and Reminders", isOn: $agendaEnabled)
+                        .tint(.accentColor)
+                        .onChange(of: agendaEnabled) { _, isOn in
+                            guard isOn else { return }
+                            Task { await env.calendar.requestAccess() }
+                        }
                 } header: {
                     Text("Also today")
                 } footer: {
@@ -115,21 +121,6 @@ struct SettingsView: View {
         Binding(
             get: { env.settings.defaultAdaptationMode },
             set: { env.settings.defaultAdaptationMode = $0 }
-        )
-    }
-
-    private var agendaBinding: Binding<Bool> {
-        Binding(
-            get: { env.settings.agendaEnabled },
-            set: { newValue in
-                env.settings.agendaEnabled = newValue
-                if newValue {
-                    Task {
-                        await env.calendar.requestAccess()
-                        await env.calendar.refresh()
-                    }
-                }
-            }
         )
     }
 

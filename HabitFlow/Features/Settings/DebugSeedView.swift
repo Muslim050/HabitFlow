@@ -1,4 +1,5 @@
 #if DEBUG
+import EventKit
 import HealthKit
 import SwiftUI
 import HabitCore
@@ -17,6 +18,9 @@ struct DebugSeedView: View {
                 Button("Add 7.5 h sleep (last night)") { seed { try await seedSleep(hours: 7.5) } }
                 Button("Add 12 mindful minutes") { seed { try await seedMindful(minutes: 12) } }
                 Button("Add 35 min running workout") { seed { try await seedWorkout(minutes: 35) } }
+            }
+            Section("Calendar") {
+                Button("Add an event and a reminder for today") { seedAgenda() }
             }
             Section("History") {
                 Button("Fill 10 weeks of history") { seedHistory(weeks: 10) }
@@ -89,6 +93,42 @@ struct DebugSeedView: View {
             message = "History filled for \(weeks) weeks."
         } catch {
             message = "Failed: \(error.localizedDescription)"
+        }
+    }
+
+    /// Debug-only: writes one event and one reminder into the system stores so the
+    /// "Also today" strip can be seen without typing into the Calendar app.
+    private func seedAgenda() {
+        Task {
+            let store = EKEventStore()
+            guard (try? await store.requestFullAccessToEvents()) == true else {
+                message = "Calendar access refused."
+                return
+            }
+            _ = try? await store.requestFullAccessToReminders()
+            do {
+                let event = EKEvent(eventStore: store)
+                event.title = String(localized: "Project call")
+                event.startDate = Date().addingTimeInterval(90 * 60)
+                event.endDate = event.startDate.addingTimeInterval(45 * 60)
+                event.calendar = store.defaultCalendarForNewEvents
+                try store.save(event, span: .thisEvent)
+
+                if let list = store.defaultCalendarForNewReminders() {
+                    let reminder = EKReminder(eventStore: store)
+                    reminder.title = String(localized: "Send the report")
+                    reminder.calendar = list
+                    reminder.dueDateComponents = Calendar.current.dateComponents(
+                        [.year, .month, .day, .hour, .minute],
+                        from: Date().addingTimeInterval(3 * 3600)
+                    )
+                    try store.save(reminder, commit: true)
+                }
+                await env.calendar.refresh()
+                message = "Added to Calendar and Reminders."
+            } catch {
+                message = "Failed: \(error.localizedDescription)"
+            }
         }
     }
 

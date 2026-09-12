@@ -40,8 +40,11 @@ struct ActivitySection: View {
 
     private var range: ActivityRange { ActivityRange(rawValue: storedRange) ?? .week }
 
-    private let gap: CGFloat = 4
-    private let labelWidth: CGFloat = 104
+    /// Fixed metrics per range. Deriving the cell from a measured width meant the
+    /// section's own height was computed from an estimate, and the last habit was clipped.
+    private var metrics: (cell: CGFloat, gap: CGFloat, label: CGFloat) {
+        range == .fortnight ? (12, 3, 96) : (26, 4, 104)
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
@@ -65,35 +68,14 @@ struct ActivitySection: View {
     // MARK: Week / fortnight
 
     private func matrix(days: Int) -> some View {
-        GeometryReader { geo in
-            let cell = HabitMatrixMetrics.cellThatFits(width: geo.size.width, days: days,
-                                                    gap: gap, labelWidth: labelWidth)
-            HabitMatrixView(
-                matrix: HabitMatrix.build(habits: habits, logs: logs, calendar: env.settings.dayCalendar,
-                                          today: env.currentDayKey, days: days),
-                calendar: env.settings.dayCalendar, today: env.currentDayKey,
-                cell: cell, gap: gap, labelWidth: labelWidth, maxRows: 12
-            )
-            .frame(maxWidth: .infinity, alignment: .leading)
-        }
-        .frame(height: matrixHeight(days: days))
-    }
-
-    /// The grid is laid out by hand, so its height has to be stated rather than measured.
-    private func matrixHeight(days: Int) -> CGFloat {
-        let cell = HabitMatrixMetrics.cellThatFits(width: rowWidth, days: days, gap: gap, labelWidth: labelWidth)
-        let rowCount = min(habits.count, 12)
-        let headerHeight = max(7, cell * 0.4) + gap + 2
-        return headerHeight + CGFloat(rowCount) * cell + CGFloat(max(0, rowCount - 1)) * (gap + 2)
-    }
-
-    /// The card's content width on a phone: screen minus the list's own insets.
-    private var rowWidth: CGFloat {
-        #if os(iOS)
-        UIScreen.main.bounds.width - 2 * 20 - 2 * 16
-        #else
-        320
-        #endif
+        let m = metrics
+        return HabitMatrixView(
+            matrix: HabitMatrix.build(habits: habits, logs: logs, calendar: env.settings.dayCalendar,
+                                      today: env.currentDayKey, days: days),
+            calendar: env.settings.dayCalendar, today: env.currentDayKey,
+            cell: m.cell, gap: m.gap, labelWidth: m.label, maxRows: 12
+        )
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     // MARK: Half year

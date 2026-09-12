@@ -15,7 +15,7 @@ struct InsightsView: View {
                 } header: {
                     Text("Activity")
                 } footer: {
-                    Text("Every day across all habits. A day with nothing scheduled is an off day, not a miss.")
+                    Text("Each habit in its own colour. A day with nothing scheduled is an off day, not a miss.")
                 }
 
                 if !analysis.proposals.isEmpty {
