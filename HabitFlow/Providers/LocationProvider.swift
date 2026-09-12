@@ -11,7 +11,7 @@ final class LocationProvider: NSObject, HabitSourceProvider {
 
     private let manager = CLLocationManager()
     private let repository: any HabitRepository
-    private var onChange: (@MainActor (HabitSourceKind) async -> Void)?
+    private var onChange: (@Sendable @MainActor (HabitSourceKind) async -> Void)?
 
     private(set) var authorizationStatus: CLAuthorizationStatus = .notDetermined
 
@@ -57,7 +57,7 @@ final class LocationProvider: NSObject, HabitSourceProvider {
 
     // MARK: Observing
 
-    func startObserving(habits: [(id: UUID, rule: HabitRule)], onChange: @escaping @MainActor (HabitSourceKind) async -> Void) {
+    func startObserving(habits: [(id: UUID, rule: HabitRule)], onChange: @escaping @Sendable @MainActor (HabitSourceKind) async -> Void) {
         self.onChange = onChange
         guard isAvailable else { return }
 

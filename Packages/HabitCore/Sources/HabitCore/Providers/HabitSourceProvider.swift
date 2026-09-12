@@ -15,7 +15,7 @@ public protocol HabitSourceProvider: AnyObject {
 
     /// Register system observers for the given habits. Await `onChange` when data of a kind may have changed;
     /// it resolves once the engine has re-evaluated, so background completion handlers can be called afterwards.
-    func startObserving(habits: [(id: UUID, rule: HabitRule)], onChange: @escaping @MainActor (HabitSourceKind) async -> Void)
+    func startObserving(habits: [(id: UUID, rule: HabitRule)], onChange: @escaping @Sendable @MainActor (HabitSourceKind) async -> Void)
     func stopObserving()
 }
 

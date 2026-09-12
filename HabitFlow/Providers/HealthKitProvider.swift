@@ -62,7 +62,7 @@ final class HealthKitProvider: HabitSourceProvider {
 
     // MARK: Observing
 
-    func startObserving(habits: [(id: UUID, rule: HabitRule)], onChange: @escaping @MainActor (HabitSourceKind) async -> Void) {
+    func startObserving(habits: [(id: UUID, rule: HabitRule)], onChange: @escaping @Sendable @MainActor (HabitSourceKind) async -> Void) {
         guard isAvailable else { return }
         let types = habits.reduce(into: Set<HKSampleType>()) { $0.formUnion(HealthKitTypes.sampleTypes(for: $1.rule)) }
         observer.start(types: types, onChange: onChange)

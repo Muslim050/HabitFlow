@@ -31,7 +31,7 @@ final class FakeProvider: HabitSourceProvider {
         return ProgressSnapshot(value: values[habitID] ?? 0, target: rule.target, observedAt: now)
     }
 
-    func startObserving(habits: [(id: UUID, rule: HabitRule)], onChange: @escaping @MainActor (HabitSourceKind) async -> Void) {
+    func startObserving(habits: [(id: UUID, rule: HabitRule)], onChange: @escaping @Sendable @MainActor (HabitSourceKind) async -> Void) {
         observing = true
     }
 

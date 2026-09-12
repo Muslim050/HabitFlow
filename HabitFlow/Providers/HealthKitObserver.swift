@@ -13,7 +13,7 @@ final class HealthKitObserver {
         self.store = store
     }
 
-    func start(types: Set<HKSampleType>, onChange: @escaping @MainActor (HabitSourceKind) async -> Void) {
+    func start(types: Set<HKSampleType>, onChange: @escaping @Sendable @MainActor (HabitSourceKind) async -> Void) {
         // Drop observers for types no longer used.
         for (type, query) in queries where !types.contains(type) {
             store.stop(query)

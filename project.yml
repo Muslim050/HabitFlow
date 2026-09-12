@@ -23,9 +23,13 @@ settings:
     MARKETING_VERSION: "0.1.0"
     CURRENT_PROJECT_VERSION: "1"
     ENABLE_USER_SCRIPT_SANDBOXING: YES
-    # Add ENABLE_CLOUDKIT here once a paid developer team is available.
-    SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited)"
     GENERATE_INFOPLIST_FILE: NO
+  configs:
+    Debug:
+      SWIFT_ACTIVE_COMPILATION_CONDITIONS: "DEBUG"
+    Release:
+      # Add ENABLE_CLOUDKIT here once a paid developer team is available.
+      SWIFT_ACTIVE_COMPILATION_CONDITIONS: ""
 
 targets:
   HabitFlow:

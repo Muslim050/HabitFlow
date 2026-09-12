@@ -36,7 +36,8 @@ struct AppSmokeTests {
         )
         let content = NotificationService.autoCompletedContent(for: event)
         #expect(content.title.contains("Walk"))
-        #expect(content.body.contains("8 000") || content.body.contains("8,000"))
+        let digits = content.body.filter(\.isNumber)
+        #expect(digits.contains("8214") && digits.contains("8000"), "grouping separator is locale-dependent, digits are not")
         #expect(content.body.hasSuffix("from Health"))
         #expect(content.threadIdentifier == "auto-2026-09-12")
     }
