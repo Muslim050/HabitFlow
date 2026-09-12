@@ -38,6 +38,7 @@ public enum HabitRule: Codable, Sendable, Hashable {
         }
     }
 
+    /// Stable, non-localized unit key. Use `localizedUnit` for display.
     public var unitLabel: String {
         switch self {
         case .manual: return ""
@@ -47,12 +48,14 @@ public enum HabitRule: Codable, Sendable, Hashable {
         }
     }
 
-    /// Short label for the "auto-detected from …" badge.
+    public var localizedUnit: String { ValueFormatting.unit(unitLabel) }
+
+    /// Localized short label for the "auto-detected from …" badge.
     public var sourceLabel: String? {
         switch self {
         case .manual: return nil
-        case .healthQuantity, .healthSleep, .healthMindful, .healthWorkout: return "Health"
-        case .geofence: return "Location"
+        case .healthQuantity, .healthSleep, .healthMindful, .healthWorkout: return String(localized: "Health", bundle: .module)
+        case .geofence: return String(localized: "Location", bundle: .module)
         }
     }
 

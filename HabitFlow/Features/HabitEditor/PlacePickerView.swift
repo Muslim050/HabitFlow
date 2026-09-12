@@ -22,7 +22,7 @@ struct PlacePickerView: View {
                             select(item)
                         } label: {
                             VStack(alignment: .leading) {
-                                Text(item.name ?? "Unnamed")
+                                Text(item.name ?? String(localized: "Unnamed"))
                                 if let subtitle = item.placemark.title {
                                     Text(subtitle).font(.footnote).foregroundStyle(.secondary)
                                 }
@@ -35,7 +35,7 @@ struct PlacePickerView: View {
                 MapReader { proxy in
                     Map(position: $position) {
                         if let coordinate {
-                            Annotation(placeName.isEmpty ? "Place" : placeName, coordinate: coordinate) {
+                            Annotation(placeName.isEmpty ? String(localized: "Place") : placeName, coordinate: coordinate) {
                                 Image(systemName: "mappin.circle.fill")
                                     .font(.title)
                                     .foregroundStyle(.red)
@@ -50,7 +50,7 @@ struct PlacePickerView: View {
                     .onTapGesture { point in
                         if let tapped = proxy.convert(point, from: .local) {
                             coordinate = tapped
-                            if placeName.isEmpty { placeName = "Pinned place" }
+                            if placeName.isEmpty { placeName = String(localized: "Pinned place") }
                         }
                     }
                 }

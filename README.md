@@ -8,8 +8,16 @@ visit (geofences). Everything stays on the device.
 
 - `Packages/HabitCore` — domain, SwiftData models, auto-tracking engine, scoring. Tested with `make test-core` (runs on macOS, no simulator needed).
 - `HabitFlow` — the iOS app (SwiftUI). HealthKit / CoreLocation providers, notifications, background tasks, screens.
-- `HabitFlowWidget` — home-screen widget reading the shared App Group store.
+- `HabitFlowWidget` — interactive home-screen widget (small/medium/large). Tapping a ring or row runs `ToggleHabitIntent`, which writes the shared store and queues the action; the app replays the queue on foreground so its own context stays in sync.
 - `project.yml` — XcodeGen spec. Run `make gen` to (re)create `HabitFlow.xcodeproj`.
+
+## Localization
+
+English (source) and Russian. Strings live in String Catalogs: `HabitFlow/Resources/Localizable.xcstrings`,
+`HabitFlow/Resources/InfoPlist.xcstrings`, `HabitFlowWidget/Localizable.xcstrings` and
+`Packages/HabitCore/Sources/HabitCore/Resources/Localizable.xcstrings`. `SWIFT_EMIT_LOC_STRINGS` is on, so
+new literals appear after `xcodebuild -exportLocalizations -exportLanguage ru`; add the Russian value to the catalog.
+Run the app in Russian: `xcrun simctl launch booted com.muslimahaev.habitflow -AppleLanguages "(ru)"`.
 
 ## First-time setup
 

@@ -11,8 +11,11 @@ public enum GeofenceEvaluator {
         guard case .geofence(_, _, _, let minDwell, let placeName) = rule else {
             return ProgressSnapshot(value: 0, target: 1, isSatisfied: false, observedAt: now)
         }
-        let minutes = longestStayMinutes(visits: visits, window: window)
-        let detail = visits.isEmpty ? "No visit to \(placeName) yet" : "\(Int(minutes)) min at \(placeName)"
+        // Whole minutes only, so the displayed value never reads "1 / 1" while the rule is still unmet.
+        let minutes = floor(longestStayMinutes(visits: visits, window: window))
+        let detail = visits.isEmpty
+            ? String(localized: "No visit to \(placeName) yet", bundle: .module)
+            : String(localized: "\(Int(minutes)) min at \(placeName)", bundle: .module)
         return ProgressSnapshot(value: minutes, target: minDwell, observedAt: now, detail: detail)
     }
 }

@@ -1,3 +1,4 @@
+import AppIntents
 import SwiftUI
 import WidgetKit
 import HabitCore
@@ -11,8 +12,8 @@ struct TodayRingsWidget: Widget {
                 .containerBackground(.fill.tertiary, for: .widget)
         }
         .configurationDisplayName("Today's habits")
-        .description("Live rings for the habits HabitFlow tracks automatically.")
-        .supportedFamilies([.systemSmall, .systemMedium])
+        .description("Rings for today's habits. Tap a ring or a row to mark it done.")
+        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }
 
@@ -22,10 +23,13 @@ struct TodayRingsEntryView: View {
 
     var body: some View {
         switch family {
-        case .systemMedium: medium
+        case .systemLarge: list(maxRows: 8)
+        case .systemMedium: list(maxRows: 4)
         default: small
         }
     }
+
+    // MARK: Small: up to three tappable rings
 
     private var small: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -37,34 +41,52 @@ struct TodayRingsEntryView: View {
             } else {
                 HStack(spacing: 10) {
                     ForEach(entry.items.prefix(3)) { item in
-                        ring(item, size: 40, lineWidth: 4)
+                        Button(intent: ToggleHabitIntent(habitID: item.id, completed: !item.completed)) {
+                            ring(item, size: 40, lineWidth: 4)
+                        }
+                        .buttonStyle(.plain)
                     }
                 }
                 Spacer(minLength: 0)
             }
         }
-        .widgetURL(URL(string: "habitflow://today"))
     }
 
-    private var medium: some View {
-        VStack(alignment: .leading, spacing: 8) {
+    // MARK: Medium / large: rows with a check button
+
+    private func list(maxRows: Int) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
             header
             if entry.items.isEmpty {
                 Text("Add a habit in HabitFlow").font(.caption).foregroundStyle(.secondary)
             } else {
-                HStack(alignment: .top, spacing: 12) {
-                    ForEach(entry.items.prefix(6)) { item in
-                        VStack(spacing: 4) {
-                            ring(item, size: 40, lineWidth: 4)
-                            Text(item.name).font(.caption2).lineLimit(1)
+                ForEach(entry.items.prefix(maxRows)) { item in
+                    Button(intent: ToggleHabitIntent(habitID: item.id, completed: !item.completed)) {
+                        HStack(spacing: 10) {
+                            ring(item, size: 30, lineWidth: 3)
+                            VStack(alignment: .leading, spacing: 1) {
+                                Text(item.name)
+                                    .font(.subheadline.weight(.medium))
+                                    .strikethrough(item.completed)
+                                    .lineLimit(1)
+                                if !item.progressText.isEmpty {
+                                    Text(item.progressText).font(.caption2).foregroundStyle(.secondary).lineLimit(1)
+                                }
+                            }
+                            Spacer(minLength: 4)
+                            Image(systemName: item.completed ? "checkmark.circle.fill" : "circle")
+                                .font(.title3)
+                                .foregroundStyle(item.completed ? Color(hex: item.colorHex) : Color.secondary)
                         }
-                        .frame(maxWidth: .infinity)
                     }
+                    .buttonStyle(.plain)
+                }
+                if entry.items.count > maxRows {
+                    Text("+\(entry.items.count - maxRows) more").font(.caption2).foregroundStyle(.secondary)
                 }
             }
             Spacer(minLength: 0)
         }
-        .widgetURL(URL(string: "habitflow://today"))
     }
 
     private var header: some View {
@@ -84,7 +106,7 @@ struct TodayRingsEntryView: View {
             Text(item.emoji).font(.system(size: size * 0.4))
         }
         .frame(width: size, height: size)
-        .accessibilityLabel("\(item.name), \(item.completed ? "done" : item.progressText)")
+        .accessibilityLabel(item.completed ? Text("\(item.name), done") : Text("\(item.name), \(item.progressText)"))
     }
 }
 

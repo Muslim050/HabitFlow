@@ -10,14 +10,18 @@ public enum HealthMetric: String, Codable, CaseIterable, Sendable, Hashable {
 
     public var displayName: String {
         switch self {
-        case .steps: return "Steps"
-        case .activeEnergy: return "Active energy"
-        case .exerciseMinutes: return "Exercise minutes"
-        case .distanceWalkRun: return "Walking + running distance"
-        case .water: return "Water"
+        case .steps: return String(localized: "Steps", bundle: .module)
+        case .activeEnergy: return String(localized: "Active energy", bundle: .module)
+        case .exerciseMinutes: return String(localized: "Exercise minutes", bundle: .module)
+        case .distanceWalkRun: return String(localized: "Walking + running distance", bundle: .module)
+        case .water: return String(localized: "Water", bundle: .module)
         }
     }
 
+    /// Localized unit for display. `unitLabel` stays a stable key used by formatting and notifications.
+    public var localizedUnit: String { ValueFormatting.unit(unitLabel) }
+
+    /// Stable, non-localized unit key: steps / kcal / min / km / ml.
     public var unitLabel: String {
         switch self {
         case .steps: return "steps"

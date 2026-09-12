@@ -73,7 +73,7 @@ struct TodayRingsProvider: TimelineProvider {
                 text = log.map { ValueFormatting.progress(value: $0.progressValue, target: $0.targetValue, unit: habit.rule.unitLabel) }
                     ?? ValueFormatting.goal(target: habit.rule.target, unit: habit.rule.unitLabel)
             } else {
-                text = (log?.isCompleted ?? false) ? "Done" : ""
+                text = (log?.isCompleted ?? false) ? String(localized: "Done") : ""
             }
             return RingItem(
                 id: habit.id, emoji: habit.emoji, name: habit.name, colorHex: habit.colorHex,

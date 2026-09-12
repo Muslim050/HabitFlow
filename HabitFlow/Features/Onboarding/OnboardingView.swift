@@ -83,8 +83,8 @@ struct OnboardingView: View {
 
 struct OnboardingPage<Actions: View>: View {
     let symbol: String
-    let title: String
-    let text: String
+    let title: LocalizedStringKey
+    let text: LocalizedStringKey
     @ViewBuilder let actions: () -> Actions
 
     var body: some View {

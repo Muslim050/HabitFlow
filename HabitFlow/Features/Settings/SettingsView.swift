@@ -45,7 +45,7 @@ struct SettingsView: View {
                 }
 
                 Section {
-                    PermissionRow(title: "Health", status: env.healthKit.isAvailable ? (env.settings.healthAuthorizationRequested ? "Requested" : "Not requested") : "Unavailable") {
+                    PermissionRow(title: "Health", status: healthStatusText) {
                         Task { try? await env.healthKit.requestAllReadAuthorization() }
                     }
                     PermissionRow(title: "Location", status: locationStatusText) {
@@ -91,19 +91,24 @@ struct SettingsView: View {
         }
     }
 
+    private var healthStatusText: String {
+        guard env.healthKit.isAvailable else { return String(localized: "Unavailable") }
+        return env.settings.healthAuthorizationRequested ? String(localized: "Requested") : String(localized: "Not requested")
+    }
+
     private var locationStatusText: String {
         switch env.location.authorizationStatus {
-        case .notDetermined: return "Not requested"
-        case .authorizedWhenInUse: return "While using (tap for Always)"
-        case .authorizedAlways: return "Always"
-        case .denied, .restricted: return "Denied"
-        @unknown default: return "Unknown"
+        case .notDetermined: return String(localized: "Not requested")
+        case .authorizedWhenInUse: return String(localized: "While using (tap for Always)")
+        case .authorizedAlways: return String(localized: "Always")
+        case .denied, .restricted: return String(localized: "Denied")
+        @unknown default: return String(localized: "Unknown")
         }
     }
 }
 
 struct PermissionRow: View {
-    let title: String
+    let title: LocalizedStringKey
     let status: String
     let action: () -> Void
 

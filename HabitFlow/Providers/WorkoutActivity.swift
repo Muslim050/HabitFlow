@@ -18,16 +18,16 @@ enum WorkoutActivity: UInt, CaseIterable, Identifiable {
 
     var displayName: String {
         switch self {
-        case .any: return "Any workout"
-        case .running: return "Running"
-        case .walking: return "Walking"
-        case .cycling: return "Cycling"
-        case .strength: return "Strength training"
-        case .functionalStrength: return "Functional strength"
-        case .yoga: return "Yoga"
-        case .swimming: return "Swimming"
-        case .hiking: return "Hiking"
-        case .hiit: return "HIIT"
+        case .any: return String(localized: "Any workout")
+        case .running: return String(localized: "Running")
+        case .walking: return String(localized: "Walking")
+        case .cycling: return String(localized: "Cycling")
+        case .strength: return String(localized: "Strength training")
+        case .functionalStrength: return String(localized: "Functional strength")
+        case .yoga: return String(localized: "Yoga")
+        case .swimming: return String(localized: "Swimming")
+        case .hiking: return String(localized: "Hiking")
+        case .hiit: return String(localized: "HIIT")
         }
     }
 

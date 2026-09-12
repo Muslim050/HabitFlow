@@ -28,17 +28,18 @@ struct HabitRowView: View {
                 }
                 Spacer(minLength: 8)
 
-                if !habit.isAutomatic {
-                    Button {
-                        toggleManual()
-                    } label: {
-                        Image(systemName: isCompleted ? "checkmark.circle.fill" : "circle")
-                            .font(.title2)
-                            .foregroundStyle(isCompleted ? color : Color.secondary)
-                    }
-                    .buttonStyle(.borderless)
-                    .accessibilityLabel(isCompleted ? "Mark not done" : "Mark done")
+                // Every habit can be ticked by hand. For automatic ones this becomes a manual override
+                // for the day; the ring keeps showing live progress underneath.
+                Button {
+                    toggle()
+                } label: {
+                    Image(systemName: isCompleted ? "checkmark.circle.fill" : "circle")
+                        .font(.title2)
+                        .foregroundStyle(isCompleted ? color : Color.secondary)
+                        .symbolEffect(.bounce, value: isCompleted)
                 }
+                .buttonStyle(.borderless)
+                .accessibilityLabel(isCompleted ? Text("Mark not done") : Text("Mark done"))
             }
             .padding(.vertical, 4)
         }
@@ -56,13 +57,17 @@ struct HabitRowView: View {
                     .font(.footnote.monospacedDigit())
                     .foregroundStyle(.secondary)
                 if let source = habit.rule.sourceLabel {
-                    Label(isOverridden ? "Manual" : source, systemImage: isOverridden ? "hand.tap" : habit.rule.systemImage)
-                        .font(.caption2.weight(.semibold))
-                        .labelStyle(.titleAndIcon)
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 2)
-                        .background(color.opacity(0.12), in: Capsule())
-                        .foregroundStyle(color)
+                    Label {
+                        Text(isOverridden ? String(localized: "Manual") : source)
+                    } icon: {
+                        Image(systemName: isOverridden ? "hand.tap" : habit.rule.systemImage)
+                    }
+                    .font(.caption2.weight(.semibold))
+                    .labelStyle(.titleAndIcon)
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 2)
+                    .background(color.opacity(0.12), in: Capsule())
+                    .foregroundStyle(color)
                 }
             }
         } else {
@@ -79,22 +84,20 @@ struct HabitRowView: View {
 
     @ViewBuilder
     private var contextMenu: some View {
-        if habit.isAutomatic {
+        Button {
+            toggle()
+        } label: {
+            Label(isCompleted ? "Mark not done" : "Mark done", systemImage: isCompleted ? "xmark.circle" : "checkmark.circle")
+        }
+        if isOverridden {
             Button {
-                try? env.engine.setManualCompletion(habitID: habit.id, completed: !isCompleted)
-            } label: {
-                Label(isCompleted ? "Mark not done" : "Mark done anyway", systemImage: isCompleted ? "xmark.circle" : "checkmark.circle")
-            }
-            if isOverridden {
-                Button {
-                    Task { try? await env.engine.clearOverride(habitID: habit.id) }
-                } label: { Label("Let auto-tracking decide", systemImage: "arrow.clockwise") }
-            }
+                Task { try? await env.engine.clearOverride(habitID: habit.id) }
+            } label: { Label("Let auto-tracking decide", systemImage: "arrow.clockwise") }
         }
         Button(role: .destructive) { archive() } label: { Label("Archive", systemImage: "archivebox") }
     }
 
-    private func toggleManual() {
+    private func toggle() {
         try? env.engine.setManualCompletion(habitID: habit.id, completed: !isCompleted)
     }
 

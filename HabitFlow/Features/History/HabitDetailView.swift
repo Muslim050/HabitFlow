@@ -55,13 +55,15 @@ struct HabitDetailView: View {
             }
 
             Section("Stats") {
-                StatRow(title: "Current streak", value: "\(stats.currentStreak.length) days",
-                        detail: stats.currentStreak.gracesUsed > 0 ? "\(stats.currentStreak.gracesUsed) forgiven miss(es)" : nil)
-                StatRow(title: "Best streak", value: "\(stats.bestStreak) days", detail: nil)
+                StatRow(title: "Current streak", value: String(localized: "\(stats.currentStreak.length) days"),
+                        detail: stats.currentStreak.gracesUsed > 0 ? String(localized: "\(stats.currentStreak.gracesUsed) forgiven misses") : nil)
+                StatRow(title: "Best streak", value: String(localized: "\(stats.bestStreak) days"), detail: nil)
                 StatRow(title: "Consistency",
-                        value: stats.consistency.score.map { "\($0) / 100" } ?? "Warming up",
-                        detail: stats.consistency.score == nil ? "\(stats.consistency.historyDays)/\(ConsistencyScore.minimumHistoryDays) days of history" : "Last 30 days, recent days weigh more")
-                StatRow(title: "Completed", value: "\(stats.completedDays) of \(stats.scheduledDays)", detail: nil)
+                        value: stats.consistency.score.map { String(localized: "\($0) / 100") } ?? String(localized: "Warming up"),
+                        detail: stats.consistency.score == nil
+                            ? String(localized: "\(stats.consistency.historyDays)/\(ConsistencyScore.minimumHistoryDays) days of history")
+                            : String(localized: "Last 30 days, recent days weigh more"))
+                StatRow(title: "Completed", value: String(localized: "\(stats.completedDays) of \(stats.scheduledDays)"), detail: nil)
             }
 
             Section("Last 16 weeks") {
@@ -74,7 +76,7 @@ struct HabitDetailView: View {
                     Button {
                         try? env.engine.setManualCompletion(habitID: habit.id, completed: !(todayLog?.isCompleted ?? false))
                     } label: {
-                        Label((todayLog?.isCompleted ?? false) ? "Mark today not done" : "Mark today done anyway",
+                        Label((todayLog?.isCompleted ?? false) ? "Mark today not done" : "Mark today done",
                               systemImage: (todayLog?.isCompleted ?? false) ? "xmark.circle" : "checkmark.circle")
                     }
                     if todayLog?.completionSource == .manualOverride {
@@ -105,7 +107,7 @@ struct HabitDetailView: View {
 }
 
 struct StatRow: View {
-    let title: String
+    let title: LocalizedStringKey
     let value: String
     let detail: String?
 

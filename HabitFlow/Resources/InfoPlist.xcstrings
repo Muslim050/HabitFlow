@@ -1,0 +1,66 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "CFBundleDisplayName": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HabitFlow"
+          }
+        }
+      }
+    },
+    "CFBundleName": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HabitFlow"
+          }
+        }
+      }
+    },
+    "NSHealthShareUsageDescription": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HabitFlow читает шаги, сон, тренировки, минуты осознанности, воду и энергию из Здоровья, чтобы отмечать привычки автоматически. Данные не покидают устройство."
+          }
+        }
+      }
+    },
+    "NSHealthUpdateUsageDescription": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отладочные сборки записывают тестовые данные в Здоровье, чтобы проверять авто-трекинг в симуляторе."
+          }
+        }
+      }
+    },
+    "NSLocationAlwaysAndWhenInUseUsageDescription": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разрешите геолокацию в фоне, чтобы HabitFlow отмечал гео-привычку даже при закрытом приложении. Геолокация никуда не отправляется."
+          }
+        }
+      }
+    },
+    "NSLocationWhenInUseUsageDescription": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HabitFlow использует геолокацию, чтобы замечать, когда вы приходите в выбранные места, например в зал, и отмечать привычку."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

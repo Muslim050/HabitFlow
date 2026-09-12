@@ -28,9 +28,9 @@ final class NotificationService: NSObject {
 
     nonisolated static func autoCompletedContent(for event: CompletionEvent) -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
-        content.title = "\(event.emoji) \(event.habitName) — done automatically"
+        content.title = String(localized: "\(event.emoji) \(event.habitName) — done automatically")
         let progress = ValueFormatting.progress(value: event.value, target: event.target, unit: event.unitLabel)
-        content.body = event.sourceLabel.isEmpty ? progress : "\(progress) from \(event.sourceLabel)"
+        content.body = event.sourceLabel.isEmpty ? progress : String(localized: "\(progress) from \(event.sourceLabel)")
         content.sound = .default
         content.categoryIdentifier = Category.autoCompleted
         content.threadIdentifier = "auto-\(event.dayKey.raw)"
@@ -39,7 +39,7 @@ final class NotificationService: NSObject {
 
     nonisolated static func nudgeContent(unfinished: [String]) -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
-        content.title = unfinished.count == 1 ? "One habit left today" : "\(unfinished.count) habits left today"
+        content.title = String(localized: "\(unfinished.count) habits left today")
         content.body = unfinished.prefix(4).joined(separator: " · ") + (unfinished.count > 4 ? " …" : "")
         content.sound = .default
         content.categoryIdentifier = Category.nudge

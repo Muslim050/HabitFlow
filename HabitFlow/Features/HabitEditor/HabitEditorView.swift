@@ -75,7 +75,7 @@ struct HabitEditorView: View {
         case .geofence:
             guard let coordinate else { return nil }
             return .geofence(latitude: coordinate.latitude, longitude: coordinate.longitude, radius: radius,
-                             minDwellMinutes: dwellMinutes, placeName: placeName.isEmpty ? "Place" : placeName)
+                             minDwellMinutes: dwellMinutes, placeName: placeName.isEmpty ? String(localized: "Place") : placeName)
         case .screenTime: return nil
         }
     }
@@ -119,7 +119,7 @@ struct HabitEditorView: View {
                     WeekdayPicker(mask: $scheduleMask)
                 }
             }
-            .navigationTitle(existing == nil ? "New habit" : "Edit habit")
+            .navigationTitle(Text(existing == nil ? "New habit" : "Edit habit"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }
@@ -157,13 +157,13 @@ struct HabitEditorView: View {
                 }
                 .onChange(of: metric) { _, new in quantityTarget = new.defaultTarget }
                 Stepper(value: $quantityTarget, in: metric.stepIncrement...(metric.defaultTarget * 10), step: metric.stepIncrement) {
-                    Text("At least \(ValueFormatting.value(quantityTarget, unit: metric.unitLabel)) \(metric.unitLabel)")
+                    Text("At least \(ValueFormatting.value(quantityTarget, unit: metric.unitLabel)) \(metric.localizedUnit)")
                 }
             }
         case .healthSleep:
             Section("Goal") {
                 Stepper(value: $sleepHours, in: 4...12, step: 0.5) {
-                    Text("At least \(ValueFormatting.value(sleepHours, unit: "h")) h asleep")
+                    Text("At least \(ValueFormatting.value(sleepHours, unit: "h")) \(ValueFormatting.unit("h")) asleep")
                 }
                 Text("Counted from the night before the day starts.").font(.footnote).foregroundStyle(.secondary)
             }
@@ -188,8 +188,7 @@ struct HabitEditorView: View {
                     showPlacePicker = true
                 } label: {
                     HStack {
-                        Label(coordinate == nil ? "Choose a place" : (placeName.isEmpty ? "Place selected" : placeName),
-                              systemImage: "mappin.and.ellipse")
+                        Label(placeTitle, systemImage: "mappin.and.ellipse")
                         Spacer()
                         if let coordinate {
                             Text(String(format: "%.4f, %.4f", coordinate.latitude, coordinate.longitude))
@@ -207,6 +206,11 @@ struct HabitEditorView: View {
                 }
             }
         }
+    }
+
+    private var placeTitle: String {
+        if coordinate == nil { return String(localized: "Choose a place") }
+        return placeName.isEmpty ? String(localized: "Place selected") : placeName
     }
 
     private func save() {
@@ -240,13 +244,13 @@ struct HabitEditorView: View {
 extension HabitSourceKind {
     var displayName: String {
         switch self {
-        case .manual: return "Manual"
-        case .healthQuantity: return "Health metric"
-        case .healthSleep: return "Sleep"
-        case .healthMindful: return "Mindfulness"
-        case .healthWorkout: return "Workout"
-        case .geofence: return "Place"
-        case .screenTime: return "Screen Time"
+        case .manual: return String(localized: "Manual")
+        case .healthQuantity: return String(localized: "Health metric")
+        case .healthSleep: return String(localized: "Sleep")
+        case .healthMindful: return String(localized: "Mindfulness")
+        case .healthWorkout: return String(localized: "Workout")
+        case .geofence: return String(localized: "Place")
+        case .screenTime: return String(localized: "Screen Time")
         }
     }
 

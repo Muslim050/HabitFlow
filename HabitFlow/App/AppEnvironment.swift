@@ -76,6 +76,7 @@ final class AppEnvironment {
     func startForegroundSession() {
         Task {
             await reconcileDayRollover()
+            replayWidgetActions()
             await engine.evaluateAll(reason: .foreground)
         }
         foregroundTimer?.invalidate()
@@ -174,6 +175,21 @@ final class AppEnvironment {
             dayKey: today,
             enabled: settings.nudgeEnabled
         )
+    }
+
+    /// The widget extension wrote these to the shared store already; re-applying them through the app's
+    /// own context guarantees in-memory objects match the store (SwiftData does not refresh them otherwise).
+    func replayWidgetActions() {
+        let actions = WidgetActionQueue.drain()
+        guard !actions.isEmpty else { return }
+        for action in actions {
+            do {
+                try engine.setManualCompletion(habitID: action.habitID, completed: action.completed, dayKey: action.dayKey)
+            } catch {
+                Log.app.error("Replaying widget action failed: \(error.localizedDescription)")
+            }
+        }
+        Log.app.info("Replayed \(actions.count) widget action(s)")
     }
 
     // MARK: Deep links
