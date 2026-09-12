@@ -5,5 +5,6 @@ import WidgetKit
 struct HabitFlowWidgetBundle: WidgetBundle {
     var body: some Widget {
         TodayRingsWidget()
+        ActivityWidget()
     }
 }

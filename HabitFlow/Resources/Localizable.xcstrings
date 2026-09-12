@@ -1,6 +1,7 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "": {},
     "%@ %@": {
       "localizations": {
         "en": {
@@ -369,6 +370,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Тренировка не менее %lld мин"
+          }
+        }
+      }
+    },
+    "Active days": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Активных дней"
           }
         }
       }
@@ -965,6 +976,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вечернее напоминание"
+          }
+        }
+      }
+    },
+    "Every day across all habits. A day with nothing scheduled is an off day, not a miss.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Каждый день по всем привычкам. День без запланированных привычек — выходной, а не пропуск."
           }
         }
       }

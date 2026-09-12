@@ -18,6 +18,10 @@ struct DebugSeedView: View {
                 Button("Add 12 mindful minutes") { seed { try await seedMindful(minutes: 12) } }
                 Button("Add 35 min running workout") { seed { try await seedWorkout(minutes: 35) } }
             }
+            Section("History") {
+                Button("Fill 10 weeks of history") { seedHistory(weeks: 10) }
+                Button("Clear history before today") { clearHistory() }
+            }
             Section("Then") {
                 Button("Run auto-tracking now") { Task { await env.engine.evaluateAll(reason: .manualRefresh) } }
             }
@@ -39,6 +43,67 @@ struct DebugSeedView: View {
             } catch {
                 message = "Failed: \(error.localizedDescription)"
             }
+        }
+    }
+
+    /// Debug-only: paints plausible history so the activity grid and the scoring have
+    /// something to show before a real week has passed.
+    private func seedHistory(weeks: Int) {
+        let calendar = env.settings.dayCalendar
+        let today = env.currentDayKey
+        var generator = SystemRandomNumberGenerator()
+        do {
+            let habits = try env.repository.activeHabits()
+            // A habit cannot have history from before it existed, so move its creation back
+            // to the start of the seeded range.
+            let firstDay = calendar.dayStart(for: calendar.key(byAdding: -(weeks * 7), to: today))
+            for habit in habits where habit.createdAt > firstDay {
+                habit.createdAt = firstDay
+                habit.updatedAt = Date()
+            }
+            for offset in 1...(weeks * 7) {
+                let key = calendar.key(byAdding: -offset, to: today)
+                let weekday = calendar.weekday(for: key)
+                for habit in habits where habit.isScheduled(weekday: weekday) {
+                    // Recent weeks go better than older ones, so trends and streaks look real.
+                    let bias = 0.45 + 0.4 * (1 - Double(offset) / Double(weeks * 7))
+                    let hit = Double.random(in: 0...1, using: &generator) < bias
+                    let target = habit.rule.target
+                    let log = try env.repository.fetchOrCreateLog(
+                        habitID: habit.id, dayKey: key,
+                        dayStart: calendar.dayStart(for: key), target: target
+                    )
+                    log.targetValue = target
+                    log.progressValue = hit ? target * Double.random(in: 1.0...1.4, using: &generator)
+                                            : target * Double.random(in: 0.2...0.9, using: &generator)
+                    log.isCompleted = hit
+                    log.completionSource = hit ? .auto : .unset
+                    log.completedAt = hit
+                        ? calendar.dayStart(for: key).addingTimeInterval(Double.random(in: 4...16, using: &generator) * 3600)
+                        : nil
+                    log.lastEvaluatedAt = Date()
+                }
+            }
+            try env.repository.save()
+            env.analysis.refresh()
+            message = "History filled for \(weeks) weeks."
+        } catch {
+            message = "Failed: \(error.localizedDescription)"
+        }
+    }
+
+    private func clearHistory() {
+        let today = env.currentDayKey
+        do {
+            let from = env.settings.dayCalendar.key(byAdding: -400, to: today)
+            for log in try env.repository.logs(from: from, to: today) where log.dayKey != today.raw {
+                env.repository.delete(log)
+            }
+            try env.repository.save()
+            env.analysis.refresh()
+            message = "History cleared."
+        } catch {
+            message = "Failed: \(error.localizedDescription)"
         }
     }
 

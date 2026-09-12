@@ -9,6 +9,15 @@ struct InsightsView: View {
     var body: some View {
         NavigationStack {
             List {
+                Section {
+                    ActivitySection()
+                        .listRowInsets(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16))
+                } header: {
+                    Text("Activity")
+                } footer: {
+                    Text("Every day across all habits. A day with nothing scheduled is an off day, not a miss.")
+                }
+
                 if !analysis.proposals.isEmpty {
                     Section {
                         ForEach(analysis.proposals) { proposal in

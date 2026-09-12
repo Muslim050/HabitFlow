@@ -41,12 +41,52 @@
         }
       }
     },
+    "Active days": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Активных дней"
+          }
+        }
+      }
+    },
+    "Activity": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Активность"
+          }
+        }
+      }
+    },
     "Add a habit in HabitFlow": {
       "localizations": {
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Добавьте привычку в HabitFlow"
+          }
+        }
+      }
+    },
+    "All done": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Всё закрыто"
+          }
+        }
+      }
+    },
+    "Best streak": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лучшая серия"
           }
         }
       }
@@ -61,6 +101,26 @@
         }
       }
     },
+    "Current streak": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Текущая серия"
+          }
+        }
+      }
+    },
+    "Day off": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выходной"
+          }
+        }
+      }
+    },
     "Done": {
       "localizations": {
         "ru": {
@@ -71,12 +131,32 @@
         }
       }
     },
+    "Every day across all habits, like a contribution grid.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Каждый день по всем привычкам, как таблица вкладов."
+          }
+        }
+      }
+    },
     "Habit": {
       "localizations": {
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Привычка"
+          }
+        }
+      }
+    },
+    "Less": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Меньше"
           }
         }
       }
@@ -97,6 +177,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Кольца привычек на сегодня. Нажмите кольцо или строку, чтобы отметить."
+          }
+        }
+      }
+    },
+    "Today": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сегодня"
           }
         }
       }
