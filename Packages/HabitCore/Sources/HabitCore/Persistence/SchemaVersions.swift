@@ -18,10 +18,10 @@ import SwiftData
 /// and add a `.custom` stage whose `willMigrate` copies the old values forward. Losing user
 /// history is not acceptable, so that stage gets its own test against a store written by this build.
 public enum SchemaV1: VersionedSchema {
-    public static var versionIdentifier: Schema.Version { Schema.Version(1, 1, 0) }
+    public static var versionIdentifier: Schema.Version { Schema.Version(1, 2, 0) }
 
     public static var models: [any PersistentModel.Type] {
-        [Habit.self, DailyLog.self, GeofenceVisit.self]
+        [Habit.self, DailyLog.self, GeofenceVisit.self, HabitPause.self]
     }
 }
 

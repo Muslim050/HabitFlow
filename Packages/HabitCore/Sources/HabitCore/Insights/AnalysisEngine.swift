@@ -39,16 +39,20 @@ public final class AnalysisEngine {
             return AnalysisResult()
         }
         let logsByHabit = Dictionary(grouping: allLogs, by: \.habitID)
+        // Paused days produce no facts and no samples, so a fortnight off never reads as a slump
+        // and never talks the adaptive goal down.
+        let pauses = (try? repository.pauses()) ?? []
 
         var histories: [InsightEngine.HabitHistory] = []
         var result = AnalysisResult()
 
         for habit in habits {
             let logs = logsByHabit[habit.id] ?? []
-            histories.append(HistoryBuilder.history(habit: habit, logs: logs, calendar: calendar,
-                                                    today: today, windowDays: Self.historyWindowDays))
+            histories.append(HistoryBuilder.history(habit: habit, logs: logs, calendar: calendar, today: today,
+                                                    pauses: pauses, windowDays: Self.historyWindowDays))
 
-            let samples = HistoryBuilder.adaptationSamples(habit: habit, logs: logs, calendar: calendar, today: today)
+            let samples = HistoryBuilder.adaptationSamples(habit: habit, logs: logs, calendar: calendar,
+                                                           today: today, pauses: pauses)
             guard let proposal = GoalAdaptation.proposal(
                 habitID: habit.id, rule: habit.rule, samples: samples, mode: habit.adaptationMode,
                 lastChangeAt: habit.lastGoalChangeAt, lastDismissedAt: habit.lastProposalDismissedAt,

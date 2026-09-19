@@ -42,9 +42,9 @@ public enum ObligationResultBuilder {
     /// Ascending obligations from the habit's creation day (or `from`) through the one containing
     /// `today`. Days after `today` never count as done, so the current week is judged on what has
     /// happened so far and marked open.
-    public static func build(habit: Habit, logs: [DailyLog], calendar: DayCalendar,
-                             today: DayKey, from: DayKey? = nil) -> [ObligationResult] {
-        let resolver = ScheduleResolver(habit: habit, calendar: calendar)
+    public static func build(habit: Habit, logs: [DailyLog], calendar: DayCalendar, today: DayKey,
+                             pauses: [HabitPause] = [], from: DayKey? = nil) -> [ObligationResult] {
+        let resolver = ScheduleResolver(habit: habit, calendar: calendar, pauses: pauses.spans(for: habit.id))
         let firstKey = from ?? calendar.dayKey(for: habit.createdAt)
         let byKey = Dictionary(logs.map { ($0.dayKey, $0) }, uniquingKeysWith: { a, b in a.updatedAt >= b.updatedAt ? a : b })
 

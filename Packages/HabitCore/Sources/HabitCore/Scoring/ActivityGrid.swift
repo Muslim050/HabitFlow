@@ -59,7 +59,7 @@ public struct ActivitySummary: Sendable, Equatable {
 public enum ActivityGrid {
 
     public static func build(habits: [Habit], logs: [DailyLog], calendar: DayCalendar,
-                             today: DayKey, weeks: Int) -> ActivitySummary {
+                             today: DayKey, weeks: Int, pauses: [HabitPause] = []) -> ActivitySummary {
         guard weeks > 0 else { return .empty }
 
         // The grid ends on today's column; pad the rest of that column so rows stay weekday-aligned.
@@ -71,7 +71,7 @@ public enum ActivityGrid {
         let completedByDay = logs.reduce(into: [String: Int]()) { counts, log in
             if log.isCompleted { counts[log.dayKey, default: 0] += 1 }
         }
-        let resolvers = habits.map { ScheduleResolver(habit: $0, calendar: calendar) }
+        let resolvers = habits.map { ScheduleResolver(habit: $0, calendar: calendar, pauses: pauses.spans(for: $0.id)) }
 
         var days: [ActivityDay?] = calendar.keys(from: start, to: today).map { key in
             // Only a day the schedule names is owed on that date. A quota habit owes the week,

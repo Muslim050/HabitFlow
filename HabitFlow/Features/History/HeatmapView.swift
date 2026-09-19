@@ -89,6 +89,7 @@ struct HeatmapView: View {
             switch result.obligation {
             case .required: state = String(localized: "not done")
             case .flexible: state = String(localized: "not required")
+            case .paused: state = String(localized: "paused")
             case .off: state = String(localized: "not scheduled")
             }
         }
@@ -98,6 +99,9 @@ struct HeatmapView: View {
     private func fill(_ result: DayResult?) -> Color {
         guard let result else { return .clear }
         if result.completed { return color }
+        // A paused day is not a gap in the habit, it is a gap on purpose — drawn a shade darker
+        // than an off day so a holiday is visible as a block rather than as nothing.
+        if result.obligation == .paused { return Color.secondary.opacity(0.14) }
         // Only a day the schedule named can look like a miss. On a quota schedule no single day
         // is owed, so an unused day reads as empty rather than as a failure.
         guard result.obligation == .required else { return Color.secondary.opacity(0.08) }

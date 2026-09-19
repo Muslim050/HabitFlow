@@ -27,9 +27,10 @@ public struct HabitStats: Sendable, Equatable {
     /// as frozen rather than leave them looking like plain misses.
     public var frozenDays: Set<DayKey>
 
-    public static func compute(habit: Habit, logs: [DailyLog], calendar: DayCalendar, today: DayKey, freezesPerMonth: Int) -> HabitStats {
-        let results = DayResultBuilder.build(habit: habit, logs: logs, calendar: calendar, today: today)
-        let obligations = ObligationResultBuilder.build(habit: habit, logs: logs, calendar: calendar, today: today)
+    public static func compute(habit: Habit, logs: [DailyLog], calendar: DayCalendar, today: DayKey,
+                               freezesPerMonth: Int, pauses: [HabitPause] = []) -> HabitStats {
+        let results = DayResultBuilder.build(habit: habit, logs: logs, calendar: calendar, today: today, pauses: pauses)
+        let obligations = ObligationResultBuilder.build(habit: habit, logs: logs, calendar: calendar, today: today, pauses: pauses)
         let streak = StreakCalculator.currentStreak(obligations, freezesPerMonth: freezesPerMonth)
         return HabitStats(
             results: results,

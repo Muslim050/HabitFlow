@@ -20,26 +20,30 @@ public struct ScheduleObligation: Sendable, Equatable {
 
 /// Turns a schedule into answers about concrete days: is this day due, and which obligation
 /// does it belong to. Nothing before `anchor` is ever due — a habit cannot have missed days
-/// from before it existed.
+/// from before it existed — and nothing inside a pause is either.
 public struct ScheduleResolver: Sendable {
     public let schedule: HabitSchedule
     public let calendar: DayCalendar
     /// The habit's creation day. `everyXDays` also counts its interval from here.
     public let anchor: DayKey
+    /// Holidays, illness, the global off switch — already merged for this habit.
+    public let pauses: [PauseSpan]
 
-    public init(schedule: HabitSchedule, calendar: DayCalendar, anchor: DayKey) {
+    public init(schedule: HabitSchedule, calendar: DayCalendar, anchor: DayKey, pauses: [PauseSpan] = []) {
         self.schedule = schedule.normalized
         self.calendar = calendar
         self.anchor = anchor
+        self.pauses = pauses
     }
 
-    public init(habit: Habit, calendar: DayCalendar) {
+    public init(habit: Habit, calendar: DayCalendar, pauses: [PauseSpan] = []) {
         self.init(schedule: habit.schedule, calendar: calendar,
-                  anchor: calendar.dayKey(for: habit.createdAt))
+                  anchor: calendar.dayKey(for: habit.createdAt), pauses: pauses)
     }
 
     public func obligation(on key: DayKey) -> DayObligation {
         guard key >= anchor else { return .off }
+        guard !pauses.covers(key) else { return .paused }
         switch schedule {
         case .everyDay:
             return .required
@@ -54,25 +58,22 @@ public struct ScheduleResolver: Sendable {
         }
     }
 
-    /// The obligation `key` belongs to, or `nil` when the day is not due at all.
-    /// A period is clipped to `anchor`: a habit created mid-week owes only the rest of that week.
+    /// The obligation `key` belongs to, or `nil` when nothing is owed — the day is off, or the
+    /// whole period is behind the anchor or inside a pause.
     public func obligation(containing key: DayKey) -> ScheduleObligation? {
-        guard obligation(on: key) != .off else { return nil }
         switch schedule.period {
         case .day:
+            guard obligation(on: key) == .required else { return nil }
             return ScheduleObligation(start: key, end: key, quota: 1, period: .day)
-        case .week:
-            let start = calendar.startOfWeek(for: key)
-            let end = calendar.key(byAdding: 6, to: start)
-            return clipped(start: start, end: end, period: .week)
-        case .month:
-            return clipped(start: calendar.startOfMonth(for: key),
-                           end: calendar.endOfMonth(for: key), period: .month)
+        case .week, .month:
+            let bounds = periodBounds(containing: key)
+            return obligation(for: bounds)
         }
     }
 
     /// Every obligation overlapping `from...to`, ascending. The last one may reach past `to`
-    /// when a week or month is still running; callers decide whether to judge it.
+    /// when a week or month is still running; callers decide whether to judge it. Periods that
+    /// a pause swallowed whole are skipped rather than ending the walk.
     public func obligations(from: DayKey, to: DayKey) -> [ScheduleObligation] {
         let first = max(from, anchor)
         guard first <= to else { return [] }
@@ -84,9 +85,10 @@ public struct ScheduleResolver: Sendable {
         case .week, .month:
             var result: [ScheduleObligation] = []
             var cursor = first
-            while cursor <= to, let current = obligation(containing: cursor) {
-                result.append(current)
-                let next = calendar.key(byAdding: 1, to: current.end)
+            while cursor <= to {
+                let bounds = periodBounds(containing: cursor)
+                if let current = obligation(for: bounds) { result.append(current) }
+                let next = calendar.key(byAdding: 1, to: bounds.end)
                 if next <= cursor { break }
                 cursor = next
             }
@@ -113,17 +115,34 @@ public struct ScheduleResolver: Sendable {
         }
     }
 
-    /// Scales the quota down when the habit was created part-way into the period, so its first
-    /// week does not count as a miss for days it did not exist.
-    private func clipped(start: DayKey, end: DayKey, period: SchedulePeriod) -> ScheduleObligation {
-        let full = calendar.days(from: start, to: end) + 1
-        let effectiveStart = max(start, anchor)
-        let available = calendar.days(from: effectiveStart, to: end) + 1
-        guard full > 0, available > 0, available < full else {
-            return ScheduleObligation(start: effectiveStart, end: end, quota: schedule.quota, period: period)
+    private func periodBounds(containing key: DayKey) -> (start: DayKey, end: DayKey) {
+        switch schedule.period {
+        case .day:
+            return (key, key)
+        case .week:
+            let start = calendar.startOfWeek(for: key)
+            return (start, calendar.key(byAdding: 6, to: start))
+        case .month:
+            return (calendar.startOfMonth(for: key), calendar.endOfMonth(for: key))
+        }
+    }
+
+    /// Scales the quota down to the days actually available — the habit may have been created
+    /// part-way into the period, or part of it may be paused. A period with nothing available
+    /// owes nothing at all.
+    private func obligation(for bounds: (start: DayKey, end: DayKey)) -> ScheduleObligation? {
+        let full = calendar.days(from: bounds.start, to: bounds.end) + 1
+        guard full > 0 else { return nil }
+        let days = calendar.keys(from: bounds.start, to: bounds.end)
+        let available = days.count { $0 >= anchor && !pauses.covers($0) }
+        guard available > 0 else { return nil }
+        let effectiveStart = days.first { $0 >= anchor && !pauses.covers($0) } ?? bounds.start
+        guard available < full else {
+            return ScheduleObligation(start: bounds.start, end: bounds.end,
+                                      quota: schedule.quota, period: schedule.period)
         }
         let scaled = Int((Double(schedule.quota) * Double(available) / Double(full)).rounded())
-        return ScheduleObligation(start: effectiveStart, end: end,
-                                  quota: min(max(scaled, 1), schedule.quota), period: period)
+        return ScheduleObligation(start: effectiveStart, end: bounds.end,
+                                  quota: min(max(scaled, 1), schedule.quota), period: schedule.period)
     }
 }

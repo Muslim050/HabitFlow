@@ -1,9 +1,12 @@
+import SwiftData
 import SwiftUI
 import UIKit
 import HabitCore
 
 struct SettingsView: View {
     @Environment(AppEnvironment.self) private var env
+    @Query private var pauses: [HabitPause]
+    @State private var showPause = false
     @AppStorage(AppSettings.Key.dayStartHour, store: AppSettings.store) private var dayStartHour = 4
     @AppStorage(AppSettings.Key.nudgeEnabled, store: AppSettings.store) private var nudgeEnabled = true
     @AppStorage(AppSettings.Key.nudgeHour, store: AppSettings.store) private var nudgeHour = 20
@@ -47,6 +50,20 @@ struct SettingsView: View {
                     Text("Adaptive goals")
                 } footer: {
                     Text("Default for habits you create next. Each habit can be changed on its own.")
+                }
+
+                Section {
+                    if let running = globalPause {
+                        PauseRow(pause: running)
+                    } else {
+                        Button { showPause = true } label: {
+                            Label("Pause everything", systemImage: "pause.circle")
+                        }
+                    }
+                } header: {
+                    Text("Pause")
+                } footer: {
+                    Text("For a holiday or a week of illness. Paused days are not asked for and not counted against you.")
                 }
 
                 Section {
@@ -119,7 +136,13 @@ struct SettingsView: View {
                 #endif
             }
             .navigationTitle("Settings")
+            .sheet(isPresented: $showPause) { PauseSheet(habit: nil) }
         }
+    }
+
+    private var globalPause: HabitPause? {
+        let today = env.currentDayKey
+        return pauses.first { $0.isGlobal && $0.span.contains(today) }
     }
 
     private var progressModelBinding: Binding<ProgressModel> {
@@ -170,6 +193,8 @@ struct PermissionRow: View {
 
 struct PendingNotificationsView: View {
     @Environment(AppEnvironment.self) private var env
+    @Query private var pauses: [HabitPause]
+    @State private var showPause = false
     @State private var requests: [String] = []
 
     var body: some View {

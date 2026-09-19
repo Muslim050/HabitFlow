@@ -24,8 +24,9 @@ public struct DayResult: Sendable, Equatable {
 public enum DayResultBuilder {
     /// Builds ascending results from the habit's creation day (or `from`) through `today`.
     /// Days without a log count as not completed.
-    public static func build(habit: Habit, logs: [DailyLog], calendar: DayCalendar, today: DayKey, from: DayKey? = nil) -> [DayResult] {
-        let resolver = ScheduleResolver(habit: habit, calendar: calendar)
+    public static func build(habit: Habit, logs: [DailyLog], calendar: DayCalendar, today: DayKey,
+                             pauses: [HabitPause] = [], from: DayKey? = nil) -> [DayResult] {
+        let resolver = ScheduleResolver(habit: habit, calendar: calendar, pauses: pauses.spans(for: habit.id))
         let firstKey = from ?? calendar.dayKey(for: habit.createdAt)
         let byKey = Dictionary(logs.map { ($0.dayKey, $0) }, uniquingKeysWith: { a, b in a.updatedAt >= b.updatedAt ? a : b })
         return calendar.keys(from: firstKey, to: today).map { key in

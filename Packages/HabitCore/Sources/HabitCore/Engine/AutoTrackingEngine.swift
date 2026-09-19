@@ -24,22 +24,37 @@ public final class AutoTrackingEngine {
 
     public var dayCalendar: DayCalendar { settings.dayCalendar }
 
+    /// Pauses in force, cached for the length of one run: a single evaluation touches every
+    /// habit and the set does not change underneath it.
+    private var pauseCache: [HabitPause]?
+
+    private func pauseSpans(for habitID: UUID) -> [PauseSpan] {
+        if pauseCache == nil { pauseCache = (try? repository.pauses()) ?? [] }
+        return (pauseCache ?? []).spans(for: habitID)
+    }
+
+    /// Drops the cache so the next evaluation sees a pause that was just started or ended.
+    public func pausesDidChange() { pauseCache = nil }
+
     // MARK: Public entry points
 
     @discardableResult
     public func evaluateAll(reason: EvaluationReason) async -> EvaluationSummary {
+        pauseCache = nil
         let habits = (try? repository.activeHabits()) ?? []
         return await evaluate(habits: habits, reason: reason)
     }
 
     @discardableResult
     public func evaluate(habitIDs: [UUID], reason: EvaluationReason) async -> EvaluationSummary {
+        pauseCache = nil
         let habits = habitIDs.compactMap { try? repository.habit(id: $0) }.filter { !$0.isArchived }
         return await evaluate(habits: habits, reason: reason)
     }
 
     @discardableResult
     public func evaluate(kinds: Set<HabitSourceKind>, reason: EvaluationReason) async -> EvaluationSummary {
+        pauseCache = nil
         let habits = ((try? repository.activeHabits()) ?? []).filter { kinds.contains($0.kind) }
         return await evaluate(habits: habits, reason: reason)
     }
@@ -47,6 +62,7 @@ public final class AutoTrackingEngine {
     /// Reconcile a past day: make sure scheduled habits have a log, evaluate it one last time,
     /// and close visits that were never exited.
     public func finalizeDay(_ key: DayKey) async {
+        pauseCache = nil
         let now = clock()
         let habits = (try? repository.activeHabits()) ?? []
         var summary = EvaluationSummary()
@@ -185,7 +201,8 @@ public final class AutoTrackingEngine {
                           summary: inout EvaluationSummary) async {
         guard habit.isAutomatic else { return }
         // Any due day, including a flexible one: with a weekly quota, today may well be the day.
-        guard habit.isDue(on: dayKey, calendar: dayCalendar) else { return }
+        // A paused day is not due, so a holiday leaves no empty logs behind to score later.
+        guard habit.isDue(on: dayKey, calendar: dayCalendar, pauses: pauseSpans(for: habit.id)) else { return }
         guard dayCalendar.window(for: dayKey).end > habit.createdAt else { return }
         guard let provider = providers.provider(for: habit.kind) else {
             summary.failures[habit.id] = "No provider for \(habit.kind.rawValue)"

@@ -50,7 +50,7 @@ public struct HabitMatrix: Sendable, Equatable {
 
     /// `days` counts back from today inclusive: 7 is this week so far, 14 is a fortnight.
     public static func build(habits: [Habit], logs: [DailyLog], calendar: DayCalendar,
-                             today: DayKey, days dayCount: Int) -> HabitMatrix {
+                             today: DayKey, days dayCount: Int, pauses: [HabitPause] = []) -> HabitMatrix {
         guard dayCount > 0, !habits.isEmpty else { return .empty }
         let keys = calendar.keys(from: calendar.key(byAdding: -(dayCount - 1), to: today), to: today)
 
@@ -61,7 +61,7 @@ public struct HabitMatrix: Sendable, Equatable {
 
         let rows = habits.map { habit -> Row in
             // The resolver already refuses days before the habit existed, however the schedule reads.
-            let resolver = ScheduleResolver(habit: habit, calendar: calendar)
+            let resolver = ScheduleResolver(habit: habit, calendar: calendar, pauses: pauses.spans(for: habit.id))
             var states: [MatrixState] = []
             var done = 0
             for key in keys {
@@ -72,8 +72,9 @@ public struct HabitMatrix: Sendable, Equatable {
                     continue
                 }
                 switch resolver.obligation(on: key) {
-                case .off, .flexible:
+                case .off, .flexible, .paused:
                     // A quota habit owes the week, not this day: an unused day is not a miss.
+                    // A paused day is asked for nothing at all.
                     states.append(.off)
                 case .required:
                     let ratio = log?.ratio ?? 0

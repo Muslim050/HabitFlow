@@ -21,6 +21,10 @@ public protocol HabitRepository: AnyObject {
     func log(habitID: UUID, dayKey: DayKey) throws -> DailyLog?
     func fetchOrCreateLog(habitID: UUID, dayKey: DayKey, dayStart: Date, target: Double) throws -> DailyLog
 
+    /// Every pause, global and per-habit. There are a handful at most, so callers filter in
+    /// memory with `spans(for:)` rather than building a predicate over an optional id.
+    func pauses() throws -> [HabitPause]
+
     func visits(habitID: UUID, overlapping window: DateInterval, now: Date) throws -> [GeofenceVisit]
     func openVisit(habitID: UUID) throws -> GeofenceVisit?
     func openVisits(enteredBefore: Date) throws -> [GeofenceVisit]

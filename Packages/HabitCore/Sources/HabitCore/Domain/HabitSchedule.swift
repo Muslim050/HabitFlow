@@ -69,9 +69,12 @@ public enum DayObligation: String, Codable, Sendable, Hashable {
     case flexible
     /// Outside the schedule entirely.
     case off
+    /// Inside a pause — a holiday, an illness, the global off switch. Not a miss, and not a day
+    /// that can be kept either: the schedule asks nothing of it.
+    case paused
 
     /// Whether the day counts towards "days the habit was live", for grids and rates.
-    public var isDue: Bool { self != .off }
+    public var isDue: Bool { self == .required || self == .flexible }
 }
 
 // MARK: Storage

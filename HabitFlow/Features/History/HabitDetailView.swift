@@ -6,10 +6,12 @@ struct HabitDetailView: View {
     @Environment(AppEnvironment.self) private var env
     @Environment(\.dismiss) private var dismiss
     @Query private var logs: [DailyLog]
+    @Query private var pauses: [HabitPause]
     let habit: Habit
     @State private var showEditor = false
     @State private var confirmArchive = false
     @State private var editingDay: DayKey?
+    @State private var showPause = false
 
     init(habit: Habit) {
         self.habit = habit
@@ -21,13 +23,19 @@ struct HabitDetailView: View {
         _ = env.evaluationTick
         return HabitStats.compute(
             habit: habit, logs: logs, calendar: env.settings.dayCalendar,
-            today: env.currentDayKey, freezesPerMonth: env.settings.freezesPerMonth
+            today: env.currentDayKey, freezesPerMonth: env.settings.freezesPerMonth, pauses: pauses
         )
     }
 
     private var todayLog: DailyLog? { logs.first { $0.dayKey == env.currentDayKey.raw } }
 
     private var color: Color { Color(hex: habit.colorHex) }
+
+    /// The pause covering today, if any. A global one counts: it is why this habit is quiet.
+    private var runningPause: HabitPause? {
+        let today = env.currentDayKey
+        return pauses.first { ($0.habitID == nil || $0.habitID == habit.id) && $0.span.contains(today) }
+    }
 
     /// Days the heat map hands to the editor: inside the backdating window and after the habit existed.
     private var editableRange: ClosedRange<DayKey> {
@@ -126,6 +134,16 @@ struct HabitDetailView: View {
                 }
             }
 
+            Section("Pause") {
+                if let running = runningPause {
+                    PauseRow(pause: running)
+                } else {
+                    Button { showPause = true } label: {
+                        Label("Pause this habit", systemImage: "pause.circle")
+                    }
+                }
+            }
+
             Section {
                 if habit.isAutomatic {
                     Button {
@@ -149,6 +167,7 @@ struct HabitDetailView: View {
             ToolbarItem(placement: .primaryAction) { Button("Edit") { showEditor = true } }
         }
         .sheet(isPresented: $showEditor) { HabitEditorView(habit: habit) }
+        .sheet(isPresented: $showPause) { PauseSheet(habit: habit) }
         .sheet(item: $editingDay) { day in
             DayEditorView(habit: habit, dayKey: day, calendar: env.settings.dayCalendar)
         }

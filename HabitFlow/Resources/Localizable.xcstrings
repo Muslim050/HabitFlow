@@ -980,6 +980,16 @@
         }
       }
     },
+    "Break": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перерыв"
+          }
+        }
+      }
+    },
     "Calendar and Reminders": {
       "localizations": {
         "ru": {
@@ -1461,6 +1471,16 @@
         }
       }
     },
+    "Everything is paused": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Всё на паузе"
+          }
+        }
+      }
+    },
     "Everything you have ever kept, and it only goes up.": {
       "localizations": {
         "ru": {
@@ -1477,6 +1497,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Фиксированная"
+          }
+        }
+      }
+    },
+    "For a holiday or a week of illness. Paused days are not asked for and not counted against you.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для отпуска или недели болезни. Дни на паузе ни о чём не просят и не идут в минус."
           }
         }
       }
@@ -1673,6 +1703,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Хайкинг"
+          }
+        }
+      }
+    },
+    "Holiday": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отпуск"
           }
         }
       }
@@ -2143,6 +2183,16 @@
         }
       }
     },
+    "Nothing is asked of these days and nothing is counted against them.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эти дни ни о чём не просят и не идут в минус."
+          }
+        }
+      }
+    },
     "Nothing pending": {
       "localizations": {
         "ru": {
@@ -2169,6 +2219,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Наблюдения построены на вашей истории на этом устройстве. Они показывают связи, а не причины."
+          }
+        }
+      }
+    },
+    "On hold": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На паузе"
           }
         }
       }
@@ -2219,6 +2279,36 @@
           "stringUnit": {
             "state": "translated",
             "value": "Закономерности"
+          }
+        }
+      }
+    },
+    "Pause": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пауза"
+          }
+        }
+      }
+    },
+    "Pause everything": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приостановить всё"
+          }
+        }
+      }
+    },
+    "Pause this habit": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приостановить привычку"
           }
         }
       }
@@ -2394,6 +2484,16 @@
         }
       }
     },
+    "Reason": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Причина"
+          }
+        }
+      }
+    },
     "Recent periods weigh more": {
       "localizations": {
         "ru": {
@@ -2424,6 +2524,16 @@
         }
       }
     },
+    "Resume": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возобновить"
+          }
+        }
+      }
+    },
     "Rises with repetition and dips on a miss, never back to zero. Slow in both directions.": {
       "localizations": {
         "ru": {
@@ -2440,6 +2550,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Бег"
+          }
+        }
+      }
+    },
+    "Runs until you resume it. Nothing is asked of these days and nothing is counted against them.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Действует, пока не возобновите. Эти дни ни о чём не просят и не идут в минус."
           }
         }
       }
@@ -2501,6 +2621,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Отправить отчёт"
+          }
+        }
+      }
+    },
+    "Set an end date": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Указать дату окончания"
           }
         }
       }
@@ -2715,6 +2845,16 @@
         }
       }
     },
+    "The habit was paused that day. Marking it still counts.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В тот день привычка была на паузе. Отметка всё равно засчитается."
+          }
+        }
+      }
+    },
     "This day is not in the habit's schedule. Marking it still counts.": {
       "localizations": {
         "ru": {
@@ -2795,12 +2935,52 @@
         }
       }
     },
+    "Until": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "До"
+          }
+        }
+      }
+    },
+    "Until %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "До %@"
+          }
+        }
+      }
+    },
+    "Until you resume it": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пока не возобновите"
+          }
+        }
+      }
+    },
     "Untitled": {
       "localizations": {
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Без названия"
+          }
+        }
+      }
+    },
+    "Unwell": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Болезнь"
           }
         }
       }
@@ -3023,6 +3203,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "не по расписанию"
+          }
+        }
+      }
+    },
+    "paused": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "пауза"
           }
         }
       }

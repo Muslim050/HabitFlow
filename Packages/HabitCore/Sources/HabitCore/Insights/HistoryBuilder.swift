@@ -2,9 +2,10 @@ import Foundation
 
 /// Turns stored logs into the pure structures the insight and adaptation engines consume.
 public enum HistoryBuilder {
-    public static func history(habit: Habit, logs: [DailyLog], calendar: DayCalendar, today: DayKey, windowDays: Int = 90) -> InsightEngine.HabitHistory {
+    public static func history(habit: Habit, logs: [DailyLog], calendar: DayCalendar, today: DayKey,
+                               pauses: [HabitPause] = [], windowDays: Int = 90) -> InsightEngine.HabitHistory {
         let byKey = Dictionary(logs.map { ($0.dayKey, $0) }, uniquingKeysWith: { a, b in a.updatedAt >= b.updatedAt ? a : b })
-        let resolver = ScheduleResolver(habit: habit, calendar: calendar)
+        let resolver = ScheduleResolver(habit: habit, calendar: calendar, pauses: pauses.spans(for: habit.id))
         let firstKey = max(calendar.dayKey(for: habit.createdAt), calendar.key(byAdding: -(windowDays - 1), to: today))
         let facts = calendar.keys(from: firstKey, to: today).map { key -> InsightEngine.DayFact in
             let log = byKey[key.raw]
@@ -30,9 +31,10 @@ public enum HistoryBuilder {
     /// simply chose another day — so only days with something recorded count. Without this, a
     /// "three times a week" habit would look like it fails four days out of seven and the goal
     /// would be lowered for no reason.
-    public static func adaptationSamples(habit: Habit, logs: [DailyLog], calendar: DayCalendar, today: DayKey) -> [GoalAdaptation.DaySample] {
+    public static func adaptationSamples(habit: Habit, logs: [DailyLog], calendar: DayCalendar, today: DayKey,
+                                         pauses: [HabitPause] = []) -> [GoalAdaptation.DaySample] {
         let byKey = Dictionary(logs.map { ($0.dayKey, $0) }, uniquingKeysWith: { a, b in a.updatedAt >= b.updatedAt ? a : b })
-        let resolver = ScheduleResolver(habit: habit, calendar: calendar)
+        let resolver = ScheduleResolver(habit: habit, calendar: calendar, pauses: pauses.spans(for: habit.id))
         let firstKey = calendar.key(byAdding: -(GoalAdaptation.windowDays * 2), to: today)
         return calendar.keys(from: firstKey, to: today)
             .filter { $0 < today }   // today is still in progress

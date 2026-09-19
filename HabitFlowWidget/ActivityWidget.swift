@@ -54,7 +54,8 @@ struct ActivityProvider: TimelineProvider {
         let logs = (try? repository.logs(from: from, to: today)) ?? []
         return ActivityEntry(
             date: Date(),
-            matrix: HabitMatrix.build(habits: habits, logs: logs, calendar: calendar, today: today, days: days),
+            matrix: HabitMatrix.build(habits: habits, logs: logs, calendar: calendar, today: today,
+                                      days: days, pauses: (try? repository.pauses()) ?? []),
             calendar: calendar,
             today: today,
             availablePresets: HabitPreset.allCases.filter { preset in

@@ -62,7 +62,9 @@ struct TodayRingsProvider: TimelineProvider {
             return TodayRingsEntry(date: now, items: [], completedCount: 0, updatedAt: settings.lastEngineRunAt)
         }
         let repository = SwiftDataHabitRepository(container: container)
-        let habits = ((try? repository.activeHabits()) ?? []).filter { $0.isDue(on: today, calendar: calendar) }
+        let pauses = (try? repository.pauses()) ?? []
+        let habits = ((try? repository.activeHabits()) ?? [])
+            .filter { $0.isDue(on: today, calendar: calendar, pauses: pauses.spans(for: $0.id)) }
         let logs = (try? repository.logs(dayKey: today)) ?? []
 
         let items = habits.map { habit -> RingItem in

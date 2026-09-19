@@ -58,6 +58,7 @@ struct DebugSeedView: View {
         var generator = SystemRandomNumberGenerator()
         do {
             let habits = try env.repository.activeHabits()
+            let pauses = try env.repository.pauses()
             // A habit cannot have history from before it existed, so move its creation back
             // to the start of the seeded range.
             let firstDay = calendar.dayStart(for: calendar.key(byAdding: -(weeks * 7), to: today))
@@ -67,7 +68,7 @@ struct DebugSeedView: View {
             }
             for offset in 1...(weeks * 7) {
                 let key = calendar.key(byAdding: -offset, to: today)
-                for habit in habits where habit.isDue(on: key, calendar: calendar) {
+                for habit in habits where habit.isDue(on: key, calendar: calendar, pauses: pauses.spans(for: habit.id)) {
                     // Recent weeks go better than older ones, so trends and streaks look real.
                     let bias = 0.45 + 0.4 * (1 - Double(offset) / Double(weeks * 7))
                     let hit = Double.random(in: 0...1, using: &generator) < bias

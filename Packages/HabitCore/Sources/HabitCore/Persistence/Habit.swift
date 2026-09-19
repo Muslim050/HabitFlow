@@ -102,17 +102,19 @@ public final class Habit {
         }
     }
 
-    public func resolver(calendar: DayCalendar) -> ScheduleResolver {
-        ScheduleResolver(habit: self, calendar: calendar)
+    /// `pauses` must already be merged for this habit (its own plus any global ones). There is
+    /// deliberately no default: forgetting them would quietly ask a paused habit for work.
+    public func resolver(calendar: DayCalendar, pauses: [PauseSpan]) -> ScheduleResolver {
+        ScheduleResolver(habit: self, calendar: calendar, pauses: pauses)
     }
 
-    public func obligation(on key: DayKey, calendar: DayCalendar) -> DayObligation {
-        resolver(calendar: calendar).obligation(on: key)
+    public func obligation(on key: DayKey, calendar: DayCalendar, pauses: [PauseSpan]) -> DayObligation {
+        resolver(calendar: calendar, pauses: pauses).obligation(on: key)
     }
 
     /// Whether the habit can be worked on that day at all — named by the schedule, or inside a
-    /// period whose quota is still open to any day.
-    public func isDue(on key: DayKey, calendar: DayCalendar) -> Bool {
-        obligation(on: key, calendar: calendar).isDue
+    /// period whose quota is still open to any day, and not paused.
+    public func isDue(on key: DayKey, calendar: DayCalendar, pauses: [PauseSpan]) -> Bool {
+        obligation(on: key, calendar: calendar, pauses: pauses).isDue
     }
 }

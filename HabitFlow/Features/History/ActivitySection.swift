@@ -12,6 +12,7 @@ struct ActivitySection: View {
     @Query(sort: [SortDescriptor(\Habit.sortOrder), SortDescriptor(\Habit.createdAt)])
     private var allHabits: [Habit]
     @Query private var logs: [DailyLog]
+    @Query private var pauses: [HabitPause]
 
     private var habits: [Habit] { allHabits.filter { $0.archivedAt == nil } }
 
@@ -71,7 +72,7 @@ struct ActivitySection: View {
         let m = metrics
         return HabitMatrixView(
             matrix: HabitMatrix.build(habits: habits, logs: logs, calendar: env.settings.dayCalendar,
-                                      today: env.currentDayKey, days: days),
+                                      today: env.currentDayKey, days: days, pauses: pauses),
             calendar: env.settings.dayCalendar, today: env.currentDayKey,
             cell: m.cell, gap: m.gap, labelWidth: m.label, maxRows: 12
         )
@@ -116,7 +117,7 @@ struct ActivitySection: View {
 
     private func summary(weeks: Int) -> ActivitySummary {
         ActivityGrid.build(habits: habits, logs: logs, calendar: env.settings.dayCalendar,
-                           today: env.currentDayKey, weeks: weeks)
+                           today: env.currentDayKey, weeks: weeks, pauses: pauses)
     }
 
     private func stat(_ value: String, _ label: LocalizedStringKey) -> some View {

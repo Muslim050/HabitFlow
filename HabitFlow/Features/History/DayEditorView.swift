@@ -1,3 +1,4 @@
+import SwiftData
 import SwiftUI
 import HabitCore
 
@@ -7,6 +8,7 @@ import HabitCore
 struct DayEditorView: View {
     @Environment(AppEnvironment.self) private var env
     @Environment(\.dismiss) private var dismiss
+    @Query private var pauses: [HabitPause]
 
     let habit: Habit
     @State private var date: Date
@@ -49,7 +51,9 @@ struct DayEditorView: View {
     }
 
     private var isCompleted: Bool { log?.isCompleted ?? false }
-    private var obligation: DayObligation { habit.obligation(on: dayKey, calendar: dayCalendar) }
+    private var obligation: DayObligation {
+        habit.obligation(on: dayKey, calendar: dayCalendar, pauses: pauses.spans(for: habit.id))
+    }
 
     var body: some View {
         NavigationStack {
@@ -117,6 +121,7 @@ struct DayEditorView: View {
         switch obligation {
         case .required: return nil
         case .flexible: return "Any day of the period counts towards the goal."
+        case .paused: return "The habit was paused that day. Marking it still counts."
         case .off: return "This day is not in the habit's schedule. Marking it still counts."
         }
     }

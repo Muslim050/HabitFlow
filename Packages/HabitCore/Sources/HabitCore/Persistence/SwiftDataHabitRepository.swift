@@ -33,6 +33,10 @@ public final class SwiftDataHabitRepository: HabitRepository {
         return try context.fetch(descriptor)
     }
 
+    public func pauses() throws -> [HabitPause] {
+        try context.fetch(FetchDescriptor<HabitPause>(sortBy: [SortDescriptor(\.startDayKey)]))
+    }
+
     public func habit(id: UUID) throws -> Habit? {
         var descriptor = FetchDescriptor<Habit>(predicate: #Predicate { $0.id == id })
         descriptor.fetchLimit = 1

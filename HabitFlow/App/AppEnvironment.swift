@@ -116,6 +116,16 @@ final class AppEnvironment {
         return min(Date().addingTimeInterval(4 * 3600), tomorrowStart.addingTimeInterval(-30 * 60))
     }
 
+    /// Call after starting or ending a pause: the engine caches the set for the length of a run,
+    /// and today may have just become askable — or stopped being.
+    func pausesDidChange() {
+        engine.pausesDidChange()
+        Task {
+            await engine.evaluateAll(reason: .habitChanged)
+            analysis.refreshIfNeeded(force: true)
+        }
+    }
+
     // MARK: Habits changed
 
     /// Call after creating/editing/archiving a habit: (re)request permissions, re-register observers, evaluate.
@@ -170,7 +180,9 @@ final class AppEnvironment {
     private func rescheduleNudge() async {
         let today = currentDayKey
         let calendar = settings.dayCalendar
-        let habits = ((try? repository.activeHabits()) ?? []).filter { $0.isDue(on: today, calendar: calendar) }
+        let pauses = (try? repository.pauses()) ?? []
+        let habits = ((try? repository.activeHabits()) ?? [])
+            .filter { $0.isDue(on: today, calendar: calendar, pauses: pauses.spans(for: $0.id)) }
         let logs = (try? repository.logs(dayKey: today)) ?? []
         let unfinished = habits.filter { habit in
             guard let log = logs.first(where: { $0.habitID == habit.id }) else { return true }

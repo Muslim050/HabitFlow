@@ -6,6 +6,7 @@ struct TodayView: View {
     @Environment(AppEnvironment.self) private var env
     @Query private var habits: [Habit]
     @Query private var logs: [DailyLog]
+    @Query private var pauses: [HabitPause]
     let dayKey: DayKey
 
     init(dayKey: DayKey) {
@@ -22,8 +23,12 @@ struct TodayView: View {
     /// is still open to any day.
     private var scheduledHabits: [Habit] {
         let calendar = env.settings.dayCalendar
-        return habits.filter { $0.isDue(on: dayKey, calendar: calendar) }
+        return habits.filter { $0.isDue(on: dayKey, calendar: calendar, pauses: pauses.spans(for: $0.id)) }
     }
+
+    /// The pause covering the whole app today, if any — worth saying out loud, because
+    /// otherwise the list is empty for no visible reason.
+    var globalPause: PauseSpan? { pauses.globalSpans.span(on: dayKey) }
 
     private func log(for habit: Habit) -> DailyLog? {
         logs.first { $0.habitID == habit.id }
@@ -40,8 +45,25 @@ struct TodayView: View {
                         .foregroundStyle(.red)
                 }
             }
+            if let pause = globalPause {
+                // Without this the list is simply empty, which reads as a bug rather than a holiday.
+                Section {
+                    Label {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Everything is paused")
+                            Text(pause.end.map {
+                                String(localized: "Until \($0.formatted(calendar: env.settings.dayCalendar))")
+                            } ?? String(localized: "Until you resume it"))
+                                .font(.caption).foregroundStyle(.secondary)
+                        }
+                    } icon: {
+                        Image(systemName: pause.reason.systemImage)
+                    }
+                }
+            }
             Section {
-                TodayHeaderView(completed: completed, total: scheduled.count, lastRun: env.settings.lastEngineRunAt)
+                TodayHeaderView(completed: completed, total: scheduled.count,
+                                lastRun: env.settings.lastEngineRunAt, isPaused: globalPause != nil)
                     .listRowInsets(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16))
             }
             if !env.analysis.proposals.isEmpty {
@@ -51,7 +73,7 @@ struct TodayView: View {
                     }
                 }
             }
-            if scheduled.isEmpty {
+            if scheduled.isEmpty && globalPause == nil {
                 Section {
                     ContentUnavailableView(
                         habits.isEmpty ? "No habits yet" : "Nothing scheduled today",
@@ -61,7 +83,7 @@ struct TodayView: View {
                             : "Enjoy the day off.")
                     )
                 }
-            } else {
+            } else if !scheduled.isEmpty {
                 Section("Habits") {
                     ForEach(scheduled) { habit in
                         HabitRowView(habit: habit, log: log(for: habit))
@@ -89,6 +111,14 @@ struct TodayHeaderView: View {
     let completed: Int
     let total: Int
     let lastRun: Date?
+    /// Everything is paused, so an empty list means "on hold", not "nothing set up yet".
+    var isPaused = false
+
+    private var headline: LocalizedStringKey {
+        if isPaused { return "On hold" }
+        if total == 0 { return "Add your first habit" }
+        return completed == total ? "All done for today" : "\(total - completed) to go"
+    }
 
     var body: some View {
         HStack(spacing: 16) {
@@ -99,8 +129,7 @@ struct TodayHeaderView: View {
             .frame(width: 64, height: 64)
 
             VStack(alignment: .leading, spacing: 4) {
-                Text(total == 0 ? "Add your first habit" : completed == total ? "All done for today" : "\(total - completed) to go")
-                    .font(.headline)
+                Text(headline).font(.headline)
                 if let lastRun {
                     Text("Auto-tracking checked \(lastRun, style: .relative) ago")
                         .font(.footnote)
