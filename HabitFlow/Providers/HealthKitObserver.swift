@@ -32,7 +32,10 @@ final class HealthKitObserver {
                     return
                 }
                 Task { @MainActor in
-                    if let kind { await onChange(kind) }
+                    if let kind {
+                        SourceHealth.recordDelivery(kind)
+                        await onChange(kind)
+                    }
                     // Must always be called, otherwise HealthKit stops delivering after 3 misses.
                     completion()
                 }

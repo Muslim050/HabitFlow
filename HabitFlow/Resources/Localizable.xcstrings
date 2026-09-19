@@ -776,6 +776,16 @@
         }
       }
     },
+    "A value of zero means the source answered and had nothing. No reading at all means it was never asked or never answered — a different problem.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ноль означает, что источник ответил и данных не было. «Ни разу не прочитано» — что его не спрашивали или он не ответил, а это другая беда."
+          }
+        }
+      }
+    },
     "A workout of at least %lld min": {
       "localizations": {
         "ru": {
@@ -1088,6 +1098,26 @@
         }
       }
     },
+    "Available on this device": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доступно на этом устройстве"
+          }
+        }
+      }
+    },
+    "Background refresh": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фоновое обновление"
+          }
+        }
+      }
+    },
     "Based on %lld days": {
       "localizations": {
         "ru": {
@@ -1160,6 +1190,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Отмена"
+          }
+        }
+      }
+    },
+    "Check now": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проверить сейчас"
           }
         }
       }
@@ -1482,6 +1522,26 @@
         }
       }
     },
+    "Developer": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разработчику"
+          }
+        }
+      }
+    },
+    "Diagnostics": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Диагностика"
+          }
+        }
+      }
+    },
     "Done": {
       "localizations": {
         "ru": {
@@ -1568,6 +1628,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Включить геолокацию"
+          }
+        }
+      }
+    },
+    "Engine": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Движок"
           }
         }
       }
@@ -1711,6 +1781,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Выгрузить таблицу"
+          }
+        }
+      }
+    },
+    "Failed": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "С ошибкой"
           }
         }
       }
@@ -1877,6 +1957,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Привычки"
+          }
+        }
+      }
+    },
+    "Habits looked at": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Просмотрено привычек"
           }
         }
       }
@@ -2177,6 +2267,46 @@
         }
       }
     },
+    "Last arrival or departure": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Последний приход или уход"
+          }
+        }
+      }
+    },
+    "Last background refresh": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Последнее фоновое обновление"
+          }
+        }
+      }
+    },
+    "Last check": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Последняя проверка"
+          }
+        }
+      }
+    },
+    "Last run: %lld evaluated, %lld completed, %lld failed": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Последний прогон: просмотрено %lld, закрыто %lld, с ошибкой %lld"
+          }
+        }
+      }
+    },
     "Leave empty for today.": {
       "localizations": {
         "ru": {
@@ -2337,6 +2467,16 @@
         }
       }
     },
+    "Marking a place-based habit while the app is closed needs Always. Fewer places watched than habits means some region did not register — iOS allows 20 at once.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чтобы отмечать привычку по месту при закрытом приложении, нужно «Всегда». Если мест отслеживается меньше, чем привычек, какая-то зона не зарегистрировалась — iOS позволяет 20 одновременно."
+          }
+        }
+      }
+    },
     "Marks a habit done, optionally on a past day or with a measured value.": {
       "localizations": {
         "ru": {
@@ -2387,6 +2527,26 @@
         }
       }
     },
+    "Never": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Никогда"
+          }
+        }
+      }
+    },
+    "Never read": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ни разу не прочитано"
+          }
+        }
+      }
+    },
     "New habit": {
       "localizations": {
         "ru": {
@@ -2407,12 +2567,32 @@
         }
       }
     },
+    "No": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет"
+          }
+        }
+      }
+    },
     "No date": {
       "localizations": {
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Без даты"
+          }
+        }
+      }
+    },
+    "No habits read from Health.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ни одна привычка не читает Здоровье."
           }
         }
       }
@@ -2467,6 +2647,16 @@
         }
       }
     },
+    "Not granted": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не выдано"
+          }
+        }
+      }
+    },
     "Not now": {
       "localizations": {
         "ru": {
@@ -2483,6 +2673,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не запрошено"
+          }
+        }
+      }
+    },
+    "Not yet": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ещё нет"
           }
         }
       }
@@ -2657,6 +2857,16 @@
         }
       }
     },
+    "Pending notifications": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запланированные уведомления"
+          }
+        }
+      }
+    },
     "Per month": {
       "localizations": {
         "ru": {
@@ -2683,6 +2893,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Период"
+          }
+        }
+      }
+    },
+    "Permission": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разрешение"
+          }
+        }
+      }
+    },
+    "Permission asked": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разрешение запрошено"
           }
         }
       }
@@ -2737,12 +2967,32 @@
         }
       }
     },
+    "Places": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Места"
+          }
+        }
+      }
+    },
     "Places (optional)": {
       "localizations": {
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Места (необязательно)"
+          }
+        }
+      }
+    },
+    "Places being watched": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мест отслеживается"
           }
         }
       }
@@ -2888,6 +3138,16 @@
         }
       }
     },
+    "Result": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Результат"
+          }
+        }
+      }
+    },
     "Resume": {
       "localizations": {
         "ru": {
@@ -2908,6 +3168,16 @@
         }
       }
     },
+    "Run auto-tracking now": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запустить авто-трекинг"
+          }
+        }
+      }
+    },
     "Running": {
       "localizations": {
         "ru": {
@@ -2924,6 +3194,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Действует, пока не возобновите. Эти дни ни о чём не просят и не идут в минус."
+          }
+        }
+      }
+    },
+    "Runs when the app is open, when Health or a place reports something, and on a background refresh.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запускается при открытом приложении, когда Здоровье или место о чём-то сообщают, и по фоновому обновлению."
           }
         }
       }
@@ -2974,6 +3254,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Найти место"
+          }
+        }
+      }
+    },
+    "Seed Health data": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Засеять данные Здоровья"
           }
         }
       }
@@ -3055,6 +3345,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Источник"
+          }
+        }
+      }
+    },
+    "Source status": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Состояние источников"
+          }
+        }
+      }
+    },
+    "Sources": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Источники"
           }
         }
       }
@@ -3245,6 +3555,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "В тот день привычка была на паузе. Отметка всё равно засчитается."
+          }
+        }
+      }
+    },
+    "The time each kind last pushed a change at the app. iOS never reveals whether read access was granted, so a source that has delivered nothing at all is the sign to check Settings → Health → Data Access.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Когда каждый вид последний раз сам сообщил об изменении. iOS не раскрывает, выдан ли доступ на чтение, поэтому источник, от которого не пришло вообще ничего, — повод заглянуть в Настройки → Здоровье → Доступ к данным."
           }
         }
       }
@@ -3445,6 +3765,26 @@
         }
       }
     },
+    "What each habit last read": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что каждая привычка прочитала последний раз"
+          }
+        }
+      }
+    },
+    "When a habit does not close itself, this says whether the source had nothing to report or was never heard from at all.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Когда привычка не закрылась сама, здесь видно: источнику нечего было сообщить или его вообще не слышно."
+          }
+        }
+      }
+    },
     "When you consistently overshoot or fall short, HabitFlow offers a new goal. You decide.": {
       "localizations": {
         "ru": {
@@ -3465,12 +3805,32 @@
         }
       }
     },
+    "While using the app": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "При использовании"
+          }
+        }
+      }
+    },
     "Workout": {
       "localizations": {
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Тренировка"
+          }
+        }
+      }
+    },
+    "Yes": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Да"
           }
         }
       }
@@ -3557,6 +3917,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "iOS позволяет не более %lld гео-привычек."
+          }
+        }
+      }
+    },
+    "iOS decides when to grant this, and never does in the Simulator. Empty after a few days on a real phone means it is not being scheduled.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Когда его дать, решает iOS, и в симуляторе не даёт никогда. Если на живом телефоне пусто несколько дней — задача не планируется."
           }
         }
       }

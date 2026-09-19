@@ -1,4 +1,5 @@
 import BackgroundTasks
+import HabitCore
 import Foundation
 
 /// Daily reconciliation. Unreliable by design (system discretion) and never fires in the Simulator;
@@ -23,9 +24,14 @@ enum BackgroundRefresh {
             await env.reconcileDayRollover()
             let summary = await env.engine.evaluateAll(reason: .backgroundRefresh)
             Log.background.info("BG refresh evaluated \(summary.evaluatedHabitIDs.count) habits, \(summary.completions.count) completions")
+            // Whether iOS ever grants this task time is invisible otherwise, and on a device it
+            // is the difference between "no data" and "never woke up".
+            SourceHealth.recordBackgroundRefresh(
+                outcome: "\(summary.evaluatedHabitIDs.count) evaluated, \(summary.completions.count) closed")
             task.setTaskCompleted(success: true)
         }
         task.expirationHandler = {
+            SourceHealth.recordBackgroundRefresh(outcome: "ran out of time")
             work.cancel()
             task.setTaskCompleted(success: false)
         }

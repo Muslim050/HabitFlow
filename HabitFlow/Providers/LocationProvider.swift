@@ -102,6 +102,9 @@ final class LocationProvider: NSObject, HabitSourceProvider {
 
     private func handle(identifier: String, entered: Bool, at date: Date) async {
         guard let habitID = UUID(uuidString: identifier) else { return }
+        // A crossing is the only evidence region monitoring is actually alive; registering a
+        // region says nothing about whether iOS will ever wake us for it.
+        SourceHealth.recordDelivery(.geofence, at: date)
         do {
             let open = try repository.openVisit(habitID: habitID)
             if entered {

@@ -231,8 +231,10 @@ public final class AutoTrackingEngine {
         } catch {
             log.lastEvaluatedAt = now
             summary.failures[habit.id] = error.localizedDescription
+            SourceHealth.recordError(habit.kind, error.localizedDescription, at: now)
             return
         }
+        SourceHealth.recordRead(habit.kind, value: snapshot.value, at: now)
 
         let progressChanged = log.progressValue != snapshot.value || log.targetValue != snapshot.target
         log.progressValue = snapshot.value

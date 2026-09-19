@@ -120,6 +120,14 @@ struct SettingsView: View {
                     Text("Coming soon. Everything currently stays on this device.")
                 }
 
+                Section {
+                    NavigationLink("Source status") { SourceHealthView() }
+                } header: {
+                    Text("Diagnostics")
+                } footer: {
+                    Text("When a habit does not close itself, this says whether the source had nothing to report or was never heard from at all.")
+                }
+
                 #if DEBUG
                 Section("Developer") {
                     NavigationLink("Seed Health data") { DebugSeedView() }
