@@ -29,7 +29,7 @@ struct QuickAddHabitIntent: AppIntent {
         // Tapping twice should not leave two identical habits behind.
         guard !existing.contains(where: { $0.rule == preset.rule }) else { return .result() }
 
-        repository.insert(preset.makeHabit(sortOrder: existing.count))
+        repository.insert(preset.makeHabit(sortOrder: existing.count, taken: existing.map(\.colorHex)))
         try repository.save()
         // HealthKit observers live in the app process, so tracking starts when the app is next
         // opened; the habit itself exists from this moment.

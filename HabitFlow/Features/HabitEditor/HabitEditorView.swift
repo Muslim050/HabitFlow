@@ -26,6 +26,9 @@ struct HabitEditorView: View {
     @State private var progressModel: ProgressModel
     @State private var adaptationMode: GoalAdaptationMode
     @State private var showPlacePicker = false
+    /// The palette is picked over in `onAppear`, where the store is reachable; `init` has no
+    /// environment yet.
+    @State private var pickedInitialColour = false
 
     init(habit: Habit?) {
         existing = habit
@@ -105,7 +108,7 @@ struct HabitEditorView: View {
                             .onChange(of: emoji) { _, new in emoji = String(new.suffix(1)) }
                         TextField("Name", text: $name)
                     }
-                    ColorPaletteRow(selected: $colorHex)
+                    ColorPaletteRow(selected: $colorHex, taken: takenColours)
                 }
 
                 Section("How is it tracked?") {
@@ -145,6 +148,7 @@ struct HabitEditorView: View {
                     Text(progressModel.explanation)
                 }
             }
+            .onAppear(perform: chooseFreeColour)
             .navigationTitle(Text(existing == nil ? "New habit" : "Edit habit"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -239,6 +243,21 @@ struct HabitEditorView: View {
         return placeName.isEmpty ? String(localized: "Place selected") : placeName
     }
 
+    /// Colours in use by *other* habits, so editing one does not flag its own colour.
+    private var takenColours: Set<String> {
+        let others = ((try? env.repository.activeHabits()) ?? []).filter { $0.id != existing?.id }
+        return Set(others.map { $0.colorHex.uppercased() })
+    }
+
+    /// A new habit starts on a colour nothing else is using: the month grid tells habits apart
+    /// by the colour of their stripe, so a second blue makes that view unreadable.
+    private func chooseFreeColour() {
+        guard existing == nil, !pickedInitialColour else { return }
+        pickedInitialColour = true
+        let taken = ((try? env.repository.activeHabits()) ?? []).map(\.colorHex)
+        colorHex = HabitPalette.next(after: taken)
+    }
+
     private func save() {
         guard let rule else { return }
         let trimmed = name.trimmingCharacters(in: .whitespaces)
@@ -316,10 +335,14 @@ extension HabitSourceKind {
 
 struct ColorPaletteRow: View {
     @Binding var selected: String
+    /// Colours other habits already use. Not forbidden — marked, because the month grid tells
+    /// habits apart by stripe colour and a second blue quietly makes that view unreadable.
+    var taken: Set<String> = []
 
     var body: some View {
         HStack(spacing: 10) {
             ForEach(HabitPalette.hexes, id: \.self) { hex in
+                let isTaken = taken.contains(hex.uppercased()) && hex != selected
                 Circle()
                     .fill(Color(hex: hex))
                     .frame(width: 28, height: 28)
@@ -328,8 +351,14 @@ struct ColorPaletteRow: View {
                             Image(systemName: "checkmark").font(.caption.bold()).foregroundStyle(.white)
                         }
                     }
+                    .opacity(isTaken ? 0.35 : 1)
+                    .overlay(alignment: .bottom) {
+                        if isTaken {
+                            Circle().fill(Color.secondary).frame(width: 4, height: 4).offset(y: 7)
+                        }
+                    }
                     .onTapGesture { selected = hex }
-                    .accessibilityLabel("Color \(hex)")
+                    .accessibilityLabel(isTaken ? Text("Color \(hex), already used") : Text("Color \(hex)"))
             }
         }
         .padding(.vertical, 4)
@@ -435,13 +464,22 @@ struct SchedulePickerSection: View {
 
 struct WeekdayPicker: View {
     @Binding var mask: Int
-    private let symbols = Calendar.current.veryShortStandaloneWeekdaySymbols  // Sunday first
+
+    /// The mask keeps bit 0 = Sunday, because that is what `Calendar` numbers weekdays by and
+    /// changing it would rewrite every stored schedule. Only the order on screen rotates, to
+    /// match the calendar the rest of the app now follows.
+    private var order: [Int] {
+        let first = Calendar.current.firstWeekday - 1
+        return (0..<7).map { ($0 + first) % 7 }
+    }
 
     var body: some View {
+        let short = Calendar.current.veryShortStandaloneWeekdaySymbols
+        let full = Calendar.current.standaloneWeekdaySymbols
         HStack(spacing: 8) {
-            ForEach(0..<7, id: \.self) { index in
+            ForEach(order, id: \.self) { index in
                 let on = mask & (1 << index) != 0
-                Text(symbols[index])
+                Text(short.indices.contains(index) ? short[index] : "")
                     .font(.footnote.weight(.semibold))
                     .frame(width: 34, height: 34)
                     .background(on ? Color.accentColor : Color.secondary.opacity(0.15), in: Circle())
@@ -449,7 +487,7 @@ struct WeekdayPicker: View {
                     .onTapGesture {
                         if on { mask &= ~(1 << index) } else { mask |= (1 << index) }
                     }
-                    .accessibilityLabel(Calendar.current.standaloneWeekdaySymbols[index])
+                    .accessibilityLabel(full.indices.contains(index) ? full[index] : "")
                     .accessibilityAddTraits(on ? .isSelected : [])
             }
         }

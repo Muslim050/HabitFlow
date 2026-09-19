@@ -22,4 +22,16 @@ public enum HabitPalette {
     public static let hexes: [String] = [
         "#4F8EF7", "#34C759", "#FF9500", "#FF2D55", "#AF52DE", "#5AC8FA", "#FFCC00", "#8E8E93",
     ]
+
+    /// A colour no habit is using yet. Colour is how the month grid tells one habit's stripe
+    /// from another, so handing every new habit the same blue makes that view unreadable.
+    /// Once the palette is exhausted it reuses the one in play the least, which at least keeps
+    /// any two collisions far apart.
+    public static func next(after taken: some Collection<String>) -> String {
+        let used = taken.reduce(into: [String: Int]()) { counts, hex in
+            counts[hex.uppercased(), default: 0] += 1
+        }
+        let free = hexes.first { used[$0.uppercased()] == nil }
+        return free ?? hexes.min { (used[$0.uppercased()] ?? 0) < (used[$1.uppercased()] ?? 0) } ?? hexes[0]
+    }
 }

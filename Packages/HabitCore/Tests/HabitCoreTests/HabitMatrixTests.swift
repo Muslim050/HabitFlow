@@ -138,3 +138,35 @@ struct HabitMatrixTests {
         #expect(HabitPalette.hexes.contains(habit.colorHex))
     }
 }
+
+/// Colour is how the month grid tells one habit's stripe from another, so a new habit must not
+/// be handed one that is already in play.
+@Suite("HabitPalette")
+struct HabitPaletteTests {
+    @Test func picksTheFirstFreeColour() {
+        #expect(HabitPalette.next(after: [String]()) == HabitPalette.hexes[0])
+        #expect(HabitPalette.next(after: [HabitPalette.hexes[0]]) == HabitPalette.hexes[1])
+        #expect(HabitPalette.next(after: [HabitPalette.hexes[1], HabitPalette.hexes[0]]) == HabitPalette.hexes[2])
+    }
+
+    @Test func caseDoesNotMatter() {
+        #expect(HabitPalette.next(after: ["#4f8ef7"]) == HabitPalette.hexes[1], "hex is hex")
+    }
+
+    @Test func aFullPaletteReusesTheLeastUsed() {
+        // Everything taken once, except the third colour which is taken twice.
+        let taken = HabitPalette.hexes + [HabitPalette.hexes[2]]
+        let picked = HabitPalette.next(after: taken)
+        #expect(picked != HabitPalette.hexes[2], "the busiest colour is the worst one to add to")
+        #expect(HabitPalette.hexes.contains(picked))
+    }
+
+    @Test func aPresetKeepsItsOwnColourUntilSomeoneTakesIt() {
+        let free = HabitPreset.steps.makeHabit(sortOrder: 0)
+        #expect(free.colorHex == HabitPreset.steps.colorHex)
+
+        let clashed = HabitPreset.steps.makeHabit(sortOrder: 1, taken: [HabitPreset.steps.colorHex])
+        #expect(clashed.colorHex != HabitPreset.steps.colorHex)
+        #expect(HabitPalette.hexes.contains(clashed.colorHex))
+    }
+}

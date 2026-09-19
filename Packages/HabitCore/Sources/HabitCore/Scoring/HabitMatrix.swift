@@ -164,7 +164,12 @@ public enum HabitPreset: String, CaseIterable, Sendable, Identifiable {
         ValueFormatting.progressless(target: rule.target, unit: rule.unitLabel)
     }
 
-    public func makeHabit(sortOrder: Int) -> Habit {
-        Habit(name: title, emoji: emoji, colorHex: colorHex, rule: rule, sortOrder: sortOrder)
+    /// `taken` are the colours already in use. A preset keeps its own recognisable colour when
+    /// it is free and steps aside when it is not — two habits sharing a colour makes the month
+    /// grid's stripes impossible to tell apart.
+    public func makeHabit(sortOrder: Int, taken: some Collection<String> = [String]()) -> Habit {
+        let used = Set(taken.map { $0.uppercased() })
+        let colour = used.contains(colorHex.uppercased()) ? HabitPalette.next(after: taken) : colorHex
+        return Habit(name: title, emoji: emoji, colorHex: colour, rule: rule, sortOrder: sortOrder)
     }
 }

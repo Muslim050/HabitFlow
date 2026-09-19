@@ -1264,6 +1264,16 @@
         }
       }
     },
+    "Color %@, already used": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цвет %@, уже занят"
+          }
+        }
+      }
+    },
     "Coming soon. Everything currently stays on this device.": {
       "localizations": {
         "ru": {
