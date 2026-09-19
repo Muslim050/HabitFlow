@@ -12,6 +12,7 @@ public final class AppSettings: @unchecked Sendable {
         public static let lastEngineRunAt = "lastEngineRunAt"
         public static let defaultAdaptationMode = "defaultAdaptationMode"
         public static let agendaEnabled = "agendaEnabled"
+        public static let backdateLimitDays = "backdateLimitDays"
     }
 
     public static let store: UserDefaults = UserDefaults(suiteName: AppGroup.id) ?? .standard
@@ -41,6 +42,12 @@ public final class AppSettings: @unchecked Sendable {
     public var graceMissesPerWeek: Int {
         get { defaults.object(forKey: Key.graceMissesPerWeek) as? Int ?? 1 }
         set { defaults.set(min(max(newValue, 0), 3), forKey: Key.graceMissesPerWeek) }
+    }
+
+    /// How many days back a past day may still be edited by hand. 0 means today only.
+    public var backdateLimitDays: Int {
+        get { defaults.object(forKey: Key.backdateLimitDays) as? Int ?? 90 }
+        set { defaults.set(min(max(newValue, 0), 365), forKey: Key.backdateLimitDays) }
     }
 
     public var hasCompletedOnboarding: Bool {

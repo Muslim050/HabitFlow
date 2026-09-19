@@ -84,8 +84,10 @@ struct TestEnv {
     }
 
     @discardableResult
-    func addHabit(_ name: String, rule: HabitRule, scheduleMask: Int = Habit.everyDayMask) throws -> Habit {
-        let habit = Habit(name: name, rule: rule, scheduleMask: scheduleMask, createdAt: clock.now.addingTimeInterval(-3600))
+    func addHabit(_ name: String, rule: HabitRule, scheduleMask: Int = Habit.everyDayMask,
+                  createdDaysAgo: Int = 0) throws -> Habit {
+        let created = clock.now.addingTimeInterval(-3600 - Double(createdDaysAgo) * 86_400)
+        let habit = Habit(name: name, rule: rule, scheduleMask: scheduleMask, createdAt: created)
         repository.insert(habit)
         try repository.save()
         return habit
@@ -94,4 +96,10 @@ struct TestEnv {
     var today: DayKey { engine.dayCalendar.dayKey(for: clock.now) }
 
     func log(_ habit: Habit) throws -> DailyLog? { try repository.log(habitID: habit.id, dayKey: today) }
+
+    func day(_ offset: Int) -> DayKey { engine.dayCalendar.key(byAdding: offset, to: today) }
+
+    func log(_ habit: Habit, _ offset: Int) throws -> DailyLog? {
+        try repository.log(habitID: habit.id, dayKey: day(offset))
+    }
 }

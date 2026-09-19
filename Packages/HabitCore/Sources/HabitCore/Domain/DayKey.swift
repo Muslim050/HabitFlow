@@ -1,8 +1,11 @@
 import Foundation
 
 /// A logical day identifier in `yyyy-MM-dd` form. Comparable lexicographically.
-public struct DayKey: Hashable, Comparable, Sendable, Codable, CustomStringConvertible {
+public struct DayKey: Hashable, Comparable, Sendable, Codable, Identifiable, CustomStringConvertible {
     public let raw: String
+
+    /// A day identifies itself; lets SwiftUI present a sheet straight from a selected day.
+    public var id: String { raw }
 
     public init(raw: String) { self.raw = raw }
 

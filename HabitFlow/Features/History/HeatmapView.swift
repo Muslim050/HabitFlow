@@ -8,6 +8,9 @@ struct HeatmapView: View {
     let weeks: Int
     let calendar: DayCalendar
     let today: DayKey
+    /// Days inside this range are tappable; nil makes the grid read-only.
+    var editable: ClosedRange<DayKey>? = nil
+    var onSelect: ((DayKey) -> Void)? = nil
 
     private var cells: [DayResult?] {
         let byKey = Dictionary(results.map { ($0.dayKey, $0) }, uniquingKeysWith: { a, _ in a })
@@ -37,11 +40,25 @@ struct HeatmapView: View {
             .padding(.vertical, 2)
         }
         .defaultScrollAnchor(.trailing)
-        .accessibilityLabel("Completion history for the last \(weeks) weeks")
+        .accessibilityLabel(Text("Completion history for the last \(weeks) weeks"))
+        .accessibilityElement(children: onSelect == nil ? .ignore : .contain)
     }
 
     @ViewBuilder
     private func cell(_ result: DayResult?) -> some View {
+        if let result, let onSelect, editable?.contains(result.dayKey) == true {
+            Button { onSelect(result.dayKey) } label: { square(result) }
+                .buttonStyle(.plain)
+                .accessibilityLabel(label(for: result))
+                .accessibilityHint("Edit this day")
+        } else {
+            square(result)
+                .accessibilityHidden(result == nil)
+                .accessibilityLabel(result.map(label(for:)) ?? "")
+        }
+    }
+
+    private func square(_ result: DayResult?) -> some View {
         RoundedRectangle(cornerRadius: 2.5)
             .fill(fill(result))
             .frame(width: 13, height: 13)
@@ -50,6 +67,14 @@ struct HeatmapView: View {
                     RoundedRectangle(cornerRadius: 2.5).stroke(Color.primary.opacity(0.6), lineWidth: 1)
                 }
             }
+            .contentShape(Rectangle())
+    }
+
+    private func label(for result: DayResult) -> String {
+        let state = result.completed
+            ? String(localized: "done")
+            : (result.scheduled ? String(localized: "not done") : String(localized: "not scheduled"))
+        return "\(result.dayKey.raw), \(state)"
     }
 
     private func fill(_ result: DayResult?) -> Color {

@@ -9,6 +9,7 @@ struct HabitDetailView: View {
     let habit: Habit
     @State private var showEditor = false
     @State private var confirmArchive = false
+    @State private var editingDay: DayKey?
 
     init(habit: Habit) {
         self.habit = habit
@@ -27,6 +28,13 @@ struct HabitDetailView: View {
     private var todayLog: DailyLog? { logs.first { $0.dayKey == env.currentDayKey.raw } }
 
     private var color: Color { Color(hex: habit.colorHex) }
+
+    /// Days the heat map hands to the editor: inside the backdating window and after the habit existed.
+    private var editableRange: ClosedRange<DayKey> {
+        let editable = env.engine.editableDayRange()
+        let earliest = max(editable.lowerBound, env.settings.dayCalendar.dayKey(for: habit.createdAt))
+        return earliest <= editable.upperBound ? earliest...editable.upperBound : editable
+    }
 
     var body: some View {
         let stats = stats
@@ -68,8 +76,16 @@ struct HabitDetailView: View {
             }
 
             Section("Last 16 weeks") {
-                HeatmapView(results: stats.results, color: color, weeks: 16, calendar: env.settings.dayCalendar, today: env.currentDayKey)
-                    .padding(.vertical, 4)
+                HeatmapView(
+                    results: stats.results, color: color, weeks: 16,
+                    calendar: env.settings.dayCalendar, today: env.currentDayKey,
+                    editable: editableRange, onSelect: { editingDay = $0 }
+                )
+                .padding(.vertical, 4)
+                Button {
+                    editingDay = env.currentDayKey
+                } label: { Label("Edit a day", systemImage: "calendar.badge.clock") }
+                    .font(.subheadline)
             }
 
             if let proposal = env.analysis.proposal(for: habit.id) {
@@ -115,6 +131,9 @@ struct HabitDetailView: View {
             ToolbarItem(placement: .primaryAction) { Button("Edit") { showEditor = true } }
         }
         .sheet(isPresented: $showEditor) { HabitEditorView(habit: habit) }
+        .sheet(item: $editingDay) { day in
+            DayEditorView(habit: habit, dayKey: day, calendar: env.settings.dayCalendar)
+        }
         .task { env.analysis.refreshIfNeeded() }
         .confirmationDialog("Archive this habit? History is kept.", isPresented: $confirmArchive, titleVisibility: .visible) {
             Button("Archive", role: .destructive) {

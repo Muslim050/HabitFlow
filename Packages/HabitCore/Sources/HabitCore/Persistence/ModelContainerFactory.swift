@@ -7,12 +7,12 @@ public enum AppGroup {
 }
 
 public enum ModelContainerFactory {
-    public static var schema: Schema { Schema([Habit.self, DailyLog.self, GeofenceVisit.self]) }
+    public static var schema: Schema { Schema(versionedSchema: SchemaV1.self) }
 
     /// Isolated store for tests and previews.
     public static func inMemory() throws -> ModelContainer {
         let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
-        return try ModelContainer(for: schema, configurations: [config])
+        return try ModelContainer(for: schema, migrationPlan: HabitMigrationPlan.self, configurations: [config])
     }
 
     /// The App Group store shared by the app and the widget.
@@ -31,6 +31,6 @@ public enum ModelContainerFactory {
             cloudKitDatabase: .none
         )
         #endif
-        return try ModelContainer(for: schema, configurations: [config])
+        return try ModelContainer(for: schema, migrationPlan: HabitMigrationPlan.self, configurations: [config])
     }
 }

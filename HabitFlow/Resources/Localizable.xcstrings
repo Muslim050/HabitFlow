@@ -782,6 +782,16 @@
         }
       }
     },
+    "Compared against the goal in force that day, not today's goal.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сравнивается с целью, которая действовала в тот день, а не с сегодняшней."
+          }
+        }
+      }
+    },
     "Complete %@": {
       "localizations": {
         "ru": {
@@ -950,6 +960,16 @@
         }
       }
     },
+    "Day": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "День"
+          }
+        }
+      }
+    },
     "Day boundary": {
       "localizations": {
         "ru": {
@@ -1030,12 +1050,32 @@
         }
       }
     },
+    "Edit a day": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменить день"
+          }
+        }
+      }
+    },
     "Edit habit": {
       "localizations": {
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Изменить привычку"
+          }
+        }
+      }
+    },
+    "Edit this day": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменить этот день"
           }
         }
       }
@@ -1437,6 +1477,16 @@
         }
       }
     },
+    "Measured value": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Измеренное значение"
+          }
+        }
+      }
+    },
     "Metric": {
       "localizations": {
         "ru": {
@@ -1503,6 +1553,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Привычек пока нет"
+          }
+        }
+      }
+    },
+    "No record": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет записи"
+          }
+        }
+      }
+    },
+    "Not done": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не выполнено"
           }
         }
       }
@@ -1798,6 +1868,16 @@
         }
       }
     },
+    "Save value": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохранить значение"
+          }
+        }
+      }
+    },
     "Screen Time": {
       "localizations": {
         "ru": {
@@ -1879,12 +1959,32 @@
         }
       }
     },
+    "State": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Состояние"
+          }
+        }
+      }
+    },
     "Stats": {
       "localizations": {
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Статистика"
+          }
+        }
+      }
+    },
+    "Status": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Статус"
           }
         }
       }
@@ -1979,12 +2079,32 @@
         }
       }
     },
+    "That day is outside the editable range.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Этот день вне диапазона, доступного для правки."
+          }
+        }
+      }
+    },
     "The goal never changes on its own.": {
       "localizations": {
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Цель не меняется сама."
+          }
+        }
+      }
+    },
+    "This weekday is not in the habit's schedule. Marking it still counts.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Этот день недели не в расписании привычки. Отметка всё равно засчитается."
           }
         }
       }
@@ -2055,6 +2175,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Обычно закрывается около %@"
+          }
+        }
+      }
+    },
+    "Value": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Значение"
           }
         }
       }
@@ -2181,6 +2311,16 @@
         }
       }
     },
+    "done": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "выполнено"
+          }
+        }
+      }
+    },
     "iCloud sync": {
       "localizations": {
         "ru": {
@@ -2207,6 +2347,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "iOS не сообщает, выдан ли доступ на чтение Здоровья. Если привычка из Здоровья держится на 0, проверьте Настройки → Здоровье → Доступ к данным."
+          }
+        }
+      }
+    },
+    "not done": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "не выполнено"
+          }
+        }
+      }
+    },
+    "not scheduled": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "не по расписанию"
           }
         }
       }

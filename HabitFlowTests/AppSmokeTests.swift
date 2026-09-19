@@ -38,13 +38,15 @@ struct AppSmokeTests {
         #expect(content.title.contains("Walk"))
         let digits = content.body.filter(\.isNumber)
         #expect(digits.contains("8214") && digits.contains("8000"), "grouping separator is locale-dependent, digits are not")
-        #expect(content.body.hasSuffix("from Health"))
+        // The wording around it is localized ("from Health" / "· Health"); the source name is not.
+        #expect(content.body.hasSuffix("Health"))
         #expect(content.threadIdentifier == "auto-2026-09-12")
     }
 
     @Test func nudgeContentListsUnfinished() {
         let content = NotificationService.nudgeContent(unfinished: ["📚 Read", "💧 Water"])
-        #expect(content.title == "2 habits left today")
+        // Localized, and Russian picks a plural variation — the count is what must survive.
+        #expect(content.title.filter(\.isNumber) == "2")
         #expect(content.body == "📚 Read · 💧 Water")
         #expect(NotificationService.nudgeIdentifier(for: DayKey(raw: "2026-09-12")) == "nudge-2026-09-12")
     }

@@ -64,17 +64,37 @@ public final class AutoTrackingEngine {
         onDidEvaluate?(summary)
     }
 
-    /// User toggles a habit for today. Manual habits get `.manual`; automatic ones become `.manualOverride`
+    // MARK: Editing a day by hand
+
+    /// The span of logical days the user may still edit, oldest first. Bounded by
+    /// `AppSettings.backdateLimitDays` so an accidental scroll into last year cannot rewrite history.
+    public func editableDayRange(now: Date? = nil) -> ClosedRange<DayKey> {
+        let today = dayCalendar.dayKey(for: now ?? clock())
+        let earliest = dayCalendar.key(byAdding: -settings.backdateLimitDays, to: today)
+        return earliest...today
+    }
+
+    /// Whether this day of this habit accepts a hand edit. A day before the habit existed does not:
+    /// `ActivityGrid` already leaves those out of `scheduled`, and writing a log there would invent history.
+    public func canEdit(habit: Habit, dayKey key: DayKey, now: Date? = nil) -> Bool {
+        let moment = now ?? clock()
+        guard editableDayRange(now: moment).contains(key) else { return false }
+        return key >= dayCalendar.dayKey(for: habit.createdAt)
+    }
+
+    /// User toggles a habit. `dayKey` defaults to today; a past day is accepted while it is inside
+    /// `editableDayRange`. Manual habits get `.manual`; automatic ones become `.manualOverride`
     /// in either direction so the engine stops fighting the user for that day.
     public func setManualCompletion(habitID: UUID, completed: Bool, dayKey: DayKey? = nil) throws {
         guard let habit = try repository.habit(id: habitID) else { return }
         let now = clock()
         let key = dayKey ?? dayCalendar.dayKey(for: now)
+        guard canEdit(habit: habit, dayKey: key, now: now) else { throw BackdateError.dayNotEditable(key) }
         let log = try repository.fetchOrCreateLog(
             habitID: habit.id, dayKey: key, dayStart: dayCalendar.dayStart(for: key), target: habit.rule.target
         )
         log.isCompleted = completed
-        log.completedAt = completed ? now : nil
+        log.completedAt = completed ? completionInstant(for: key, now: now) : nil
         if habit.isAutomatic {
             log.completionSource = .manualOverride
         } else {
@@ -89,16 +109,60 @@ public final class AutoTrackingEngine {
         onDidEvaluate?(summary)
     }
 
+    /// Writes a measured value for an automatic habit by hand — the case where Health simply has
+    /// no sample (phone left at home, watch not worn). Completion follows from the day's own target,
+    /// so a corrected day counts exactly like a day the engine closed itself.
+    public func setManualValue(habitID: UUID, value: Double, dayKey: DayKey? = nil) throws {
+        guard let habit = try repository.habit(id: habitID) else { return }
+        guard habit.isAutomatic else { throw BackdateError.habitIsNotMeasured(habitID) }
+        let now = clock()
+        let key = dayKey ?? dayCalendar.dayKey(for: now)
+        guard canEdit(habit: habit, dayKey: key, now: now) else { throw BackdateError.dayNotEditable(key) }
+        let log = try repository.fetchOrCreateLog(
+            habitID: habit.id, dayKey: key, dayStart: dayCalendar.dayStart(for: key), target: habit.rule.target
+        )
+        // The target is whatever this day was measured against, not today's — adaptive goals move.
+        let target = log.targetValue > 0 ? log.targetValue : habit.rule.target
+        log.progressValue = max(0, value)
+        log.targetValue = target
+        log.isCompleted = log.progressValue >= target
+        log.completedAt = log.isCompleted ? completionInstant(for: key, now: now) : nil
+        log.completionSource = .manualOverride
+        log.updatedAt = now
+        try repository.save()
+        var summary = EvaluationSummary()
+        summary.evaluatedHabitIDs = [habit.id]
+        onDidEvaluate?(summary)
+    }
+
     /// Removes a manual override so the engine owns the day again, then re-evaluates.
-    public func clearOverride(habitID: UUID) async throws {
-        let key = dayCalendar.dayKey(for: clock())
+    /// Re-evaluation only reaches today; an older day is handed back to `finalizeDay`.
+    public func clearOverride(habitID: UUID, dayKey: DayKey? = nil) async throws {
+        let now = clock()
+        let today = dayCalendar.dayKey(for: now)
+        let key = dayKey ?? today
         guard let log = try repository.log(habitID: habitID, dayKey: key), log.completionSource == .manualOverride else { return }
         log.completionSource = .unset
         log.isCompleted = false
         log.completedAt = nil
-        log.updatedAt = clock()
+        log.progressValue = 0
+        log.updatedAt = now
         try repository.save()
-        await evaluate(habitIDs: [habitID], reason: .manualRefresh)
+        if key == today {
+            await evaluate(habitIDs: [habitID], reason: .manualRefresh)
+        } else if let habit = try repository.habit(id: habitID) {
+            var summary = EvaluationSummary()
+            await evaluate(habit: habit, dayKey: key, now: now, reason: .dayRollover, summary: &summary)
+            try? repository.save()
+            onDidEvaluate?(summary)
+        }
+    }
+
+    /// Timestamp to stamp on a hand-closed day. Today gets the real instant; a past day gets the end
+    /// of that logical day, so `completedAt` never lands outside the day it belongs to.
+    private func completionInstant(for key: DayKey, now: Date) -> Date {
+        let window = dayCalendar.window(for: key)
+        return window.contains(now) ? now : window.end.addingTimeInterval(-1)
     }
 
     // MARK: Core

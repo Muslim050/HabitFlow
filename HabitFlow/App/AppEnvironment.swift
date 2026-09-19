@@ -162,7 +162,8 @@ final class AppEnvironment {
         lastSummary = summary
         evaluationTick &+= 1
         analysis.refreshIfNeeded()
-        WidgetCenter.shared.reloadTimelines(ofKind: TodayRingsWidgetKind)
+        // Both kinds: a backdated day changes the activity table, not just today's rings.
+        WidgetCenter.shared.reloadAllTimelines()
         Task { await rescheduleNudge() }
     }
 
