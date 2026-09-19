@@ -135,6 +135,16 @@
         }
       }
     },
+    "Cannot read your habits": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не вижу ваши привычки"
+          }
+        }
+      }
+    },
     "Completed": {
       "localizations": {
         "ru": {
@@ -245,6 +255,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Привычек пока нет"
+          }
+        }
+      }
+    },
+    "Open HabitFlow to see today": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Откройте HabitFlow, чтобы увидеть день"
+          }
+        }
+      }
+    },
+    "Open HabitFlow — shared storage is unavailable.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Откройте HabitFlow — общее хранилище недоступно."
           }
         }
       }

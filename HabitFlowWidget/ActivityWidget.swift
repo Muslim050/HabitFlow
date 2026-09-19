@@ -12,6 +12,8 @@ struct ActivityEntry: TimelineEntry {
     let availablePresets: [HabitPreset]
     /// Written by the app after it reads EventKit; a widget cannot ask for that permission.
     let agenda: [AgendaItem]
+    /// See `TodayRingsEntry.storeAvailable`: "cannot read" is not the same as "nothing there".
+    var storeAvailable = true
 
     var hasHabits: Bool { !matrix.rows.isEmpty }
 
@@ -47,7 +49,10 @@ struct ActivityProvider: TimelineProvider {
         let settings = AppSettings.shared
         let calendar = settings.dayCalendar
         let today = calendar.today()
-        guard let container = try? ModelContainerFactory.shared() else { return .placeholder }
+        guard let container = try? ModelContainerFactory.shared() else {
+            return ActivityEntry(date: Date(), matrix: .empty, calendar: calendar, today: today,
+                                 availablePresets: [], agenda: [], storeAvailable: false)
+        }
         let repository = SwiftDataHabitRepository(container: container)
         let habits = (try? repository.activeHabits()) ?? []
         let from = calendar.key(byAdding: -(days + 1), to: today)
@@ -115,9 +120,13 @@ struct ActivityWidgetView: View {
                     .buttonStyle(.plain)
                     .accessibilityLabel(Text("\(row.name), today"))
                 }
-            } else {
+            } else if entry.storeAvailable {
                 Text("No habits yet").font(.subheadline.bold())
                 Text("Pick one below to start.").font(.caption).foregroundStyle(.secondary)
+            } else {
+                Text("Cannot read your habits").font(.subheadline.bold())
+                Text("Open HabitFlow — shared storage is unavailable.")
+                    .font(.caption).foregroundStyle(.secondary)
             }
 
             if isLarge {

@@ -18,6 +18,10 @@ struct TodayRingsEntry: TimelineEntry {
     let items: [RingItem]
     let completedCount: Int
     let updatedAt: Date?
+    /// False when the App Group store could not be opened — a free signing team often cannot
+    /// provision one. Without this the widget would claim there are no habits, which is a lie:
+    /// it simply cannot see them.
+    var storeAvailable = true
 
     static let placeholder = TodayRingsEntry(
         date: Date(),
@@ -59,7 +63,8 @@ struct TodayRingsProvider: TimelineProvider {
         let today = calendar.dayKey(for: now)
 
         guard let container = try? ModelContainerFactory.shared() else {
-            return TodayRingsEntry(date: now, items: [], completedCount: 0, updatedAt: settings.lastEngineRunAt)
+            return TodayRingsEntry(date: now, items: [], completedCount: 0,
+                                   updatedAt: settings.lastEngineRunAt, storeAvailable: false)
         }
         let repository = SwiftDataHabitRepository(container: container)
         let pauses = (try? repository.pauses()) ?? []

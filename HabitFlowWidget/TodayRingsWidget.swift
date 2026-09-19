@@ -39,7 +39,8 @@ struct TodayRingsEntryView: View {
             header
             if entry.items.isEmpty {
                 Spacer()
-                Text("Add a habit in HabitFlow").font(.caption).foregroundStyle(.secondary)
+                Text(entry.storeAvailable ? "Add a habit in HabitFlow" : "Open HabitFlow to see today")
+                    .font(.caption).foregroundStyle(.secondary)
                 Spacer()
             } else {
                 HStack(spacing: 10) {
@@ -61,7 +62,8 @@ struct TodayRingsEntryView: View {
         VStack(alignment: .leading, spacing: compact ? 5 : 6) {
             header
             if entry.items.isEmpty {
-                Text("Add a habit in HabitFlow").font(.caption).foregroundStyle(.secondary)
+                Text(entry.storeAvailable ? "Add a habit in HabitFlow" : "Open HabitFlow to see today")
+                    .font(.caption).foregroundStyle(.secondary)
             } else {
                 ForEach(entry.items.prefix(maxRows)) { item in
                     Button(intent: ToggleHabitIntent(habitID: item.id, completed: !item.completed)) {
