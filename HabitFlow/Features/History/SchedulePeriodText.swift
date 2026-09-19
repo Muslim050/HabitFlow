@@ -11,4 +11,13 @@ enum SchedulePeriodText {
         case .month: return String(localized: "\(count) months")
         }
     }
+
+    /// "Last 30 days" / "Last 8 weeks" — the stretch a rate or index was measured over.
+    static func window(_ count: Int, _ period: SchedulePeriod) -> String {
+        switch period {
+        case .day: return String(localized: "Last \(count) days")
+        case .week: return String(localized: "Last \(count) weeks")
+        case .month: return String(localized: "Last \(count) months")
+        }
+    }
 }

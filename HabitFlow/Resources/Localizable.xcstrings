@@ -132,7 +132,7 @@
         }
       }
     },
-    "%lld forgiven misses": {
+    "%lld freezes left this month": {
       "localizations": {
         "en": {
           "variations": {
@@ -140,13 +140,13 @@
               "one": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "%lld forgiven miss"
+                  "value": "%lld freeze left this month"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "%lld forgiven misses"
+                  "value": "%lld freezes left this month"
                 }
               }
             }
@@ -155,31 +155,41 @@
         "ru": {
           "variations": {
             "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "осталась %lld заморозка"
+                }
+              },
               "few": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "%lld прощённых пропуска"
+                  "value": "осталось %lld заморозки"
                 }
               },
               "many": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "%lld прощённых пропусков"
-                }
-              },
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld прощённый пропуск"
+                  "value": "осталось %lld заморозок"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "%lld прощённых пропуска"
+                  "value": "осталось %lld заморозки"
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "%lld frozen": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "заморожено: %lld"
           }
         }
       }
@@ -592,22 +602,22 @@
         }
       }
     },
+    "A missed period is forgiven while the month still has freezes, and marked as frozen rather than done. Each habit can pick its own headline number.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пропущенный период прощается, пока в месяце остались заморозки, и помечается как замороженный, а не выполненный. Главное число каждая привычка выбирает себе сама."
+          }
+        }
+      }
+    },
     "A slightly lower goal would make this a streak": {
       "localizations": {
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Чуть меньшая цель превратила бы это в серию"
-          }
-        }
-      }
-    },
-    "A streak survives this many misses in any 7 scheduled days.": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Серия выживает при таком числе пропусков за любые 7 плановых дней."
           }
         }
       }
@@ -1128,6 +1138,16 @@
         }
       }
     },
+    "Completion rate": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доля выполнения"
+          }
+        }
+      }
+    },
     "Connect Calendar and Reminders": {
       "localizations": {
         "ru": {
@@ -1441,6 +1461,16 @@
         }
       }
     },
+    "Everything you have ever kept, and it only goes up.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Всё, что вы когда-либо выдержали, и это число только растёт."
+          }
+        }
+      }
+    },
     "Fixed": {
       "localizations": {
         "ru": {
@@ -1451,12 +1481,12 @@
         }
       }
     },
-    "Forgiven misses per week: %lld": {
+    "Freezes per month: %lld": {
       "localizations": {
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Прощённых пропусков в неделю: %lld"
+            "value": "Заморозок в месяц: %lld"
           }
         }
       }
@@ -1527,6 +1557,16 @@
         }
       }
     },
+    "Grows with repetition": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Растёт от повторений"
+          }
+        }
+      }
+    },
     "HIIT": {
       "localizations": {
         "ru": {
@@ -1583,6 +1623,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Привычки, которые закрываются сами"
+          }
+        }
+      }
+    },
+    "Headline": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Главное число"
           }
         }
       }
@@ -1677,22 +1727,178 @@
         }
       }
     },
+    "Kept periods in a row. Freezes hold it together; run out of them and it restarts.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Периоды подряд. Заморозки держат серию; когда они кончаются, она начинается заново."
+          }
+        }
+      }
+    },
+    "Last %lld days": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Last day"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Last %lld days"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Последний %lld день"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Последние %lld дня"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Последние %lld дней"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Последние %lld дня"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Last %lld months": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Last month"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Last %lld months"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Последний %lld месяц"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Последние %lld месяца"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Последние %lld месяцев"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Последние %lld месяца"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Last %lld weeks": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Last week"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Last %lld weeks"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Последняя %lld неделя"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Последние %lld недели"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Последние %lld недель"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Последние %lld недели"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "Last 16 weeks": {
       "localizations": {
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Последние 16 недель"
-          }
-        }
-      }
-    },
-    "Last 30 days, recent days weigh more": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "За 30 дней, недавние дни весят больше"
           }
         }
       }
@@ -2117,6 +2323,16 @@
         }
       }
     },
+    "Progress": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прогресс"
+          }
+        }
+      }
+    },
     "Project call": {
       "extractionState": "stale",
       "localizations": {
@@ -2208,6 +2424,16 @@
         }
       }
     },
+    "Rises with repetition and dips on a miss, never back to zero. Slow in both directions.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Растёт от повторений и проседает от пропуска, но никогда не обнуляется. Медленно в обе стороны."
+          }
+        }
+      }
+    },
     "Running": {
       "localizations": {
         "ru": {
@@ -2285,6 +2511,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Настройки"
+          }
+        }
+      }
+    },
+    "Share of recent periods you kept.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доля последних периодов, которые вы выдержали."
           }
         }
       }
@@ -2389,12 +2625,22 @@
         }
       }
     },
-    "Streaks": {
+    "Streak": {
       "localizations": {
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Серии"
+            "value": "Серия"
+          }
+        }
+      }
+    },
+    "Strength": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сила"
           }
         }
       }
@@ -2505,6 +2751,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сегодня"
+          }
+        }
+      }
+    },
+    "Total": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Всего"
           }
         }
       }
@@ -2697,6 +2953,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "выполнено"
+          }
+        }
+      }
+    },
+    "frozen": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "заморожен"
           }
         }
       }

@@ -171,7 +171,7 @@ struct BackdatingTests {
 
     @Test func editingAPastDayChangesTheStreak() throws {
         let env = try TestEnv()
-        env.settings.graceMissesPerWeek = 0
+        env.settings.freezesPerMonth = 0
         let habit = try env.addHabit("Walk", rule: .manual, createdDaysAgo: 30)
         // Yesterday and the day before are closed; the gap three days back breaks the chain.
         for offset in [-1, -2, -4, -5] {
@@ -190,7 +190,7 @@ struct BackdatingTests {
         let logs = try env.repository.logs(habitID: habit.id, from: env.day(-30), to: env.today)
         return HabitStats.compute(
             habit: habit, logs: logs, calendar: env.engine.dayCalendar,
-            today: env.today, graceMissesPerWeek: env.settings.graceMissesPerWeek
+            today: env.today, freezesPerMonth: env.settings.freezesPerMonth
         )
     }
 }

@@ -71,7 +71,7 @@ struct FlexibleScheduleTests {
                                   "2026-09-08", "2026-09-10", "2026-09-13"])
         // Nothing yet this week, and the week is not over.
 
-        let streak = try StreakCalculator.currentStreak(obligations(env, habit), graceMissesPerWeek: 1)
+        let streak = try StreakCalculator.currentStreak(obligations(env, habit), freezesPerMonth: 1)
         #expect(streak.length == 2, "two whole weeks kept; the running one is not judged yet")
         #expect(streak.gracesUsed == 0)
     }
@@ -83,7 +83,7 @@ struct FlexibleScheduleTests {
         // Last week only got two of three.
         try complete(env, habit, ["2026-09-08", "2026-09-10"])
 
-        let streak = try StreakCalculator.currentStreak(obligations(env, habit), graceMissesPerWeek: 1)
+        let streak = try StreakCalculator.currentStreak(obligations(env, habit), freezesPerMonth: 1)
         #expect(streak.length == 1)
         #expect(streak.gracesUsed == 1)
     }
@@ -95,7 +95,7 @@ struct FlexibleScheduleTests {
 
         let logs = try env.repository.logs(habitID: habit.id, from: DayKey(raw: "2026-08-01"), to: env.today)
         let stats = HabitStats.compute(habit: habit, logs: logs, calendar: week,
-                                       today: env.today, graceMissesPerWeek: 1)
+                                       today: env.today, freezesPerMonth: 1)
         #expect(stats.period == .week)
         #expect(stats.consistency.period == .week)
         #expect(stats.consistency.minimum == 3, "three weeks of history, not seven days")

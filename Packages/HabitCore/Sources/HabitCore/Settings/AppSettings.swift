@@ -6,7 +6,8 @@ public final class AppSettings: @unchecked Sendable {
         public static let dayStartHour = "dayStartHour"
         public static let nudgeHour = "nudgeHour"
         public static let nudgeEnabled = "nudgeEnabled"
-        public static let graceMissesPerWeek = "graceMissesPerWeek"
+        public static let freezesPerMonth = "freezesPerMonth"
+        public static let defaultProgressModel = "defaultProgressModel"
         public static let hasCompletedOnboarding = "hasCompletedOnboarding"
         public static let healthAuthorizationRequested = "healthAuthorizationRequested"
         public static let lastEngineRunAt = "lastEngineRunAt"
@@ -39,9 +40,17 @@ public final class AppSettings: @unchecked Sendable {
         set { defaults.set(newValue, forKey: Key.nudgeEnabled) }
     }
 
-    public var graceMissesPerWeek: Int {
-        get { defaults.object(forKey: Key.graceMissesPerWeek) as? Int ?? 1 }
-        set { defaults.set(min(max(newValue, 0), 3), forKey: Key.graceMissesPerWeek) }
+    /// Missed obligations forgiven per calendar month before a streak breaks. Spent silently,
+    /// newest first; the history views mark which days a freeze covered.
+    public var freezesPerMonth: Int {
+        get { defaults.object(forKey: Key.freezesPerMonth) as? Int ?? 2 }
+        set { defaults.set(min(max(newValue, 0), 10), forKey: Key.freezesPerMonth) }
+    }
+
+    /// Applied to habits created from now on; existing habits keep whatever they were given.
+    public var defaultProgressModel: ProgressModel {
+        get { (defaults.string(forKey: Key.defaultProgressModel).flatMap(ProgressModel.init(rawValue:))) ?? .default }
+        set { defaults.set(newValue.rawValue, forKey: Key.defaultProgressModel) }
     }
 
     /// How many days back a past day may still be edited by hand. 0 means today only.

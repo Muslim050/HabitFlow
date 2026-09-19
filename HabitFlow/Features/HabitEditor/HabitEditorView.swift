@@ -23,6 +23,7 @@ struct HabitEditorView: View {
     @State private var dwellMinutes: Double
     @State private var placeName: String
     @State private var schedule: HabitSchedule
+    @State private var progressModel: ProgressModel
     @State private var adaptationMode: GoalAdaptationMode
     @State private var showPlacePicker = false
 
@@ -34,6 +35,7 @@ struct HabitEditorView: View {
         _colorHex = State(initialValue: habit?.colorHex ?? HabitPalette.hexes[0])
         _kind = State(initialValue: rule.kind)
         _schedule = State(initialValue: habit?.schedule ?? .everyDay)
+        _progressModel = State(initialValue: habit?.progressModel ?? AppSettings.shared.defaultProgressModel)
         _adaptationMode = State(initialValue: habit?.adaptationMode ?? AppSettings.shared.defaultAdaptationMode)
 
         var metric = HealthMetric.steps
@@ -130,6 +132,18 @@ struct HabitEditorView: View {
                 }
 
                 SchedulePickerSection(schedule: $schedule)
+
+                Section {
+                    Picker("Headline", selection: $progressModel) {
+                        ForEach(ProgressModel.allCases, id: \.self) { model in
+                            Text(model.displayName).tag(model)
+                        }
+                    }
+                } header: {
+                    Text("Progress")
+                } footer: {
+                    Text(progressModel.explanation)
+                }
             }
             .navigationTitle(Text(existing == nil ? "New habit" : "Edit habit"))
             .navigationBarTitleDisplayMode(.inline)
@@ -236,12 +250,13 @@ struct HabitEditorView: View {
             habit.colorHex = colorHex
             habit.rule = rule
             habit.schedule = schedule
+            habit.progressModel = progressModel
             habit.adaptationMode = adaptationMode
             habit.updatedAt = Date()
         } else {
             let count = (try? env.repository.activeHabits().count) ?? 0
             habit = Habit(name: trimmed, emoji: emoji.isEmpty ? "✅" : emoji, colorHex: colorHex, rule: rule,
-                          schedule: schedule, sortOrder: count)
+                          schedule: schedule, progressModel: progressModel, sortOrder: count)
             habit.adaptationMode = adaptationMode
             env.repository.insert(habit)
         }

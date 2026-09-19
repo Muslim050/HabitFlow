@@ -34,56 +34,74 @@ func results(_ pattern: String) -> [ObligationResult] {
 
 @Suite("StreakCalculator")
 struct StreakCalculatorTests {
-    @Test func countsCompletedDays() {
-        let r = results("CCCCC")
-        #expect(StreakCalculator.currentStreak(r, graceMissesPerWeek: 1) == Streak(length: 5, gracesUsed: 0))
+    @Test func countsKeptObligations() {
+        #expect(StreakCalculator.currentStreak(results("CCCCC"), freezesPerMonth: 1) == Streak(length: 5))
     }
 
-    @Test func todayInProgressDoesNotBreak() {
-        let r = results("CCCCM")
-        #expect(StreakCalculator.currentStreak(r, graceMissesPerWeek: 1).length == 4)
+    @Test func theRunningObligationNeverBreaksTheRun() {
+        #expect(StreakCalculator.currentStreak(results("CCCCM"), freezesPerMonth: 1).length == 4)
     }
 
-    @Test func oneMissPerWeekIsForgiven() {
-        let r = results("CCMCC")
-        #expect(StreakCalculator.currentStreak(r, graceMissesPerWeek: 1) == Streak(length: 4, gracesUsed: 1))
+    @Test func aMissIsFrozenWhileTheMonthHasBudget() {
+        let streak = StreakCalculator.currentStreak(results("CCMCC"), freezesPerMonth: 1)
+        #expect(streak.length == 4, "a freeze keeps the run alive but is not itself a kept day")
+        #expect(streak.gracesUsed == 1)
+        #expect(streak.frozen == [DayKey(raw: "2026-01-03")])
     }
 
-    @Test func twoMissesInAWeekBreak() {
-        let r = results("CCMCMC")
-        let streak = StreakCalculator.currentStreak(r, graceMissesPerWeek: 1)
+    @Test func aSecondMissInTheSameMonthBreaksTheRun() {
+        let streak = StreakCalculator.currentStreak(results("CCMCMC"), freezesPerMonth: 1)
         #expect(streak.length == 2)
         #expect(streak.gracesUsed == 1)
     }
 
-    @Test func missOlderThanAWeekDoesNotCount() {
-        let r = results("CMCCCCCCCMC")
-        #expect(StreakCalculator.currentStreak(r, graceMissesPerWeek: 1).length == 9, "9 completed days, the two misses are 8 days apart")
+    @Test func distanceDoesNotMatterWithinAMonth() {
+        // Under the old sliding-window rule these two misses were far enough apart to both be
+        // forgiven. The budget is monthly now, so the second one ends the run.
+        let streak = StreakCalculator.currentStreak(results("CMCCCCCCCMC"), freezesPerMonth: 1)
+        #expect(streak.length == 8)
+        #expect(streak.gracesUsed == 1)
     }
 
-    @Test func noGraceBreaksImmediately() {
-        let r = results("CCMC")
-        #expect(StreakCalculator.currentStreak(r, graceMissesPerWeek: 0).length == 1)
+    @Test func eachMonthBringsItsOwnBudget() {
+        // 2026-01-01 + 40 days runs into February: a miss in each month, one freeze each.
+        let pattern = "M" + String(repeating: "C", count: 39) + "M" + String(repeating: "C", count: 5)
+        let streak = StreakCalculator.currentStreak(pattern, freezes: 1)
+        #expect(streak.gracesUsed == 2, "January and February are budgeted separately")
+        #expect(streak.length == 44)
+    }
+
+    @Test func noBudgetBreaksImmediately() {
+        #expect(StreakCalculator.currentStreak(results("CCMC"), freezesPerMonth: 0).length == 1)
     }
 
     @Test func unscheduledDaysAreSkipped() {
-        let r = results("CCSSCC")
-        #expect(StreakCalculator.currentStreak(r, graceMissesPerWeek: 1).length == 4)
+        #expect(StreakCalculator.currentStreak(results("CCSSCC"), freezesPerMonth: 1).length == 4)
     }
 
     @Test func emptyHistory() {
-        let r = results("M")
-        #expect(StreakCalculator.currentStreak(r, graceMissesPerWeek: 1) == .zero)
-        #expect(StreakCalculator.currentStreak([], graceMissesPerWeek: 1) == .zero)
+        #expect(StreakCalculator.currentStreak(results("M"), freezesPerMonth: 1) == .zero)
+        #expect(StreakCalculator.currentStreak([], freezesPerMonth: 1) == .zero)
+    }
+
+    @Test func freezesLeftCountsWhatThisRunSpent() {
+        let streak = StreakCalculator.currentStreak(results("CCMCC"), freezesPerMonth: 2)
+        #expect(StreakCalculator.freezesLeft(in: DayKey(raw: "2026-01-05"), streak: streak, freezesPerMonth: 2) == 1)
+        #expect(StreakCalculator.freezesLeft(in: DayKey(raw: "2026-02-05"), streak: streak, freezesPerMonth: 2) == 2)
     }
 
     @Test func bestStreak() {
-        let r = results("CCCMMCC")
-        #expect(StreakCalculator.bestStreak(r, graceMissesPerWeek: 1) == 3)
-        let r2 = results("CMCCCMCC")
-        #expect(StreakCalculator.bestStreak(r2, graceMissesPerWeek: 1) == 4, "second miss within 7 days resets")
-        let r3 = results("CMCCCCCCCMCC")
-        #expect(StreakCalculator.bestStreak(r3, graceMissesPerWeek: 1) == 10)
+        #expect(StreakCalculator.bestStreak(results("CCCMMCC"), freezesPerMonth: 1) == 3)
+        #expect(StreakCalculator.bestStreak(results("CMCCCMCC"), freezesPerMonth: 1) == 4,
+                "the month's one freeze went to the first miss, so the second resets")
+        #expect(StreakCalculator.bestStreak(results("CMCCCCCCCMCC"), freezesPerMonth: 1) == 8)
+    }
+}
+
+private extension StreakCalculator {
+    /// Longer patterns read better without the `results(...)` wrapper in the middle of the call.
+    static func currentStreak(_ pattern: String, freezes: Int) -> Streak {
+        currentStreak(results(pattern), freezesPerMonth: freezes)
     }
 }
 
@@ -146,5 +164,46 @@ struct DayResultBuilderTests {
         #expect(built[2].completed)
         #expect(built[3].completed == false)
         #expect(built.last?.dayKey == env.today)
+    }
+}
+
+@Suite("HabitScore")
+struct HabitScoreTests {
+    @Test func startsAtZeroAndClimbsWithRepetition() {
+        #expect(HabitScore.compute([]) == 0)
+        let short = HabitScore.compute(results(String(repeating: "C", count: 5)))
+        let long = HabitScore.compute(results(String(repeating: "C", count: 60)))
+        #expect(short > 0)
+        #expect(long > short, "strength is earned slowly; five days is not a habit")
+        #expect(long > 90)
+    }
+
+    @Test func oneMissDipsTheScoreWithoutResettingIt() {
+        // The miss sits second from the end: the last letter is today, and an unfinished today
+        // is deliberately not counted at all.
+        let clean = HabitScore.compute(results(String(repeating: "C", count: 41)))
+        let oneMiss = HabitScore.compute(results(String(repeating: "C", count: 39) + "MC"))
+        #expect(oneMiss < clean, "a miss has to cost something")
+        #expect(oneMiss > clean - 15, "but nowhere near everything — this is the whole point")
+        #expect(oneMiss > 50)
+    }
+
+    @Test func sustainedMissesDoBringItDown() {
+        let score = HabitScore.compute(results(String(repeating: "C", count: 30) + String(repeating: "M", count: 30)))
+        #expect(score < 25)
+    }
+
+    @Test func partialProgressEarnsPartialStrength() {
+        let partial = HabitScore.compute(results(String(repeating: "P", count: 60)))
+        let done = HabitScore.compute(results(String(repeating: "C", count: 60)))
+        let nothing = HabitScore.compute(results(String(repeating: "M", count: 60)))
+        #expect(nothing < partial && partial < done)
+    }
+
+    @Test func theRunningObligationOnlyCountsOnceKept() {
+        // Last letter is today. An unfinished day must not pull the number down.
+        let pending = HabitScore.compute(results(String(repeating: "C", count: 40) + "M"))
+        let closed = HabitScore.compute(results(String(repeating: "C", count: 40)))
+        #expect(pending == closed)
     }
 }

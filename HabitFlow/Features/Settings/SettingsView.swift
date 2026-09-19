@@ -7,7 +7,7 @@ struct SettingsView: View {
     @AppStorage(AppSettings.Key.dayStartHour, store: AppSettings.store) private var dayStartHour = 4
     @AppStorage(AppSettings.Key.nudgeEnabled, store: AppSettings.store) private var nudgeEnabled = true
     @AppStorage(AppSettings.Key.nudgeHour, store: AppSettings.store) private var nudgeHour = 20
-    @AppStorage(AppSettings.Key.graceMissesPerWeek, store: AppSettings.store) private var grace = 1
+    @AppStorage(AppSettings.Key.freezesPerMonth, store: AppSettings.store) private var freezes = 2
     @AppStorage(AppSettings.Key.agendaEnabled, store: AppSettings.store) private var agendaEnabled = false
 
     var body: some View {
@@ -50,11 +50,16 @@ struct SettingsView: View {
                 }
 
                 Section {
-                    Stepper("Forgiven misses per week: \(grace)", value: $grace, in: 0...3)
+                    Picker("New habits", selection: progressModelBinding) {
+                        ForEach(ProgressModel.allCases, id: \.self) { model in
+                            Text(model.displayName).tag(model)
+                        }
+                    }
+                    Stepper("Freezes per month: \(freezes)", value: $freezes, in: 0...10)
                 } header: {
-                    Text("Streaks")
+                    Text("Progress")
                 } footer: {
-                    Text("A streak survives this many misses in any 7 scheduled days.")
+                    Text("A missed period is forgiven while the month still has freezes, and marked as frozen rather than done. Each habit can pick its own headline number.")
                 }
 
                 Section {
@@ -115,6 +120,13 @@ struct SettingsView: View {
             }
             .navigationTitle("Settings")
         }
+    }
+
+    private var progressModelBinding: Binding<ProgressModel> {
+        Binding(
+            get: { env.settings.defaultProgressModel },
+            set: { env.settings.defaultProgressModel = $0 }
+        )
     }
 
     private var adaptationBinding: Binding<GoalAdaptationMode> {

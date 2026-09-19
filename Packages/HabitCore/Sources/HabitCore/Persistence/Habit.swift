@@ -21,6 +21,8 @@ public final class Habit {
     /// Soft delete; archived habits are hidden and never evaluated.
     public var archivedAt: Date? = nil
     public var updatedAt: Date = Date()
+    /// Which headline number this habit reports: strength / streak / rate / total.
+    public var progressModelRaw: String = ProgressModel.default.rawValue
     /// How the goal may change over time: off / suggest / automatic.
     public var adaptationModeRaw: String = GoalAdaptationMode.suggest.rawValue
     /// Last time the goal was raised or lowered by adaptation (cooldown anchor).
@@ -39,6 +41,7 @@ public final class Habit {
         colorHex: String = "#4F8EF7",
         rule: HabitRule = .manual,
         schedule: HabitSchedule = .everyDay,
+        progressModel: ProgressModel = .default,
         sortOrder: Int = 0,
         createdAt: Date = Date()
     ) {
@@ -51,6 +54,7 @@ public final class Habit {
         let schedule = schedule.normalized
         self.scheduleData = (try? HabitScheduleCoding.encode(schedule)) ?? Data()
         self.scheduleMask = schedule.legacyMask
+        self.progressModelRaw = progressModel.rawValue
         self.sortOrder = sortOrder
         self.createdAt = createdAt
         self.updatedAt = createdAt
@@ -66,6 +70,11 @@ public final class Habit {
     }
 
     public var kind: HabitSourceKind { HabitSourceKind(rawValue: kindRaw) ?? .manual }
+
+    public var progressModel: ProgressModel {
+        get { ProgressModel(rawValue: progressModelRaw) ?? .default }
+        set { progressModelRaw = newValue.rawValue; updatedAt = Date() }
+    }
 
     public var adaptationMode: GoalAdaptationMode {
         get { GoalAdaptationMode(rawValue: adaptationModeRaw) ?? .suggest }

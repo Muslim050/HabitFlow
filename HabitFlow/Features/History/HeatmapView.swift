@@ -8,6 +8,9 @@ struct HeatmapView: View {
     let weeks: Int
     let calendar: DayCalendar
     let today: DayKey
+    /// Days a freeze covered. They are drawn apart from both done and missed, so a day the
+    /// budget rescued never passes for a day that was actually kept.
+    var frozen: Set<DayKey> = []
     /// Days inside this range are tappable; nil makes the grid read-only.
     var editable: ClosedRange<DayKey>? = nil
     var onSelect: ((DayKey) -> Void)? = nil
@@ -59,10 +62,16 @@ struct HeatmapView: View {
     }
 
     private func square(_ result: DayResult?) -> some View {
-        RoundedRectangle(cornerRadius: 2.5)
+        let isFrozen = result.map { frozen.contains($0.dayKey) && !$0.completed } ?? false
+        return RoundedRectangle(cornerRadius: 2.5)
             .fill(fill(result))
             .frame(width: 13, height: 13)
             .overlay {
+                if isFrozen {
+                    // A dashed outline, not a fill: the day is held, not earned.
+                    RoundedRectangle(cornerRadius: 2.5)
+                        .strokeBorder(color.opacity(0.9), style: StrokeStyle(lineWidth: 1, dash: [2, 1.5]))
+                }
                 if result?.dayKey == today {
                     RoundedRectangle(cornerRadius: 2.5).stroke(Color.primary.opacity(0.6), lineWidth: 1)
                 }
@@ -74,6 +83,8 @@ struct HeatmapView: View {
         let state: String
         if result.completed {
             state = String(localized: "done")
+        } else if frozen.contains(result.dayKey) {
+            state = String(localized: "frozen")
         } else {
             switch result.obligation {
             case .required: state = String(localized: "not done")

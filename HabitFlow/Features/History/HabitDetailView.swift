@@ -21,7 +21,7 @@ struct HabitDetailView: View {
         _ = env.evaluationTick
         return HabitStats.compute(
             habit: habit, logs: logs, calendar: env.settings.dayCalendar,
-            today: env.currentDayKey, graceMissesPerWeek: env.settings.graceMissesPerWeek
+            today: env.currentDayKey, freezesPerMonth: env.settings.freezesPerMonth
         )
     }
 
@@ -63,12 +63,27 @@ struct HabitDetailView: View {
                 .padding(.vertical, 6)
             }
 
+            Section {
+                let headline = ProgressHeadline(stats: stats, freezesPerMonth: env.settings.freezesPerMonth,
+                                                today: env.currentDayKey)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(headline.value).font(.system(.largeTitle, design: .rounded).weight(.semibold).monospacedDigit())
+                    Text(headline.title).font(.subheadline).foregroundStyle(.secondary)
+                    if let detail = headline.detail {
+                        Text(detail).font(.caption).foregroundStyle(.secondary)
+                    }
+                }
+                .padding(.vertical, 4)
+                .accessibilityElement(children: .combine)
+            }
+
             Section("Stats") {
                 // A streak is counted in the schedule's own unit: three times a week makes weeks,
                 // not days, so the number is meaningless without the word beside it.
                 StatRow(title: "Current streak", value: SchedulePeriodText.length(stats.currentStreak.length, stats.period),
-                        detail: stats.currentStreak.gracesUsed > 0 ? String(localized: "\(stats.currentStreak.gracesUsed) forgiven misses") : nil)
+                        detail: stats.currentStreak.gracesUsed > 0 ? String(localized: "\(stats.currentStreak.gracesUsed) frozen") : nil)
                 StatRow(title: "Best streak", value: SchedulePeriodText.length(stats.bestStreak, stats.period), detail: nil)
+                StatRow(title: "Strength", value: String(localized: "\(stats.habitScore) / 100"), detail: nil)
                 StatRow(title: "Consistency",
                         value: stats.consistency.score.map { String(localized: "\($0) / 100") } ?? String(localized: "Warming up"),
                         detail: stats.consistency.score == nil
@@ -81,6 +96,7 @@ struct HabitDetailView: View {
                 HeatmapView(
                     results: stats.results, color: color, weeks: 16,
                     calendar: env.settings.dayCalendar, today: env.currentDayKey,
+                    frozen: stats.frozenDays,
                     editable: editableRange, onSelect: { editingDay = $0 }
                 )
                 .padding(.vertical, 4)
