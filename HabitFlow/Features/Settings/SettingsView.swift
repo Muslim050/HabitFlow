@@ -52,6 +52,8 @@ struct SettingsView: View {
                     Text("Default for habits you create next. Each habit can be changed on its own.")
                 }
 
+                BackupSection()
+
                 Section {
                     if let running = globalPause {
                         PauseRow(pause: running)

@@ -33,6 +33,14 @@ public final class SwiftDataHabitRepository: HabitRepository {
         return try context.fetch(descriptor)
     }
 
+    public func allLogs() throws -> [DailyLog] {
+        try context.fetch(FetchDescriptor<DailyLog>(sortBy: [SortDescriptor(\.dayKey)]))
+    }
+
+    public func allVisits() throws -> [GeofenceVisit] {
+        try context.fetch(FetchDescriptor<GeofenceVisit>(sortBy: [SortDescriptor(\.enteredAt)]))
+    }
+
     public func pauses() throws -> [HabitPause] {
         try context.fetch(FetchDescriptor<HabitPause>(sortBy: [SortDescriptor(\.startDayKey)]))
     }

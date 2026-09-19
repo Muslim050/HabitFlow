@@ -194,6 +194,58 @@
         }
       }
     },
+    "%lld habits": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld habit"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld habits"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld привычка"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld привычки"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld привычек"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld привычки"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "%lld habits left today": {
       "localizations": {
         "en": {
@@ -320,6 +372,58 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$lld из %2$lld нужных"
+          }
+        }
+      }
+    },
+    "%lld pauses": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld pause"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld pauses"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld пауза"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld паузы"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld пауз"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld паузы"
+                }
+              }
+            }
           }
         }
       }
@@ -1198,6 +1302,16 @@
         }
       }
     },
+    "Could not read that file": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось прочитать файл"
+          }
+        }
+      }
+    },
     "Counted from the day the habit was created.": {
       "localizations": {
         "ru": {
@@ -1234,6 +1348,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Велосипед"
+          }
+        }
+      }
+    },
+    "Data": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Данные"
           }
         }
       }
@@ -1471,6 +1595,16 @@
         }
       }
     },
+    "Everything in that file was already here.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Всё из этого файла уже было здесь."
+          }
+        }
+      }
+    },
     "Everything is paused": {
       "localizations": {
         "ru": {
@@ -1487,6 +1621,36 @@
           "stringUnit": {
             "state": "translated",
             "value": "Всё, что вы когда-либо выдержали, и это число только растёт."
+          }
+        }
+      }
+    },
+    "Export backup": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выгрузить резервную копию"
+          }
+        }
+      }
+    },
+    "Export failed": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось выгрузить"
+          }
+        }
+      }
+    },
+    "Export spreadsheet": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выгрузить таблицу"
           }
         }
       }
@@ -2524,6 +2688,26 @@
         }
       }
     },
+    "Restore from a backup": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Восстановить из копии"
+          }
+        }
+      }
+    },
+    "Restored": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Восстановлено"
+          }
+        }
+      }
+    },
     "Resume": {
       "localizations": {
         "ru": {
@@ -2831,6 +3015,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Этот день вне диапазона, доступного для правки."
+          }
+        }
+      }
+    },
+    "The backup holds every habit, day and pause, and restores them exactly. The spreadsheet is one row per day, for reading elsewhere.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В копии все привычки, дни и паузы — она восстанавливается один в один. В таблице по строке на день, чтобы смотреть в другом месте."
           }
         }
       }

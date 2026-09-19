@@ -18,6 +18,8 @@ public protocol HabitRepository: AnyObject {
     func logs(dayKey: DayKey) throws -> [DailyLog]
     /// Every habit's logs in the range, for cross-habit analysis.
     func logs(from: DayKey, to: DayKey) throws -> [DailyLog]
+    /// The whole log table, for export. Nothing else should need this.
+    func allLogs() throws -> [DailyLog]
     func log(habitID: UUID, dayKey: DayKey) throws -> DailyLog?
     func fetchOrCreateLog(habitID: UUID, dayKey: DayKey, dayStart: Date, target: Double) throws -> DailyLog
 
@@ -28,6 +30,8 @@ public protocol HabitRepository: AnyObject {
     func visits(habitID: UUID, overlapping window: DateInterval, now: Date) throws -> [GeofenceVisit]
     func openVisit(habitID: UUID) throws -> GeofenceVisit?
     func openVisits(enteredBefore: Date) throws -> [GeofenceVisit]
+    /// The whole visit table, for export.
+    func allVisits() throws -> [GeofenceVisit]
 
     func insert(_ model: any PersistentModel)
     func delete(_ model: any PersistentModel)
