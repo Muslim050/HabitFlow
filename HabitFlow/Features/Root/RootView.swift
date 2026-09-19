@@ -26,13 +26,14 @@ struct MainTabView: View {
             Tab("Today", systemImage: "circle.circle", value: Tabs.today) {
                 TodayScreen(showEditor: $showNewHabit)
             }
-            Tab("Insights", systemImage: "chart.line.uptrend.xyaxis", value: Tabs.insights) {
+            Tab("Rhythm", systemImage: "waveform.path.ecg", value: Tabs.insights) {
                 InsightsView()
             }
-            Tab("Settings", systemImage: "gearshape", value: Tabs.settings) {
+            Tab("More", systemImage: "line.3.horizontal", value: Tabs.settings) {
                 SettingsView()
             }
         }
+        .tint(HFTheme.accent)
         // The widget's "own habit" button can only hand the app a URL; the form lives here.
         .onChange(of: env.pendingDeepLink) { _, url in
             guard let url, url.host() == AppEnvironment.newHabitHost else { return }

@@ -1,0 +1,871 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HabitFlow — Calm Momentum redesign</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17201c;
+      --muted: #69736e;
+      --canvas: #edf0e8;
+      --cream: #f8f7f1;
+      --paper: #fffefa;
+      --sage: #dcebd6;
+      --green: #226b4a;
+      --lime: #ccef72;
+      --orange: #ef9e57;
+      --blue: #75a9f9;
+      --line: rgba(23, 32, 28, .10);
+      --shadow: 0 30px 90px rgba(41, 53, 46, .16), 0 4px 18px rgba(41, 53, 46, .08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 7% 0%, rgba(204, 239, 114, .42), transparent 30rem),
+        radial-gradient(circle at 95% 24%, rgba(117, 169, 249, .20), transparent 34rem),
+        var(--canvas);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button { font: inherit; }
+
+    .page {
+      max-width: 1540px;
+      margin: 0 auto;
+      padding: 72px 48px 96px;
+    }
+
+    .intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(320px, .75fr);
+      gap: 64px;
+      align-items: end;
+      margin-bottom: 62px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 12px;
+      border: 1px solid rgba(34, 107, 74, .16);
+      border-radius: 999px;
+      color: var(--green);
+      background: rgba(255, 255, 255, .48);
+      font-size: 13px;
+      font-weight: 680;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--lime);
+      box-shadow: 0 0 0 4px rgba(204, 239, 114, .28);
+    }
+
+    h1 {
+      max-width: 900px;
+      margin: 22px 0 20px;
+      font-size: clamp(52px, 6vw, 94px);
+      line-height: .92;
+      letter-spacing: -.065em;
+      font-weight: 760;
+    }
+
+    .intro p {
+      max-width: 760px;
+      margin: 0;
+      color: #4e5b55;
+      font-size: 20px;
+      line-height: 1.5;
+      letter-spacing: -.01em;
+    }
+
+    .manifesto {
+      padding: 24px 26px;
+      background: rgba(255, 254, 250, .62);
+      border: 1px solid rgba(255,255,255,.72);
+      border-radius: 28px;
+      box-shadow: 0 16px 50px rgba(41,53,46,.08);
+      backdrop-filter: blur(20px);
+    }
+
+    .manifesto strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+
+    .manifesto span {
+      display: block;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.48;
+    }
+
+    .showcase {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(320px, 1fr));
+      gap: 28px;
+      align-items: start;
+    }
+
+    .screen-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin: 0 12px 14px;
+    }
+
+    .screen-label strong { font-size: 17px; }
+    .screen-label span { color: var(--muted); font-size: 13px; }
+
+    .phone {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 393 / 852;
+      overflow: hidden;
+      border: 7px solid rgba(23, 32, 28, .92);
+      border-radius: 56px;
+      background: var(--cream);
+      box-shadow: var(--shadow);
+    }
+
+    .phone::after {
+      content: "";
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      border-radius: 48px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.28);
+    }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: var(--cream);
+    }
+
+    .status {
+      height: 53px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 0 25px 8px;
+      font-size: 13px;
+      font-weight: 720;
+    }
+
+    .island {
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      width: 104px;
+      height: 30px;
+      border-radius: 20px;
+      transform: translateX(-50%);
+      background: #090b0a;
+    }
+
+    .signals { letter-spacing: 2px; font-size: 11px; }
+
+    .scroll {
+      height: calc(100% - 53px);
+      overflow: hidden;
+      padding: 0 19px 96px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 7px 0 18px;
+    }
+
+    .date small {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .date h2 {
+      margin: 0;
+      font-size: 34px;
+      letter-spacing: -.045em;
+      line-height: 1;
+    }
+
+    .icon-btn {
+      width: 43px;
+      height: 43px;
+      border: 1px solid rgba(23,32,28,.08);
+      border-radius: 50%;
+      background: rgba(255,255,255,.82);
+      color: var(--ink);
+      font-size: 25px;
+      line-height: 1;
+      box-shadow: 0 7px 18px rgba(23,32,28,.08);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 181px;
+      overflow: hidden;
+      padding: 22px 22px 20px;
+      border-radius: 28px;
+      background: var(--ink);
+      color: white;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(1px);
+    }
+
+    .hero::before {
+      width: 190px;
+      height: 190px;
+      right: -72px;
+      top: -90px;
+      background: rgba(204,239,114,.36);
+    }
+
+    .hero::after {
+      width: 135px;
+      height: 135px;
+      right: 17px;
+      bottom: -92px;
+      background: rgba(117,169,249,.25);
+    }
+
+    .hero-head {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .hero-kicker {
+      margin-bottom: 7px;
+      color: rgba(255,255,255,.62);
+      font-size: 12px;
+      font-weight: 650;
+      letter-spacing: .04em;
+    }
+
+    .hero h3 {
+      margin: 0;
+      max-width: 210px;
+      font-size: 26px;
+      line-height: 1.04;
+      letter-spacing: -.035em;
+    }
+
+    .score {
+      display: grid;
+      place-items: center;
+      width: 60px;
+      height: 60px;
+      border: 6px solid rgba(255,255,255,.18);
+      border-top-color: var(--lime);
+      border-right-color: var(--lime);
+      border-bottom-color: var(--lime);
+      border-radius: 50%;
+      font-size: 18px;
+      font-weight: 760;
+      transform: rotate(15deg);
+    }
+
+    .score span { transform: rotate(-15deg); }
+
+    .auto-state {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 23px;
+      padding: 8px 11px;
+      border-radius: 12px;
+      color: rgba(255,255,255,.82);
+      background: rgba(255,255,255,.09);
+      font-size: 11px;
+    }
+
+    .pulse {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--lime);
+      box-shadow: 0 0 0 5px rgba(204,239,114,.12);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 24px 3px 11px;
+    }
+
+    .section-head h4 { margin: 0; font-size: 17px; letter-spacing: -.02em; }
+    .section-head span { color: var(--muted); font-size: 12px; }
+
+    .habits { display: grid; gap: 9px; }
+
+    .habit {
+      display: grid;
+      grid-template-columns: 45px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      min-height: 76px;
+      padding: 13px 14px;
+      border: 1px solid rgba(23,32,28,.06);
+      border-radius: 21px;
+      background: var(--paper);
+      box-shadow: 0 5px 16px rgba(23,32,28,.04);
+      transition: transform .2s ease, opacity .2s ease;
+    }
+
+    .habit:active { transform: scale(.985); }
+
+    .habit-icon {
+      display: grid;
+      place-items: center;
+      width: 45px;
+      height: 45px;
+      border-radius: 16px;
+      background: #edf4ea;
+      font-size: 21px;
+    }
+
+    .habit.blue .habit-icon { background: #e9f1ff; }
+    .habit.orange .habit-icon { background: #fff0e4; }
+
+    .habit-name {
+      margin-bottom: 5px;
+      font-size: 15px;
+      font-weight: 710;
+      letter-spacing: -.01em;
+    }
+
+    .habit-meta {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .auto-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 6px;
+      border-radius: 7px;
+      color: var(--green);
+      background: var(--sage);
+      font-size: 9px;
+      font-weight: 720;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+
+    .track {
+      width: 70px;
+      height: 4px;
+      overflow: hidden;
+      border-radius: 4px;
+      background: rgba(23,32,28,.09);
+    }
+
+    .track span { display: block; height: 100%; width: 72%; border-radius: inherit; background: var(--green); }
+    .orange .track span { width: 54%; background: var(--orange); }
+
+    .check {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border: 1.7px solid rgba(23,32,28,.2);
+      border-radius: 14px;
+      background: transparent;
+      color: transparent;
+      font-size: 18px;
+      font-weight: 800;
+      transition: .2s ease;
+    }
+
+    .habit.done { opacity: .72; }
+    .habit.done .habit-name { text-decoration: line-through; }
+    .habit.done .check {
+      border-color: var(--green);
+      color: white;
+      background: var(--green);
+    }
+
+    .bottom-nav {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 13px;
+      z-index: 4;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      padding: 6px;
+      border: 1px solid rgba(255,255,255,.75);
+      border-radius: 25px;
+      background: rgba(248,247,241,.84);
+      box-shadow: 0 10px 30px rgba(23,32,28,.15);
+      backdrop-filter: blur(24px) saturate(1.5);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 8px 5px 7px;
+      border-radius: 18px;
+      color: #77807c;
+      font-size: 9px;
+      font-weight: 650;
+    }
+
+    .nav-item i { font-style: normal; font-size: 19px; line-height: 1; }
+    .nav-item.active { color: var(--ink); background: white; }
+
+    /* Insights */
+    .insights-bg {
+      background:
+        radial-gradient(circle at 90% 11%, rgba(204,239,114,.42), transparent 180px),
+        var(--cream);
+    }
+
+    .period {
+      display: inline-flex;
+      gap: 3px;
+      padding: 4px;
+      border-radius: 13px;
+      background: rgba(23,32,28,.06);
+    }
+
+    .period span {
+      padding: 7px 12px;
+      border-radius: 10px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 650;
+    }
+
+    .period .active { color: var(--ink); background: white; box-shadow: 0 2px 7px rgba(23,32,28,.08); }
+
+    .metric-card {
+      padding: 20px;
+      border-radius: 27px;
+      background: var(--ink);
+      color: white;
+    }
+
+    .metric-top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .metric-label { color: rgba(255,255,255,.62); font-size: 11px; }
+    .metric-value { margin-top: 5px; font-size: 41px; font-weight: 760; letter-spacing: -.06em; }
+    .delta { padding: 7px 9px; border-radius: 10px; color: var(--lime); background: rgba(204,239,114,.10); font-size: 11px; font-weight: 700; }
+
+    .bars {
+      display: flex;
+      align-items: end;
+      gap: 8px;
+      height: 78px;
+      margin: 14px 0 8px;
+    }
+
+    .bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .bar { width: 100%; min-height: 8px; border-radius: 6px; background: rgba(255,255,255,.14); overflow: hidden; }
+    .bar::after { content: ""; display: block; width: 100%; height: 100%; border-radius: inherit; background: var(--lime); }
+    .bar-label { color: rgba(255,255,255,.44); font-size: 8px; }
+    .bar-wrap.today .bar { outline: 1px solid rgba(255,255,255,.55); outline-offset: 3px; }
+
+    .habit-health {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+
+    .mini-metric {
+      padding: 14px;
+      border-radius: 19px;
+      background: var(--paper);
+      border: 1px solid rgba(23,32,28,.06);
+    }
+
+    .mini-metric small { color: var(--muted); font-size: 10px; }
+    .mini-metric strong { display: block; margin: 5px 0 2px; font-size: 22px; letter-spacing: -.04em; }
+    .mini-metric span { color: var(--green); font-size: 9px; font-weight: 650; }
+
+    .insight-card {
+      position: relative;
+      overflow: hidden;
+      padding: 17px 17px 16px 51px;
+      border-radius: 21px;
+      background: #eaf2ff;
+      border: 1px solid rgba(117,169,249,.18);
+    }
+
+    .insight-card.warm { background: #fff0e3; border-color: rgba(239,158,87,.18); }
+
+    .insight-icon {
+      position: absolute;
+      left: 15px;
+      top: 16px;
+      display: grid;
+      place-items: center;
+      width: 27px;
+      height: 27px;
+      border-radius: 9px;
+      background: white;
+      font-size: 14px;
+    }
+
+    .insight-card strong { display: block; margin-bottom: 5px; font-size: 13px; }
+    .insight-card p { margin: 0; color: #59655f; font-size: 11px; line-height: 1.42; }
+
+    /* Detail */
+    .detail-hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 5px 0 18px;
+      text-align: center;
+    }
+
+    .big-icon {
+      display: grid;
+      place-items: center;
+      width: 86px;
+      height: 86px;
+      margin-bottom: 14px;
+      border: 8px solid #e6eee2;
+      border-top-color: var(--green);
+      border-right-color: var(--green);
+      border-radius: 50%;
+      background: var(--sage);
+      font-size: 35px;
+      transform: rotate(12deg);
+    }
+
+    .big-icon span { transform: rotate(-12deg); }
+    .detail-hero h2 { margin: 0 0 4px; font-size: 26px; letter-spacing: -.04em; }
+    .detail-hero p { margin: 0; color: var(--muted); font-size: 12px; }
+
+    .goal {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 11px;
+      padding: 7px 11px;
+      border-radius: 11px;
+      color: var(--green);
+      background: var(--sage);
+      font-size: 10px;
+      font-weight: 680;
+    }
+
+    .streak {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 15px;
+      align-items: center;
+      padding: 17px;
+      border-radius: 23px;
+      background: var(--paper);
+      border: 1px solid rgba(23,32,28,.06);
+    }
+
+    .streak-number {
+      min-width: 88px;
+      font-size: 43px;
+      line-height: .9;
+      font-weight: 770;
+      letter-spacing: -.07em;
+    }
+
+    .streak-number small { display: block; margin-top: 9px; color: var(--muted); font-size: 10px; letter-spacing: 0; }
+    .streak-copy strong { display: block; margin-bottom: 4px; font-size: 13px; }
+    .streak-copy p { margin: 0; color: var(--muted); font-size: 10px; line-height: 1.4; }
+
+    .week-row {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+
+    .day {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 8px;
+    }
+
+    .day b {
+      display: grid;
+      place-items: center;
+      width: 35px;
+      height: 35px;
+      border-radius: 12px;
+      color: var(--ink);
+      background: #e8ebe5;
+      font-size: 11px;
+    }
+
+    .day.done b { color: white; background: var(--green); }
+    .day.rest b { color: #929b96; background: transparent; border: 1px dashed rgba(23,32,28,.18); }
+    .day.today b { outline: 2px solid var(--lime); outline-offset: 2px; }
+
+    .adaptive {
+      padding: 16px;
+      border-radius: 22px;
+      background: #fff0e3;
+      border: 1px solid rgba(239,158,87,.17);
+    }
+
+    .adaptive-top { display: flex; align-items: center; gap: 10px; }
+    .adaptive-top i { display: grid; place-items: center; width: 31px; height: 31px; border-radius: 11px; background: white; font-style: normal; }
+    .adaptive strong { font-size: 12px; }
+    .adaptive p { margin: 9px 0 12px; color: #665f59; font-size: 10px; line-height: 1.45; }
+
+    .adapt-actions { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+    .adapt-actions button { border: 0; border-radius: 12px; padding: 9px 10px; font-size: 10px; font-weight: 700; }
+    .accept { color: white; background: var(--ink); }
+    .skip { color: var(--muted); background: rgba(255,255,255,.66); }
+
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 70px;
+    }
+
+    .principle {
+      min-height: 160px;
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,.72);
+      border-radius: 24px;
+      background: rgba(255,254,250,.58);
+    }
+
+    .principle b { display: block; margin-bottom: 22px; color: var(--green); font-size: 12px; letter-spacing: .08em; }
+    .principle strong { display: block; margin-bottom: 7px; font-size: 17px; }
+    .principle p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+
+    @media (max-width: 1100px) {
+      .showcase { grid-template-columns: repeat(2, minmax(320px, 1fr)); }
+      .principles { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 760px) {
+      .page { padding: 40px 18px 64px; }
+      .intro { grid-template-columns: 1fr; gap: 24px; margin-bottom: 42px; }
+      .showcase { grid-template-columns: 1fr; }
+      .principles { grid-template-columns: 1fr; margin-top: 45px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="intro">
+      <div>
+        <span class="eyebrow">HabitFlow · redesign concept</span>
+        <h1>Спокойный импульс,<br>а не гонка за сериями.</h1>
+        <p>Новый интерфейс делает автотрекинг главным героем, превращает прогресс в понятный ежедневный ритм и поддерживает пользователя без давления и чувства вины.</p>
+      </div>
+      <aside class="manifesto">
+        <strong>Концепция «Calm Momentum»</strong>
+        <span>Тёплая редакционная типографика, природная палитра и живые карточки. Цвет обозначает смысл, а не украшение. Все основные действия доступны одним большим нажатием.</span>
+      </aside>
+    </section>
+
+    <section class="showcase">
+      <article>
+        <div class="screen-label"><strong>Сегодня</strong><span>быстрое действие</span></div>
+        <div class="phone">
+          <div class="screen">
+            <div class="island"></div>
+            <div class="status"><span>9:41</span><span class="signals">● ◒ ▰</span></div>
+            <div class="scroll">
+              <div class="topbar">
+                <div class="date"><small>суббота · 19 сентября</small><h2>Сегодня</h2></div>
+                <button class="icon-btn" aria-label="Добавить привычку">＋</button>
+              </div>
+
+              <section class="hero">
+                <div class="hero-head">
+                  <div><div class="hero-kicker">Ваш ритм сегодня</div><h3>Остался один мягкий шаг</h3></div>
+                  <div class="score"><span>2/3</span></div>
+                </div>
+                <div class="auto-state"><span class="pulse"></span>Автотрекинг активен · проверено сейчас</div>
+              </section>
+
+              <div class="section-head"><h4>В фокусе</h4><span>2 из 3 готово</span></div>
+              <div class="habits">
+                <div class="habit" data-habit>
+                  <div class="habit-icon">💪</div>
+                  <div><div class="habit-name">Качаться</div><div class="habit-meta">Вручную · один подход</div></div>
+                  <button class="check" aria-label="Отметить привычку">✓</button>
+                </div>
+                <div class="habit blue done" data-habit>
+                  <div class="habit-icon">🎾</div>
+                  <div><div class="habit-name">Теннис</div><div class="habit-meta"><span class="auto-pill">⌁ автоматически</span> 72 мин</div></div>
+                  <button class="check" aria-label="Снять отметку">✓</button>
+                </div>
+                <div class="habit orange done" data-habit>
+                  <div class="habit-icon">🏋️</div>
+                  <div><div class="habit-name">Тренировка</div><div class="habit-meta"><div class="track"><span></span></div> 30 мин</div></div>
+                  <button class="check" aria-label="Снять отметку">✓</button>
+                </div>
+              </div>
+            </div>
+            <nav class="bottom-nav">
+              <div class="nav-item active"><i>◉</i>Сегодня</div>
+              <div class="nav-item"><i>⌁</i>Ритм</div>
+              <div class="nav-item"><i>☰</i>Ещё</div>
+            </nav>
+          </div>
+        </div>
+      </article>
+
+      <article>
+        <div class="screen-label"><strong>Ритм</strong><span>понятные выводы</span></div>
+        <div class="phone">
+          <div class="screen insights-bg">
+            <div class="island"></div>
+            <div class="status"><span>9:41</span><span class="signals">● ◒ ▰</span></div>
+            <div class="scroll">
+              <div class="topbar">
+                <div class="date"><small>ваша динамика</small><h2>Ритм</h2></div>
+                <div class="period"><span class="active">7 дн</span><span>30 дн</span></div>
+              </div>
+
+              <section class="metric-card">
+                <div class="metric-top">
+                  <div><div class="metric-label">Стабильность недели</div><div class="metric-value">82%</div></div>
+                  <div class="delta">↗ 8%</div>
+                </div>
+                <div class="bars">
+                  <div class="bar-wrap"><div class="bar" style="height:46%"></div><span class="bar-label">ПН</span></div>
+                  <div class="bar-wrap"><div class="bar" style="height:72%"></div><span class="bar-label">ВТ</span></div>
+                  <div class="bar-wrap"><div class="bar" style="height:64%"></div><span class="bar-label">СР</span></div>
+                  <div class="bar-wrap"><div class="bar" style="height:88%"></div><span class="bar-label">ЧТ</span></div>
+                  <div class="bar-wrap"><div class="bar" style="height:76%"></div><span class="bar-label">ПТ</span></div>
+                  <div class="bar-wrap today"><div class="bar" style="height:62%"></div><span class="bar-label">СБ</span></div>
+                  <div class="bar-wrap"><div class="bar" style="height:16%; opacity:.25"></div><span class="bar-label">ВС</span></div>
+                </div>
+              </section>
+
+              <div class="section-head"><h4>Сейчас</h4><span>без лишних метрик</span></div>
+              <div class="habit-health">
+                <div class="mini-metric"><small>Текущий ритм</small><strong>4 дня</strong><span>лучший: 11 дней</span></div>
+                <div class="mini-metric"><small>Автоматически</small><strong>68%</strong><span>меньше ручной работы</span></div>
+              </div>
+
+              <div class="section-head"><h4>Что помогает</h4><span>по вашей истории</span></div>
+              <div class="habits">
+                <div class="insight-card"><span class="insight-icon">✦</span><strong>Тренировки лучше идут вечером</strong><p>После 18:00 вы достигаете цели на 24% чаще. Это наблюдение по 8 неделям.</p></div>
+                <div class="insight-card warm"><span class="insight-icon">↗</span><strong>Цель можно немного поднять</strong><p>Последние 14 дней вы стабильно проходите больше 7 000 шагов.</p></div>
+              </div>
+            </div>
+            <nav class="bottom-nav">
+              <div class="nav-item"><i>◉</i>Сегодня</div>
+              <div class="nav-item active"><i>⌁</i>Ритм</div>
+              <div class="nav-item"><i>☰</i>Ещё</div>
+            </nav>
+          </div>
+        </div>
+      </article>
+
+      <article>
+        <div class="screen-label"><strong>Привычка</strong><span>решение, не таблица</span></div>
+        <div class="phone">
+          <div class="screen">
+            <div class="island"></div>
+            <div class="status"><span>9:41</span><span class="signals">● ◒ ▰</span></div>
+            <div class="scroll">
+              <div class="topbar"><button class="icon-btn" style="font-size:19px">‹</button><button class="icon-btn" style="font-size:17px">•••</button></div>
+
+              <section class="detail-hero">
+                <div class="big-icon"><span>🏋️</span></div>
+                <h2>Тренировка</h2>
+                <p>18 из 30 минут сегодня</p>
+                <div class="goal"><span class="pulse"></span>Health · обновлено 2 мин назад</div>
+              </section>
+
+              <section class="streak">
+                <div class="streak-number">4<small>дня в ритме</small></div>
+                <div class="streak-copy"><strong>Уверенный темп</strong><p>Ещё одно выполнение — и это будет ваша лучшая неделя месяца.</p></div>
+              </section>
+
+              <div class="section-head"><h4>Эта неделя</h4><span>5 из 6</span></div>
+              <div class="week-row">
+                <div class="day done"><b>ПН</b><span>30м</span></div>
+                <div class="day done"><b>ВТ</b><span>42м</span></div>
+                <div class="day rest"><b>СР</b><span>отдых</span></div>
+                <div class="day done"><b>ЧТ</b><span>35м</span></div>
+                <div class="day done"><b>ПТ</b><span>31м</span></div>
+                <div class="day today"><b>СБ</b><span>18м</span></div>
+                <div class="day rest"><b>ВС</b><span>план</span></div>
+              </div>
+
+              <div class="section-head"><h4>Умная цель</h4><span>рекомендация</span></div>
+              <section class="adaptive">
+                <div class="adaptive-top"><i>↗</i><strong>Попробовать 35 минут?</strong></div>
+                <p>Вы выполняли текущую цель в 91% случаев и обычно доходили до 38 минут.</p>
+                <div class="adapt-actions"><button class="accept">Поднять до 35 мин</button><button class="skip">Не сейчас</button></div>
+              </section>
+            </div>
+            <nav class="bottom-nav">
+              <div class="nav-item active"><i>◉</i>Сегодня</div>
+              <div class="nav-item"><i>⌁</i>Ритм</div>
+              <div class="nav-item"><i>☰</i>Ещё</div>
+            </nav>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="principles">
+      <article class="principle"><b>01 · ФОКУС</b><strong>Один следующий шаг</strong><p>Вместо большого счётчика — ясный ответ: что осталось сегодня и что приложение уже сделало само.</p></article>
+      <article class="principle"><b>02 · ДОВЕРИЕ</b><strong>Автотрекинг видим</strong><p>Источник, время обновления и ручное переопределение всегда рядом с прогрессом, без перехода в диагностику.</p></article>
+      <article class="principle"><b>03 · БЕЗ ВИНЫ</b><strong>Ритм вместо серии</strong><p>Пропуск не обнуляет личность пользователя. Паузы и дни отдыха выглядят как нормальная часть системы.</p></article>
+      <article class="principle"><b>04 · СМЫСЛ</b><strong>Выводы перед графиками</strong><p>Каждый график отвечает на вопрос и заканчивается понятным действием: сохранить цель, скорректировать или ничего не менять.</p></article>
+    </section>
+  </main>
+
+  <script>
+    document.querySelectorAll('[data-habit] .check').forEach(button => {
+      button.addEventListener('click', () => button.closest('[data-habit]').classList.toggle('done'));
+    });
+  </script>
+</body>
+</html>

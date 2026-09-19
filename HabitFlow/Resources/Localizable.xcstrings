@@ -4040,6 +4040,298 @@
           }
         }
       }
+    },
+    "%lld of %lld done": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld из %2$lld готово"
+          }
+        }
+      }
+    },
+    "A calm view of your momentum": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Спокойный взгляд на ваш прогресс"
+          }
+        }
+      }
+    },
+    "A gentle suggestion": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мягкая рекомендация"
+          }
+        }
+      }
+    },
+    "Based on your rhythm": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На основе вашего ритма"
+          }
+        }
+      }
+    },
+    "Details": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подробнее"
+          }
+        }
+      }
+    },
+    "From your history": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По вашей истории"
+          }
+        }
+      }
+    },
+    "From your own history": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По вашей истории"
+          }
+        }
+      }
+    },
+    "In focus": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В фокусе"
+          }
+        }
+      }
+    },
+    "More": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ещё"
+          }
+        }
+      }
+    },
+    "patterns": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "наблюдения"
+          }
+        }
+      }
+    },
+    "Ready when you are": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Решение за вами"
+          }
+        }
+      }
+    },
+    "Rhythm": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ритм"
+          }
+        }
+      }
+    },
+    "Smart goal": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Умная цель"
+          }
+        }
+      }
+    },
+    "suggestions": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "совета"
+          }
+        }
+      }
+    },
+    "Tap a day to edit": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нажмите день для изменения"
+          }
+        }
+      }
+    },
+    "What helps": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что помогает"
+          }
+        }
+      }
+    },
+    "Your history": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ваша история"
+          }
+        }
+      }
+    },
+    "Your patterns are becoming clearer": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ваши закономерности становятся яснее"
+          }
+        }
+      }
+    },
+    "Your progress": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ваш прогресс"
+          }
+        }
+      }
+    },
+    "Your rhythm is taking shape": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ваш ритм начинает проявляться"
+          }
+        }
+      }
+    },
+    "Your rhythm today": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ваш ритм сегодня"
+          }
+        }
+      }
+    },
+    "%lld habits left": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld habit left"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld habits left"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Осталась %lld привычка"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Осталось %lld привычки"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Осталось %lld привычек"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Осталось %lld привычки"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Health and places can complete it for you": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Здоровье и геолокация смогут отмечать её за вас"
+          }
+        }
+      }
+    },
+    "One step left": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Остался один шаг"
+          }
+        }
+      }
+    },
+    "Completed this month": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выполнено за месяц"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

@@ -9,14 +9,9 @@ struct TodayScreen: View {
 
     var body: some View {
         NavigationStack {
-            TodayView(dayKey: env.currentDayKey)
+            TodayView(dayKey: env.currentDayKey) { showEditor = true }
                 .id(env.currentDayKey.raw)
-                .navigationTitle("Today")
-                .toolbar {
-                    ToolbarItem(placement: .primaryAction) {
-                        Button { showEditor = true } label: { Label("Add habit", systemImage: "plus") }
-                    }
-                }
+                .toolbar(.hidden, for: .navigationBar)
                 .navigationDestination(for: Habit.self) { habit in
                     HabitDetailView(habit: habit)
                 }

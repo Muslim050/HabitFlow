@@ -50,11 +50,8 @@ struct ActivitySection: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 14) {
-            Picker("Range", selection: $storedRange) {
-                ForEach(ActivityRange.allCases) { Text($0.title).tag($0.rawValue) }
-            }
-            .pickerStyle(.segmented)
+        VStack(alignment: .leading, spacing: 16) {
+            rangePicker
 
             if habits.isEmpty {
                 Text("Add a habit to see activity here.")
@@ -68,6 +65,31 @@ struct ActivitySection: View {
                 contributionGrid
             }
         }
+    }
+
+    private var rangePicker: some View {
+        HStack(spacing: 4) {
+            ForEach(ActivityRange.allCases) { item in
+                Button {
+                    withAnimation(.snappy(duration: 0.28)) { storedRange = item.rawValue }
+                } label: {
+                    Text(item.title)
+                        .font(.caption.weight(item == range ? .bold : .medium))
+                        .foregroundStyle(item == range ? Color.white : HFTheme.secondaryInk)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 10)
+                        .background(
+                            item == range ? HFTheme.accent : Color.clear,
+                            in: RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        )
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .padding(4)
+        .background(HFTheme.background, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("Range")
     }
 
     // MARK: Week / fortnight
@@ -95,15 +117,58 @@ struct ActivitySection: View {
     // MARK: Month
 
     private var monthGrid: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        let grid = MonthGrid.build(
+            habits: habits,
+            logs: logs,
+            calendar: env.settings.dayCalendar,
+            today: env.currentDayKey,
+            month: env.currentDayKey,
+            pauses: pauses
+        )
+        return VStack(alignment: .leading, spacing: 10) {
+            monthSummary(grid)
             MonthGridView(
-                grid: MonthGrid.build(habits: habits, logs: logs, calendar: env.settings.dayCalendar,
-                                      today: env.currentDayKey, month: env.currentDayKey, pauses: pauses)
+                grid: grid,
+                cellHeight: 45,
+                spacing: 5
             )
             Text("One stripe per habit, so a month shows which one slipped and not just how many.")
                 .font(.caption2)
                 .foregroundStyle(.secondary)
         }
+    }
+
+    private func monthSummary(_ grid: MonthGrid) -> some View {
+        let completed = grid.lanes.reduce(0) { $0 + $1.done }
+        let required = grid.lanes.reduce(0) { $0 + $1.required }
+        let ratio = required == 0 ? 0 : Double(completed) / Double(required)
+        return VStack(alignment: .leading, spacing: 9) {
+            HStack(alignment: .firstTextBaseline) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(Date.now.formatted(.dateTime.month(.wide)))
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(HFTheme.ink)
+                    Text("Completed this month")
+                        .font(.caption2)
+                        .foregroundStyle(HFTheme.secondaryInk)
+                }
+                Spacer()
+                Text(verbatim: "\(completed)/\(required)")
+                    .font(.headline.monospacedDigit().bold())
+                    .foregroundStyle(HFTheme.accent)
+            }
+            GeometryReader { geometry in
+                ZStack(alignment: .leading) {
+                    Capsule().fill(HFTheme.accent.opacity(0.10))
+                    Capsule()
+                        .fill(HFTheme.accent)
+                        .frame(width: geometry.size.width * min(max(ratio, 0), 1))
+                }
+            }
+            .frame(height: 7)
+        }
+        .padding(14)
+        .background(HFTheme.sage.opacity(0.72), in: RoundedRectangle(cornerRadius: 17, style: .continuous))
     }
 
     // MARK: Half year

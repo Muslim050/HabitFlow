@@ -85,15 +85,24 @@ struct InsightCard: View {
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             Image(systemName: presentation.icon)
-                .font(.title3)
+                .font(.subheadline.weight(.semibold))
                 .foregroundStyle(presentation.tint)
-                .frame(width: 28)
-            VStack(alignment: .leading, spacing: 3) {
-                Text(presentation.title).font(.subheadline.weight(.semibold))
-                Text(presentation.message).font(.footnote).foregroundStyle(.primary)
-                Text(presentation.footnote).font(.caption2).foregroundStyle(.secondary)
+                .frame(width: 34, height: 34)
+                .background(HFTheme.surfaceRaised, in: RoundedRectangle(cornerRadius: 11, style: .continuous))
+            VStack(alignment: .leading, spacing: 5) {
+                Text(presentation.title)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(HFTheme.ink)
+                Text(presentation.message)
+                    .font(.footnote)
+                    .foregroundStyle(HFTheme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
+                Text(presentation.footnote)
+                    .font(.caption2)
+                    .foregroundStyle(HFTheme.secondaryInk)
             }
+            Spacer(minLength: 0)
         }
-        .padding(.vertical, 4)
+        .hfCard(color: presentation.tint.opacity(0.09))
     }
 }

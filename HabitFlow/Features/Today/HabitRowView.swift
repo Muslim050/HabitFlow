@@ -12,68 +12,78 @@ struct HabitRowView: View {
     private var isOverridden: Bool { log?.completionSource == .manualOverride }
 
     var body: some View {
-        NavigationLink(value: habit) {
-            HStack(spacing: 14) {
-                ProgressRing(ratio: ratio, color: color, lineWidth: 4, completed: isCompleted) {
-                    Text(habit.emoji).font(.title3)
-                }
-                .frame(width: 44, height: 44)
+        HStack(spacing: 12) {
+            NavigationLink(value: habit) {
+                HStack(spacing: 12) {
+                    HabitIconView(habit: habit)
 
-                VStack(alignment: .leading, spacing: 3) {
-                    Text(habit.name)
-                        .font(.body.weight(.medium))
-                        .strikethrough(isCompleted, color: .secondary)
-                        .foregroundStyle(isCompleted ? .secondary : .primary)
-                    subtitle
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text(habit.name)
+                            .font(.body.weight(.semibold))
+                            .foregroundStyle(isCompleted ? HFTheme.secondaryInk : HFTheme.ink)
+                        subtitle
+                    }
+                    Spacer(minLength: 2)
                 }
-                Spacer(minLength: 8)
-
-                // Every habit can be ticked by hand. For automatic ones this becomes a manual override
-                // for the day; the ring keeps showing live progress underneath.
-                Button {
-                    toggle()
-                } label: {
-                    Image(systemName: isCompleted ? "checkmark.circle.fill" : "circle")
-                        .font(.title2)
-                        .foregroundStyle(isCompleted ? color : Color.secondary)
-                        .symbolEffect(.bounce, value: isCompleted)
-                }
-                .buttonStyle(.borderless)
-                .accessibilityLabel(isCompleted ? Text("Mark not done") : Text("Mark done"))
             }
-            .padding(.vertical, 4)
+            .buttonStyle(.plain)
+
+            // Every habit can be ticked by hand. For automatic ones this becomes a manual override
+            // for the day; the live progress remains visible in the subtitle.
+            Button { toggle() } label: {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                        .fill(isCompleted ? color : Color.clear)
+                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                        .stroke(isCompleted ? Color.clear : HFTheme.secondaryInk.opacity(0.45), lineWidth: 1.5)
+                    if isCompleted {
+                        Image(systemName: "checkmark")
+                            .font(.system(size: 16, weight: .bold))
+                            .foregroundStyle(.white)
+                    }
+                }
+                .frame(width: 42, height: 42)
+                .contentShape(Rectangle())
+                .symbolEffect(.bounce, value: isCompleted)
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel(isCompleted ? Text("Mark not done") : Text("Mark done"))
+        }
+        .padding(14)
+        .background(HFTheme.surface, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+        .overlay {
+            RoundedRectangle(cornerRadius: 22, style: .continuous)
+                .stroke(HFTheme.ink.opacity(0.055), lineWidth: 1)
         }
         .contextMenu { contextMenu }
-        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-            Button(role: .destructive) { archive() } label: { Label("Archive", systemImage: "archivebox") }
-        }
     }
 
     @ViewBuilder
     private var subtitle: some View {
         if habit.isAutomatic {
-            HStack(spacing: 6) {
+            HStack(spacing: 7) {
                 Text(progressText)
-                    .font(.footnote.monospacedDigit())
-                    .foregroundStyle(.secondary)
+                    .font(.caption.monospacedDigit())
+                    .foregroundStyle(HFTheme.secondaryInk)
                 if let source = habit.rule.sourceLabel {
                     Label {
                         Text(isOverridden ? String(localized: "Manual") : source)
                     } icon: {
                         Image(systemName: isOverridden ? "hand.tap" : habit.rule.systemImage)
                     }
-                    .font(.caption2.weight(.semibold))
+                    .font(.system(size: 9, weight: .bold))
                     .labelStyle(.titleAndIcon)
-                    .padding(.horizontal, 6)
-                    .padding(.vertical, 2)
-                    .background(color.opacity(0.12), in: Capsule())
-                    .foregroundStyle(color)
+                    .textCase(.uppercase)
+                    .padding(.horizontal, 7)
+                    .padding(.vertical, 4)
+                    .background(HFTheme.sage, in: RoundedRectangle(cornerRadius: 7, style: .continuous))
+                    .foregroundStyle(HFTheme.accent)
                 }
             }
         } else {
             Text(isCompleted ? "Done" : "Tap the circle when done")
-                .font(.footnote)
-                .foregroundStyle(.secondary)
+                .font(.caption)
+                .foregroundStyle(HFTheme.secondaryInk)
         }
     }
 
