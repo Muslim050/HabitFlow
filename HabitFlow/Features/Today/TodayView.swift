@@ -41,8 +41,9 @@ struct TodayView: View {
         List {
             if env.isUsingFallbackStore {
                 Section {
-                    Label("Storage unavailable — data will not be saved.", systemImage: "exclamationmark.triangle")
-                        .foregroundStyle(.red)
+                    // The App Group is what the widget reads; without it the app still works.
+                    Label("No shared storage — the widget will not update.", systemImage: "exclamationmark.triangle")
+                        .foregroundStyle(.orange)
                 }
             }
             if let pause = globalPause {

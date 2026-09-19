@@ -38,10 +38,17 @@ final class AppEnvironment {
         do {
             container = try ModelContainerFactory.shared()
         } catch {
-            Log.app.error("Shared store unavailable (\(error.localizedDescription)); using in-memory store")
-            // swiftlint:disable:next force_try
-            container = try! ModelContainerFactory.inMemory()
+            // No App Group — a free personal signing team often cannot provision one. Keep the
+            // history on disk anyway; losing everything on quit is far worse than losing the widget.
+            Log.app.error("Shared store unavailable (\(error.localizedDescription)); falling back to a local store")
             fallback = true
+            if let local = try? ModelContainerFactory.local() {
+                container = local
+            } else {
+                Log.app.error("Local store unavailable too; nothing will be saved")
+                // swiftlint:disable:next force_try
+                container = try! ModelContainerFactory.inMemory()
+            }
         }
         self.container = container
         self.isUsingFallbackStore = fallback

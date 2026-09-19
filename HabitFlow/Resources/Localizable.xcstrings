@@ -2437,6 +2437,16 @@
         }
       }
     },
+    "No shared storage — the widget will not update.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет общего хранилища — виджет не будет обновляться."
+          }
+        }
+      }
+    },
     "Not done": {
       "localizations": {
         "ru": {
@@ -3105,16 +3115,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Перестаёт спрашивать про привычку до указанной даты или до возобновления. Дни на паузе не идут в минус."
-          }
-        }
-      }
-    },
-    "Storage unavailable — data will not be saved.": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Хранилище недоступно — данные не сохранятся."
           }
         }
       }
