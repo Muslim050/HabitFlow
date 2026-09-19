@@ -4,6 +4,9 @@ import Foundation
 public enum MatrixState: Sendable, Equatable {
     /// Not due, and nothing done. Never a failure.
     case off
+    /// Still to come. A calendar week runs to Sunday, so showing it while it is Saturday means
+    /// drawing days that have not happened — and a day that has not happened is not a miss.
+    case upcoming
     /// Due, nothing recorded.
     case missed
     /// Due, some progress: 0 < ratio < 1.
@@ -48,11 +51,32 @@ public struct HabitMatrix: Sendable, Equatable {
         self.rows = rows
     }
 
-    /// `days` counts back from today inclusive: 7 is this week so far, 14 is a fortnight.
+    /// `days` counts back from today inclusive: 7 is the last seven days, 14 a fortnight.
     public static func build(habits: [Habit], logs: [DailyLog], calendar: DayCalendar,
                              today: DayKey, days dayCount: Int, pauses: [HabitPause] = []) -> HabitMatrix {
-        guard dayCount > 0, !habits.isEmpty else { return .empty }
-        let keys = calendar.keys(from: calendar.key(byAdding: -(dayCount - 1), to: today), to: today)
+        guard dayCount > 0 else { return .empty }
+        return build(habits: habits, logs: logs, calendar: calendar, today: today,
+                     from: calendar.key(byAdding: -(dayCount - 1), to: today),
+                     to: today, pauses: pauses)
+    }
+
+    /// Whole calendar weeks, ending with the week `today` falls in. A rolling seven days would
+    /// start on whatever weekday it happens to be, which reads as a bug next to a real calendar.
+    public static func build(habits: [Habit], logs: [DailyLog], calendar: DayCalendar,
+                             today: DayKey, weeks: Int, pauses: [HabitPause] = []) -> HabitMatrix {
+        guard weeks > 0 else { return .empty }
+        let thisWeek = calendar.startOfWeek(for: today)
+        let start = calendar.key(byAdding: -7 * (weeks - 1), to: thisWeek)
+        let end = calendar.key(byAdding: 7 * weeks - 1, to: start)
+        return build(habits: habits, logs: logs, calendar: calendar, today: today,
+                     from: start, to: end, pauses: pauses)
+    }
+
+    public static func build(habits: [Habit], logs: [DailyLog], calendar: DayCalendar,
+                             today: DayKey, from: DayKey, to: DayKey,
+                             pauses: [HabitPause] = []) -> HabitMatrix {
+        guard from <= to, !habits.isEmpty else { return .empty }
+        let keys = calendar.keys(from: from, to: to)
 
         // (habit, day) -> log, so a habit with no row for a day is simply absent.
         let logByHabitDay = logs.reduce(into: [UUID: [String: DailyLog]]()) { map, log in
@@ -65,6 +89,10 @@ public struct HabitMatrix: Sendable, Equatable {
             var states: [MatrixState] = []
             var done = 0
             for key in keys {
+                guard key <= today else {
+                    states.append(.upcoming)
+                    continue
+                }
                 let log = logByHabitDay[habit.id]?[key.raw]
                 if log?.isCompleted == true {
                     done += 1
@@ -82,7 +110,8 @@ public struct HabitMatrix: Sendable, Equatable {
                 }
             }
             // Prorated so a quota habit shows "2 / 3 this week", not "2 / 7".
-            let scheduled = keys.isEmpty ? 0 : resolver.demand(from: keys[0], to: keys[keys.count - 1])
+            let last = min(keys.last ?? today, today)
+            let scheduled = keys.isEmpty || keys[0] > last ? 0 : resolver.demand(from: keys[0], to: last)
             return Row(id: habit.id, name: habit.name, emoji: habit.emoji,
                        colorHex: habit.colorHex, states: states,
                        doneCount: done, scheduledCount: scheduled)

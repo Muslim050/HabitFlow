@@ -400,6 +400,16 @@
         }
       }
     },
+    "%lld more not shown": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ещё %lld не показаны"
+          }
+        }
+      }
+    },
     "%lld of %lld": {
       "localizations": {
         "en": {
@@ -702,6 +712,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld из %lld дней истории"
+          }
+        }
+      }
+    },
+    "%lld: %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld: %@"
+          }
+        }
+      }
+    },
+    "%lld: nothing": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld: ничего"
           }
         }
       }
@@ -2517,6 +2547,16 @@
         }
       }
     },
+    "Month": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Месяц"
+          }
+        }
+      }
+    },
     "Name": {
       "localizations": {
         "ru": {
@@ -2763,6 +2803,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Одно уведомление в день только о незакрытых привычках. Об автоматических выполнениях приходит отдельное."
+          }
+        }
+      }
+    },
+    "One stripe per habit, so a month shows which one slipped and not just how many.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По полоске на привычку — за месяц видно, какая именно просела, а не только сколько."
           }
         }
       }

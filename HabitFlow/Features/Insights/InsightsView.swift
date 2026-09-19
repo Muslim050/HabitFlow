@@ -14,9 +14,9 @@ struct InsightsView: View {
                         .listRowInsets(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16))
                 } header: {
                     Text("Activity")
-                } footer: {
-                    Text("Each habit in its own colour. A day with nothing scheduled is an off day, not a miss.")
                 }
+                // No footer here: each range explains itself, and a fixed line underneath
+                // contradicted whichever range was not the week.
 
                 if !analysis.proposals.isEmpty {
                     Section {

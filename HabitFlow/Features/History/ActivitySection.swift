@@ -19,22 +19,24 @@ struct ActivitySection: View {
     @AppStorage("activityRange", store: AppSettings.store) private var storedRange = ActivityRange.week.rawValue
 
     enum ActivityRange: String, CaseIterable, Identifiable {
-        case week, fortnight, halfYear
+        case week, fortnight, month, halfYear
         var id: String { rawValue }
 
         var title: LocalizedStringKey {
             switch self {
             case .week: return "Week"
             case .fortnight: return "2 weeks"
+            case .month: return "Month"
             case .halfYear: return "6 months"
             }
         }
 
-        var days: Int? {
+        /// Whole calendar weeks, ending with the one today falls in.
+        var weeks: Int? {
             switch self {
-            case .week: return 7
-            case .fortnight: return 14
-            case .halfYear: return nil
+            case .week: return 1
+            case .fortnight: return 2
+            case .month, .halfYear: return nil
             }
         }
     }
@@ -58,8 +60,10 @@ struct ActivitySection: View {
                 Text("Add a habit to see activity here.")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
-            } else if let days = range.days {
-                matrix(days: days)
+            } else if let weeks = range.weeks {
+                matrix(weeks: weeks)
+            } else if range == .month {
+                monthGrid
             } else {
                 contributionGrid
             }
@@ -68,15 +72,38 @@ struct ActivitySection: View {
 
     // MARK: Week / fortnight
 
-    private func matrix(days: Int) -> some View {
+    private func matrix(weeks: Int) -> some View {
         let m = metrics
-        return HabitMatrixView(
+        return VStack(alignment: .leading, spacing: 10) {
+            matrixView(weeks: weeks, metrics: m)
+            Text("Each habit in its own colour. A day with nothing scheduled is an off day, not a miss.")
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+        }
+    }
+
+    private func matrixView(weeks: Int, metrics m: (cell: CGFloat, gap: CGFloat, label: CGFloat)) -> some View {
+        HabitMatrixView(
             matrix: HabitMatrix.build(habits: habits, logs: logs, calendar: env.settings.dayCalendar,
-                                      today: env.currentDayKey, days: days, pauses: pauses),
+                                      today: env.currentDayKey, weeks: weeks, pauses: pauses),
             calendar: env.settings.dayCalendar, today: env.currentDayKey,
             cell: m.cell, gap: m.gap, labelWidth: m.label, maxRows: 12
         )
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    // MARK: Month
+
+    private var monthGrid: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            MonthGridView(
+                grid: MonthGrid.build(habits: habits, logs: logs, calendar: env.settings.dayCalendar,
+                                      today: env.currentDayKey, month: env.currentDayKey, pauses: pauses)
+            )
+            Text("One stripe per habit, so a month shows which one slipped and not just how many.")
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+        }
     }
 
     // MARK: Half year

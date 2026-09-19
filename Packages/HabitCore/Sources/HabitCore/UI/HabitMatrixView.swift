@@ -123,6 +123,8 @@ public struct HabitMatrixView<TodayOverlay: View>: View {
         case .partial(let ratio): return color.opacity(0.25 + 0.45 * min(max(ratio, 0), 1))
         case .missed: return Color.secondary.opacity(0.16)
         case .off: return Color.secondary.opacity(0.06)
+        // Lighter than an off day: nothing is being said about it yet.
+        case .upcoming: return Color.secondary.opacity(0.03)
         }
     }
 

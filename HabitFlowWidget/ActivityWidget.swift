@@ -14,6 +14,8 @@ struct ActivityEntry: TimelineEntry {
     let agenda: [AgendaItem]
     /// See `TodayRingsEntry.storeAvailable`: "cannot read" is not the same as "nothing there".
     var storeAvailable = true
+    /// Only the large widget has room for it, and only when the agenda is not using that room.
+    var month: MonthGrid = .empty
 
     var hasHabits: Bool { !matrix.rows.isEmpty }
 
@@ -55,18 +57,23 @@ struct ActivityProvider: TimelineProvider {
         }
         let repository = SwiftDataHabitRepository(container: container)
         let habits = (try? repository.activeHabits()) ?? []
-        let from = calendar.key(byAdding: -(days + 1), to: today)
+        // The month view reaches back to the first of the month, which is further than a week.
+        let from = min(calendar.startOfWeek(for: calendar.startOfMonth(for: today)),
+                       calendar.key(byAdding: -(days + 1), to: today))
         let logs = (try? repository.logs(from: from, to: today)) ?? []
+        let pauses = (try? repository.pauses()) ?? []
         return ActivityEntry(
             date: Date(),
             matrix: HabitMatrix.build(habits: habits, logs: logs, calendar: calendar, today: today,
-                                      days: days, pauses: (try? repository.pauses()) ?? []),
+                                      weeks: 1, pauses: pauses),
             calendar: calendar,
             today: today,
             availablePresets: HabitPreset.allCases.filter { preset in
                 !habits.contains { $0.rule == preset.rule }
             },
-            agenda: AgendaSnapshot.read()?.items ?? []
+            agenda: AgendaSnapshot.read()?.items ?? [],
+            month: MonthGrid.build(habits: habits, logs: logs, calendar: calendar,
+                                   today: today, month: today, pauses: pauses)
         )
     }
 }
@@ -95,6 +102,15 @@ struct ActivityWidgetView: View {
     private var gap: CGFloat { isLarge ? 4 : 3 }
     private var labelWidth: CGFloat { isLarge ? 96 : 78 }
     private var maxRows: Int { isLarge ? (visibleAgenda.isEmpty ? 5 : 4) : 3 }
+    /// The ready-made habits are onboarding scaffolding. Once there are a few habits they stop
+    /// being useful and start taking a third of the widget forever, so they retire.
+    private var showsQuickAdd: Bool { isLarge && entry.storeAvailable && entry.matrix.rows.count < 3 }
+    /// Only when the agenda is not already using the lower half; both together overflow 322 points.
+    private var showsMonth: Bool { isLarge && entry.hasHabits && visibleAgenda.isEmpty && !entry.month.days.isEmpty }
+
+    /// Budgeted against 306x322, the smallest large widget. With three habits the week takes 101
+    /// points and a six-week month at 24 comes to 288; at five habits only 18 still fits.
+    private var monthCell: CGFloat { entry.matrix.rows.count <= 3 ? 24 : 18 }
     /// Today's column is wider so it is worth tapping, and reads as the one that matters.
     private var todayExtra: CGFloat { isLarge ? 10 : 6 }
     private var cell: CGFloat {
@@ -133,8 +149,18 @@ struct ActivityWidgetView: View {
                 if !visibleAgenda.isEmpty {
                     agendaStrip
                 }
+                // The spacer only earns its place when something sits below it; without the
+                // add row it just opened a hole between the matrix and the bottom edge.
+                if showsQuickAdd {
+                    Spacer(minLength: 0)
+                    quickAdd
+                } else if showsMonth {
+                    // The week above is the legend: same habits, same row order, same colours.
+                    Divider().opacity(0.4)
+                    MonthGridView(grid: entry.month, cellHeight: monthCell, spacing: 3,
+                                  showsDayNumbers: false, showsLegend: false)
+                }
                 Spacer(minLength: 0)
-                quickAdd
             }
         }
         .widgetURL(URL(string: "habitflow://today"))
