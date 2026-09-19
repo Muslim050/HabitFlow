@@ -236,6 +236,58 @@
         }
       }
     },
+    "%lld months": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld month"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld months"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld месяц"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld месяца"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld месяцев"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld месяца"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "%lld of %lld": {
       "localizations": {
         "en": {
@@ -248,6 +300,120 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$lld из %2$lld"
+          }
+        }
+      }
+    },
+    "%lld of %lld needed": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld из %2$lld нужных"
+          }
+        }
+      }
+    },
+    "%lld times a month": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld time a month"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld times a month"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld раз в месяц"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld раза в месяц"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld раз в месяц"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld раза в месяц"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld times a week": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld time a week"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld times a week"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld раз в неделю"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld раза в неделю"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld раз в неделю"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld раза в неделю"
+                }
+              }
+            }
           }
         }
       }
@@ -297,6 +463,58 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Осталось %lld"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld weeks": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld week"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld weeks"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld неделя"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld недели"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld недель"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld недели"
                 }
               }
             }
@@ -550,6 +768,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Всегда"
+          }
+        }
+      }
+    },
+    "Any day of the period counts towards the goal.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "К цели идёт любой день периода."
+          }
+        }
+      }
+    },
+    "Any days you like, as long as the count adds up. Streaks count periods, not days.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В любые дни, лишь бы набралось нужное число. Серия считается периодами, а не днями."
           }
         }
       }
@@ -930,6 +1168,16 @@
         }
       }
     },
+    "Counted from the day the habit was created.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отсчёт от дня создания привычки."
+          }
+        }
+      }
+    },
     "Counted from the night before the day starts.": {
       "localizations": {
         "ru": {
@@ -1030,6 +1278,16 @@
         }
       }
     },
+    "Due on the days you pick. A day you skip counts as a miss.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нужно делать в выбранные дни. Пропущенный день считается пропуском."
+          }
+        }
+      }
+    },
     "Each habit in its own colour. A day with nothing scheduled is an off day, not a miss.": {
       "localizations": {
         "ru": {
@@ -1116,6 +1374,58 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вечернее напоминание"
+          }
+        }
+      }
+    },
+    "Every %lld days": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Every day"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Every %lld days"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Каждый день"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Каждые %lld дня"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Каждые %lld дней"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Каждые %lld дня"
+                }
+              }
+            }
           }
         }
       }
@@ -1333,6 +1643,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Инсайты"
+          }
+        }
+      }
+    },
+    "Interval": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Интервал"
           }
         }
       }
@@ -1707,6 +2027,36 @@
         }
       }
     },
+    "Per month": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В месяц"
+          }
+        }
+      }
+    },
+    "Per week": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В неделю"
+          }
+        }
+      }
+    },
+    "Period": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Период"
+          }
+        }
+      }
+    },
     "Permissions": {
       "localizations": {
         "ru": {
@@ -1828,6 +2178,16 @@
         }
       }
     },
+    "Recent periods weigh more": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Недавние периоды весят больше"
+          }
+        }
+      }
+    },
     "Reminders": {
       "localizations": {
         "ru": {
@@ -1874,6 +2234,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сохранить значение"
+          }
+        }
+      }
+    },
+    "Schedule": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расписание"
           }
         }
       }
@@ -2099,12 +2469,12 @@
         }
       }
     },
-    "This weekday is not in the habit's schedule. Marking it still counts.": {
+    "This day is not in the habit's schedule. Marking it still counts.": {
       "localizations": {
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Этот день недели не в расписании привычки. Отметка всё равно засчитается."
+            "value": "Этого дня нет в расписании привычки. Отметка всё равно засчитается."
           }
         }
       }
@@ -2115,6 +2485,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Время"
+          }
+        }
+      }
+    },
+    "Times": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сколько раз"
           }
         }
       }
@@ -2357,6 +2737,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "не выполнено"
+          }
+        }
+      }
+    },
+    "not required": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "не обязательный"
           }
         }
       }

@@ -60,26 +60,28 @@ public struct HabitMatrix: Sendable, Equatable {
         }
 
         let rows = habits.map { habit -> Row in
-            let createdDay = calendar.dayKey(for: habit.createdAt)
+            // The resolver already refuses days before the habit existed, however the schedule reads.
+            let resolver = ScheduleResolver(habit: habit, calendar: calendar)
             var states: [MatrixState] = []
             var done = 0
-            var scheduled = 0
             for key in keys {
                 let log = logByHabitDay[habit.id]?[key.raw]
-                // A habit that did not exist yet was never due, however the schedule reads.
-                let isDue = key >= createdDay && habit.isScheduled(weekday: calendar.weekday(for: key))
                 if log?.isCompleted == true {
                     done += 1
-                    if isDue { scheduled += 1 }
                     states.append(.done)
-                } else if !isDue {
+                    continue
+                }
+                switch resolver.obligation(on: key) {
+                case .off, .flexible:
+                    // A quota habit owes the week, not this day: an unused day is not a miss.
                     states.append(.off)
-                } else {
-                    scheduled += 1
+                case .required:
                     let ratio = log?.ratio ?? 0
                     states.append(ratio > 0 ? .partial(ratio) : .missed)
                 }
             }
+            // Prorated so a quota habit shows "2 / 3 this week", not "2 / 7".
+            let scheduled = keys.isEmpty ? 0 : resolver.demand(from: keys[0], to: keys[keys.count - 1])
             return Row(id: habit.id, name: habit.name, emoji: habit.emoji,
                        colorHex: habit.colorHex, states: states,
                        doneCount: done, scheduledCount: scheduled)

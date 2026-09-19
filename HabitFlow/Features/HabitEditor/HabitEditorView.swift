@@ -22,7 +22,7 @@ struct HabitEditorView: View {
     @State private var radius: Double
     @State private var dwellMinutes: Double
     @State private var placeName: String
-    @State private var scheduleMask: Int
+    @State private var schedule: HabitSchedule
     @State private var adaptationMode: GoalAdaptationMode
     @State private var showPlacePicker = false
 
@@ -33,7 +33,7 @@ struct HabitEditorView: View {
         _emoji = State(initialValue: habit?.emoji ?? "✅")
         _colorHex = State(initialValue: habit?.colorHex ?? HabitPalette.hexes[0])
         _kind = State(initialValue: rule.kind)
-        _scheduleMask = State(initialValue: habit?.scheduleMask ?? Habit.everyDayMask)
+        _schedule = State(initialValue: habit?.schedule ?? .everyDay)
         _adaptationMode = State(initialValue: habit?.adaptationMode ?? AppSettings.shared.defaultAdaptationMode)
 
         var metric = HealthMetric.steps
@@ -129,9 +129,7 @@ struct HabitEditorView: View {
                     }
                 }
 
-                Section("Days") {
-                    WeekdayPicker(mask: $scheduleMask)
-                }
+                SchedulePickerSection(schedule: $schedule)
             }
             .navigationTitle(Text(existing == nil ? "New habit" : "Edit habit"))
             .navigationBarTitleDisplayMode(.inline)
@@ -237,13 +235,13 @@ struct HabitEditorView: View {
             habit.emoji = emoji.isEmpty ? "✅" : emoji
             habit.colorHex = colorHex
             habit.rule = rule
-            habit.scheduleMask = scheduleMask
+            habit.schedule = schedule
             habit.adaptationMode = adaptationMode
             habit.updatedAt = Date()
         } else {
             let count = (try? env.repository.activeHabits().count) ?? 0
             habit = Habit(name: trimmed, emoji: emoji.isEmpty ? "✅" : emoji, colorHex: colorHex, rule: rule,
-                          scheduleMask: scheduleMask, sortOrder: count)
+                          schedule: schedule, sortOrder: count)
             habit.adaptationMode = adaptationMode
             env.repository.insert(habit)
         }
@@ -320,6 +318,103 @@ struct ColorPaletteRow: View {
             }
         }
         .padding(.vertical, 4)
+    }
+}
+
+/// Picks between the two families of schedule: days the habit is named for, and a quota the
+/// user spends on whichever days suit them.
+struct SchedulePickerSection: View {
+    @Binding var schedule: HabitSchedule
+
+    /// The tab, kept apart from the value so switching back and forth does not lose the count.
+    private enum Mode: String, CaseIterable, Identifiable {
+        case days, quota, interval
+        var id: String { rawValue }
+        var title: LocalizedStringKey {
+            switch self {
+            case .days: return "Days"
+            case .quota: return "Times"
+            case .interval: return "Interval"
+            }
+        }
+    }
+
+    private var mode: Mode {
+        switch schedule {
+        case .everyDay, .weekdays: return .days
+        case .timesPerWeek, .timesPerMonth: return .quota
+        case .everyXDays: return .interval
+        }
+    }
+
+    private var mask: Binding<Int> {
+        Binding(get: { schedule.legacyMask }, set: { schedule = .weekdays(mask: $0) })
+    }
+
+    var body: some View {
+        Section {
+            Picker("Schedule", selection: Binding(get: { mode }, set: { switchTo($0) })) {
+                ForEach(Mode.allCases) { Text($0.title).tag($0) }
+            }
+            .pickerStyle(.segmented)
+
+            switch schedule {
+            case .everyDay, .weekdays:
+                WeekdayPicker(mask: mask)
+            case .timesPerWeek(let count):
+                Stepper(value: Binding(get: { count }, set: { schedule = .timesPerWeek(count: $0) }), in: 1...7) {
+                    Text("\(count) times a week")
+                }
+            case .timesPerMonth(let count):
+                Stepper(value: Binding(get: { count }, set: { schedule = .timesPerMonth(count: $0) }), in: 1...31) {
+                    Text("\(count) times a month")
+                }
+            case .everyXDays(let interval):
+                Stepper(value: Binding(get: { interval }, set: { schedule = .everyXDays(interval: $0) }), in: 2...30) {
+                    Text("Every \(interval) days")
+                }
+            }
+
+            if schedule.isFlexible {
+                Picker("Period", selection: periodChoice) {
+                    Text("Per week").tag(SchedulePeriod.week)
+                    Text("Per month").tag(SchedulePeriod.month)
+                }
+            }
+        } header: {
+            Text("Schedule")
+        } footer: {
+            Text(explanation)
+        }
+    }
+
+    private var periodChoice: Binding<SchedulePeriod> {
+        Binding(
+            get: { schedule.period },
+            set: { period in
+                let count = schedule.quota
+                schedule = period == .week ? .timesPerWeek(count: min(count, 7)) : .timesPerMonth(count: count)
+            }
+        )
+    }
+
+    private var explanation: LocalizedStringKey {
+        switch schedule {
+        case .everyDay, .weekdays:
+            return "Due on the days you pick. A day you skip counts as a miss."
+        case .timesPerWeek, .timesPerMonth:
+            return "Any days you like, as long as the count adds up. Streaks count periods, not days."
+        case .everyXDays:
+            return "Counted from the day the habit was created."
+        }
+    }
+
+    private func switchTo(_ mode: Mode) {
+        switch mode {
+        case .days: schedule = .everyDay
+        case .quota: schedule = .timesPerWeek(count: 3)
+        case .interval: schedule = .everyXDays(interval: 2)
+        }
     }
 }
 

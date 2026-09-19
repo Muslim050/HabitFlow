@@ -10,8 +10,12 @@ public final class Habit {
     public var colorHex: String = "#4F8EF7"
     public var kindRaw: String = HabitSourceKind.manual.rawValue
     public var ruleData: Data = Data()
-    /// Bit `weekday - 1` set ⇒ scheduled on that weekday (bit 0 = Sunday … bit 6 = Saturday).
+    /// Legacy weekday mask. Superseded by `scheduleData`; kept in step on every write so rows
+    /// written by this build still read correctly in an older one, and so the migration from
+    /// before flexible schedules has something to fall back to.
     public var scheduleMask: Int = Habit.everyDayMask
+    /// Versioned JSON `HabitSchedule`. Empty on rows written before flexible schedules existed.
+    public var scheduleData: Data = Data()
     public var sortOrder: Int = 0
     public var createdAt: Date = Date()
     /// Soft delete; archived habits are hidden and never evaluated.
@@ -34,7 +38,7 @@ public final class Habit {
         emoji: String = "✅",
         colorHex: String = "#4F8EF7",
         rule: HabitRule = .manual,
-        scheduleMask: Int = Habit.everyDayMask,
+        schedule: HabitSchedule = .everyDay,
         sortOrder: Int = 0,
         createdAt: Date = Date()
     ) {
@@ -44,7 +48,9 @@ public final class Habit {
         self.colorHex = colorHex
         self.ruleData = (try? HabitRuleCoding.encode(rule)) ?? Data()
         self.kindRaw = rule.kind.rawValue
-        self.scheduleMask = scheduleMask
+        let schedule = schedule.normalized
+        self.scheduleData = (try? HabitScheduleCoding.encode(schedule)) ?? Data()
+        self.scheduleMask = schedule.legacyMask
         self.sortOrder = sortOrder
         self.createdAt = createdAt
         self.updatedAt = createdAt
@@ -77,15 +83,27 @@ public final class Habit {
     public var isAutomatic: Bool { kind.isAutomatic }
     public var isArchived: Bool { archivedAt != nil }
 
-    /// `weekday` uses `Calendar` numbering: 1 = Sunday … 7 = Saturday.
-    public func isScheduled(weekday: Int) -> Bool {
-        guard (1...7).contains(weekday) else { return false }
-        return scheduleMask & (1 << (weekday - 1)) != 0
+    public var schedule: HabitSchedule {
+        get { HabitScheduleCoding.decode(scheduleData) ?? HabitSchedule.weekdays(mask: scheduleMask).normalized }
+        set {
+            let value = newValue.normalized
+            scheduleData = (try? HabitScheduleCoding.encode(value)) ?? Data()
+            scheduleMask = value.legacyMask
+            updatedAt = Date()
+        }
     }
 
-    public func setScheduled(_ scheduled: Bool, weekday: Int) {
-        guard (1...7).contains(weekday) else { return }
-        if scheduled { scheduleMask |= (1 << (weekday - 1)) } else { scheduleMask &= ~(1 << (weekday - 1)) }
-        updatedAt = Date()
+    public func resolver(calendar: DayCalendar) -> ScheduleResolver {
+        ScheduleResolver(habit: self, calendar: calendar)
+    }
+
+    public func obligation(on key: DayKey, calendar: DayCalendar) -> DayObligation {
+        resolver(calendar: calendar).obligation(on: key)
+    }
+
+    /// Whether the habit can be worked on that day at all — named by the schedule, or inside a
+    /// period whose quota is still open to any day.
+    public func isDue(on key: DayKey, calendar: DayCalendar) -> Bool {
+        obligation(on: key, calendar: calendar).isDue
     }
 }

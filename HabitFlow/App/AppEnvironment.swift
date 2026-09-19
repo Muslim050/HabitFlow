@@ -169,8 +169,8 @@ final class AppEnvironment {
 
     private func rescheduleNudge() async {
         let today = currentDayKey
-        let weekday = settings.dayCalendar.weekday(for: today)
-        let habits = ((try? repository.activeHabits()) ?? []).filter { $0.isScheduled(weekday: weekday) }
+        let calendar = settings.dayCalendar
+        let habits = ((try? repository.activeHabits()) ?? []).filter { $0.isDue(on: today, calendar: calendar) }
         let logs = (try? repository.logs(dayKey: today)) ?? []
         let unfinished = habits.filter { habit in
             guard let log = logs.first(where: { $0.habitID == habit.id }) else { return true }

@@ -50,13 +50,25 @@ struct HabitRuleCodingTests {
         #expect(!habit.isAutomatic)
     }
 
-    @Test func scheduleMask() {
-        let habit = Habit(name: "x", scheduleMask: 0)
-        #expect(!habit.isScheduled(weekday: 2))
-        habit.setScheduled(true, weekday: 2)
-        #expect(habit.isScheduled(weekday: 2))
-        #expect(!habit.isScheduled(weekday: 3))
-        #expect(!habit.isScheduled(weekday: 0))
-        #expect(Habit(name: "y").isScheduled(weekday: 7))
+    /// Rows written before flexible schedules existed carry only the weekday mask, and the
+    /// getter has to read them without inventing anything.
+    @Test func legacyWeekdayMaskStillReads() {
+        let habit = Habit(name: "x")
+        habit.scheduleData = Data()
+        habit.scheduleMask = 0b000_0010          // Monday only
+        #expect(habit.schedule == .weekdays(mask: 0b000_0010))
+
+        habit.scheduleMask = HabitSchedule.everyDayMask
+        #expect(habit.schedule == .everyDay, "a full mask is every day, not a seven-bit special case")
+    }
+
+    @Test func writingAScheduleKeepsTheLegacyMaskInStep() {
+        let habit = Habit(name: "x")
+        habit.schedule = .weekdays(mask: 0b011_1110)
+        #expect(habit.scheduleMask == 0b011_1110)
+
+        habit.schedule = .timesPerWeek(count: 3)
+        #expect(habit.scheduleMask == HabitSchedule.everyDayMask, "any day will do, so every bit is set")
+        #expect(habit.schedule == .timesPerWeek(count: 3), "the JSON wins over the mask")
     }
 }

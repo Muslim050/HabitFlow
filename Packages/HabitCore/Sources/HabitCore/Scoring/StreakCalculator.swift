@@ -7,25 +7,25 @@ public struct Streak: Sendable, Equatable {
     public static let zero = Streak(length: 0, gracesUsed: 0)
 }
 
-/// Streaks that forgive up to `graceMissesPerWeek` misses in any 7 consecutive scheduled days.
+/// Streaks that forgive up to `graceMissesPerWeek` misses in any 7 consecutive obligations.
+/// The unit is the obligation, not the day: a "three times a week" habit counts weeks, and
+/// `length` must be read together with the schedule's period.
 public enum StreakCalculator {
-    /// `results` ascending; the last element is `today`. Today only counts when completed and never breaks the streak.
-    public static func currentStreak(_ results: [DayResult], today: DayKey, graceMissesPerWeek: Int) -> Streak {
-        let scheduled = results.filter(\.scheduled)
-        guard !scheduled.isEmpty else { return .zero }
+    /// `obligations` ascending. The still-running one counts only when already fulfilled, and
+    /// never breaks the run — an unfinished week is not a missed week.
+    public static func currentStreak(_ obligations: [ObligationResult], graceMissesPerWeek: Int) -> Streak {
+        guard !obligations.isEmpty else { return .zero }
 
         var length = 0
         var graces = 0
-        var recentWindow: [Bool] = []  // misses among the last ≤7 scheduled days walked (newest first)
+        var recentWindow: [Bool] = []  // misses among the last ≤7 obligations walked (newest first)
 
-        for result in scheduled.reversed() {
-            if result.dayKey == today {
-                if result.completed { length += 1; recentWindow.append(false) }
+        for obligation in obligations.reversed() {
+            if obligation.isOpen {
+                if obligation.fulfilled { length += 1; recentWindow.append(false) }
                 continue
             }
-            if result.dayKey > today { continue }
-
-            if result.completed {
+            if obligation.fulfilled {
                 length += 1
                 recentWindow.append(false)
             } else {
@@ -39,14 +39,14 @@ public enum StreakCalculator {
         return Streak(length: length, gracesUsed: graces)
     }
 
-    /// Longest streak ever, with the same grace rule applied chronologically.
-    public static func bestStreak(_ results: [DayResult], today: DayKey, graceMissesPerWeek: Int) -> Int {
+    /// Longest run ever, with the same grace rule applied chronologically.
+    public static func bestStreak(_ obligations: [ObligationResult], graceMissesPerWeek: Int) -> Int {
         var best = 0
         var length = 0
         var window: [Bool] = []
-        for result in results where result.scheduled && result.dayKey <= today {
-            if result.dayKey == today && !result.completed { break }
-            if result.completed {
+        for obligation in obligations {
+            if obligation.isOpen && !obligation.fulfilled { break }
+            if obligation.fulfilled {
                 length += 1
                 window.append(false)
             } else {

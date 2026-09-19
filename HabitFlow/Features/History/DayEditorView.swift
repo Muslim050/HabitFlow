@@ -49,7 +49,7 @@ struct DayEditorView: View {
     }
 
     private var isCompleted: Bool { log?.isCompleted ?? false }
-    private var isScheduled: Bool { habit.isScheduled(weekday: dayCalendar.weekday(for: dayKey)) }
+    private var obligation: DayObligation { habit.obligation(on: dayKey, calendar: dayCalendar) }
 
     var body: some View {
         NavigationStack {
@@ -63,9 +63,8 @@ struct DayEditorView: View {
                     LabeledContent("Status") {
                         Text(statusText).foregroundStyle(isCompleted ? Color(hex: habit.colorHex) : .secondary)
                     }
-                    if !isScheduled {
-                        Text("This weekday is not in the habit's schedule. Marking it still counts.")
-                            .font(.caption).foregroundStyle(.secondary)
+                    if let note = scheduleNote {
+                        Text(note).font(.caption).foregroundStyle(.secondary)
                     }
                 }
 
@@ -110,6 +109,15 @@ struct DayEditorView: View {
             }
             .onChange(of: date) { _, _ in syncValueField() }
             .onAppear { syncValueField() }
+        }
+    }
+
+    /// Why this day looks the way it does, when the schedule makes it non-obvious.
+    private var scheduleNote: LocalizedStringKey? {
+        switch obligation {
+        case .required: return nil
+        case .flexible: return "Any day of the period counts towards the goal."
+        case .off: return "This day is not in the habit's schedule. Marking it still counts."
         }
     }
 

@@ -84,10 +84,10 @@ struct TestEnv {
     }
 
     @discardableResult
-    func addHabit(_ name: String, rule: HabitRule, scheduleMask: Int = Habit.everyDayMask,
+    func addHabit(_ name: String, rule: HabitRule, schedule: HabitSchedule = .everyDay,
                   createdDaysAgo: Int = 0) throws -> Habit {
         let created = clock.now.addingTimeInterval(-3600 - Double(createdDaysAgo) * 86_400)
-        let habit = Habit(name: name, rule: rule, scheduleMask: scheduleMask, createdAt: created)
+        let habit = Habit(name: name, rule: rule, schedule: schedule, createdAt: created)
         repository.insert(habit)
         try repository.save()
         return habit

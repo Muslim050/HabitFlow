@@ -184,7 +184,8 @@ public final class AutoTrackingEngine {
     private func evaluate(habit: Habit, dayKey: DayKey, now: Date, reason: EvaluationReason,
                           summary: inout EvaluationSummary) async {
         guard habit.isAutomatic else { return }
-        guard habit.isScheduled(weekday: dayCalendar.weekday(for: dayKey)) else { return }
+        // Any due day, including a flexible one: with a weekly quota, today may well be the day.
+        guard habit.isDue(on: dayKey, calendar: dayCalendar) else { return }
         guard dayCalendar.window(for: dayKey).end > habit.createdAt else { return }
         guard let provider = providers.provider(for: habit.kind) else {
             summary.failures[habit.id] = "No provider for \(habit.kind.rawValue)"

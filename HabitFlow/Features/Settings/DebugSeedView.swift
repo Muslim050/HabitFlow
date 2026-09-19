@@ -67,8 +67,7 @@ struct DebugSeedView: View {
             }
             for offset in 1...(weeks * 7) {
                 let key = calendar.key(byAdding: -offset, to: today)
-                let weekday = calendar.weekday(for: key)
-                for habit in habits where habit.isScheduled(weekday: weekday) {
+                for habit in habits where habit.isDue(on: key, calendar: calendar) {
                     // Recent weeks go better than older ones, so trends and streaks look real.
                     let bias = 0.45 + 0.4 * (1 - Double(offset) / Double(weeks * 7))
                     let hit = Double.random(in: 0...1, using: &generator) < bias

@@ -57,13 +57,12 @@ struct TodayRingsProvider: TimelineProvider {
         let settings = AppSettings.shared
         let calendar = settings.dayCalendar
         let today = calendar.dayKey(for: now)
-        let weekday = calendar.weekday(for: today)
 
         guard let container = try? ModelContainerFactory.shared() else {
             return TodayRingsEntry(date: now, items: [], completedCount: 0, updatedAt: settings.lastEngineRunAt)
         }
         let repository = SwiftDataHabitRepository(container: container)
-        let habits = ((try? repository.activeHabits()) ?? []).filter { $0.isScheduled(weekday: weekday) }
+        let habits = ((try? repository.activeHabits()) ?? []).filter { $0.isDue(on: today, calendar: calendar) }
         let logs = (try? repository.logs(dayKey: today)) ?? []
 
         let items = habits.map { habit -> RingItem in
@@ -82,7 +81,7 @@ struct TodayRingsProvider: TimelineProvider {
         }
         return TodayRingsEntry(
             date: now, items: items,
-            completedCount: items.filter(\.completed).count,
+            completedCount: items.filter { $0.completed }.count,
             updatedAt: settings.lastEngineRunAt
         )
     }

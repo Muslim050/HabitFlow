@@ -71,16 +71,13 @@ public enum ActivityGrid {
         let completedByDay = logs.reduce(into: [String: Int]()) { counts, log in
             if log.isCompleted { counts[log.dayKey, default: 0] += 1 }
         }
-        let firstDayOf = habits.reduce(into: [UUID: DayKey]()) { map, habit in
-            map[habit.id] = calendar.dayKey(for: habit.createdAt)
-        }
+        let resolvers = habits.map { ScheduleResolver(habit: $0, calendar: calendar) }
 
         var days: [ActivityDay?] = calendar.keys(from: start, to: today).map { key in
-            let weekday = calendar.weekday(for: key)
-            let scheduled = habits.filter { habit in
-                guard let first = firstDayOf[habit.id], first <= key else { return false }
-                return habit.isScheduled(weekday: weekday)
-            }.count
+            // Only a day the schedule names is owed on that date. A quota habit owes the week,
+            // not any particular day, so it adds to `completed` when done and to nothing when not
+            // — `ratio` already divides by `max(scheduled, completed)`.
+            let scheduled = resolvers.count { $0.obligation(on: key) == .required }
             return ActivityDay(dayKey: key, scheduled: scheduled, completed: completedByDay[key.raw] ?? 0)
         }
         let real = days.compactMap { $0 }

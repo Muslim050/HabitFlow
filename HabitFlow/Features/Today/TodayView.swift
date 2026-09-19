@@ -18,9 +18,11 @@ struct TodayView: View {
         _logs = Query(filter: #Predicate<DailyLog> { $0.dayKey == raw })
     }
 
+    /// Every habit the day can take: named by the schedule, or inside a period whose quota
+    /// is still open to any day.
     private var scheduledHabits: [Habit] {
-        let weekday = env.settings.dayCalendar.weekday(for: dayKey)
-        return habits.filter { $0.isScheduled(weekday: weekday) }
+        let calendar = env.settings.dayCalendar
+        return habits.filter { $0.isDue(on: dayKey, calendar: calendar) }
     }
 
     private func log(for habit: Habit) -> DailyLog? {

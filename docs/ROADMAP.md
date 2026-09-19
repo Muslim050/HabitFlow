@@ -70,22 +70,41 @@ HabitFlow работает на сигналах: HealthKit и геолокац�
 
 ### Stage 1 — то, без чего трекер выглядит хуже конкурентов
 
-**0. Versioned schema.** `ModelContainerFactory.schema` — голый `Schema` без версии, миграций нет
-ни одной. Каждый следующий шаг добавляет поля, поэтому `SchemaV1: VersionedSchema` и
-`HabitMigrationPlan` вводятся до них, пока настоящих данных нет.
+**0. Versioned schema. Сделано.** `SchemaV1` и `HabitMigrationPlan` заведены и прокинуты в оба
+контейнера. Версия одна и стадий нет — намеренно: `VersionedSchema` опознаётся по контрольной
+сумме форм моделей, поэтому две версии, перечисляющие одни и те же swift-типы, дают одинаковую
+сумму, и Core Data падает на старте с `Duplicate version checksums detected`. Вторая версия
+имеет смысл только с замороженной копией моделей внутри `SchemaV1`. Пока все изменения
+аддитивны (новое свойство с дефолтом), они мигрируют lightweight сами — так приехало
+`scheduleData`. Замораживать модели надо на первом же переименовании, смене типа или удалении
+свойства; подробности в комментарии к `SchemaVersions.swift`.
 
-**1. Редактирование прошлых дней (backdating).** Самая частая жалоба в категории — «не могу
+**1. Редактирование прошлых дней (backdating). Сделано.** Самая частая жалоба в категории — «не могу
 исправить вчерашний день». Половина уже есть: `setManualCompletion(habitID:completed:dayKey:)`
 и `fetchOrCreateLog` принимают произвольный день, а `HabitStats.compute` считает из логов заново,
 так что пересчёт производных метрик получается сам. Нужны: предел глубины правки (90 дней),
 `setManualValue` для числовых привычек, `clearOverride` с параметром дня, тап по ячейке
 `HeatmapView` и тест на то, что `evaluateAll` (работает только с сегодня) правку не перетирает.
 
-**2. Гибкая частота.** `HabitSchedule` вместо `scheduleMask`: `everyDay`, `weekdays`,
-`timesPerWeek(n)`, `timesPerMonth(n)`, `everyXDays(x)`. Главный запрос сменных работников.
-Ломает не расписание, а всех, кто спрашивает «был ли день плановым»: `DayResult`, `ActivityGrid`,
-`HabitMatrix`, `StreakCalculator`, `ConsistencyScore`, виджет. Для `timesPerWeek` плановой
-становится неделя, поэтому `DayResult.scheduled: Bool` придётся сделать трёхзначным.
+**2. Гибкая частота. Сделано.** `HabitSchedule` вместо `scheduleMask`: `everyDay`, `weekdays`,
+`timesPerWeek(n)`, `timesPerMonth(n)`, `everyXDays(x)`, хранится как `scheduleData`; старый
+`scheduleMask` пишется рядом как приближение и служит запасным чтением для строк, созданных
+до V2.
+
+Ключевое решение: скоринг считает **обязательства**, а не дни. `DayResult.scheduled: Bool` стал
+трёхзначным `DayObligation` (`required` / `flexible` / `off`), а поверх появился
+`ObligationResult` — либо названный день, либо период с квотой. `StreakCalculator` и
+`ConsistencyScore` работают на нём, поэтому «три раза в неделю» держит серию **недель**, и это
+должно быть написано рядом с числом (`SchedulePeriodText`). Окно индекса стабильности тоже
+зависит от периода: 30 дней / 8 недель / 6 месяцев.
+
+Разбирается по-разному везде, где раньше спрашивали про день недели:
+- `ActivityGrid` не считает гибкую привычку должной ни в какую дату — она добавляет в
+  `completed`, а `ratio` уже делится на `max(scheduled, completed)`.
+- `HabitMatrix` не рисует свободный день как пропуск, а `scheduledCount` берётся из
+  `ScheduleResolver.demand`, который пропорционально делит квоту по окну.
+- `HistoryBuilder.adaptationSamples` выкидывает нетронутые гибкие дни: иначе «три раза в неделю»
+  выглядело бы как провал четыре дня из семи и цель понижалась бы без причины.
 
 **3. Модель прогресса.** Делать сразу после шага 2, в том же `StreakCalculator`. `ProgressModel`
 на привычку: `consecutiveStreak` / `habitScore` / `completionRate(window:)` / `totalCompletions`,

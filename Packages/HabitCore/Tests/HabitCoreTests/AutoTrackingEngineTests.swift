@@ -92,7 +92,7 @@ struct AutoTrackingEngineTests {
     @Test func skipsUnscheduledDay() async throws {
         let env = try TestEnv()  // 2026-09-12 is a Saturday (weekday 7)
         let weekdaysOnly = 0b011_1110
-        let habit = try env.addHabit("Walk", rule: steps, scheduleMask: weekdaysOnly)
+        let habit = try env.addHabit("Walk", rule: steps, schedule: .weekdays(mask: weekdaysOnly))
         env.health.values[habit.id] = 9000
         await env.engine.evaluateAll(reason: .foreground)
         #expect(try env.log(habit) == nil)

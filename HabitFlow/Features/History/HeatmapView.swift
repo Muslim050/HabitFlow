@@ -19,7 +19,7 @@ struct HeatmapView: View {
         let trailingPad = 7 - todayWeekday
         let totalDays = weeks * 7 - trailingPad
         let start = calendar.key(byAdding: -(totalDays - 1), to: today)
-        var days: [DayResult?] = calendar.keys(from: start, to: today).map { byKey[$0] ?? DayResult(dayKey: $0, scheduled: false, completed: false) }
+        var days: [DayResult?] = calendar.keys(from: start, to: today).map { byKey[$0] ?? DayResult(dayKey: $0, obligation: .off, completed: false) }
         days.append(contentsOf: Array(repeating: nil, count: trailingPad))
         return days
     }
@@ -71,16 +71,25 @@ struct HeatmapView: View {
     }
 
     private func label(for result: DayResult) -> String {
-        let state = result.completed
-            ? String(localized: "done")
-            : (result.scheduled ? String(localized: "not done") : String(localized: "not scheduled"))
+        let state: String
+        if result.completed {
+            state = String(localized: "done")
+        } else {
+            switch result.obligation {
+            case .required: state = String(localized: "not done")
+            case .flexible: state = String(localized: "not required")
+            case .off: state = String(localized: "not scheduled")
+            }
+        }
         return "\(result.dayKey.raw), \(state)"
     }
 
     private func fill(_ result: DayResult?) -> Color {
         guard let result else { return .clear }
-        if !result.scheduled { return Color.secondary.opacity(0.08) }
         if result.completed { return color }
+        // Only a day the schedule named can look like a miss. On a quota schedule no single day
+        // is owed, so an unused day reads as empty rather than as a failure.
+        guard result.obligation == .required else { return Color.secondary.opacity(0.08) }
         if result.ratio > 0 { return color.opacity(0.2 + 0.5 * result.ratio) }
         return Color.secondary.opacity(0.2)
     }

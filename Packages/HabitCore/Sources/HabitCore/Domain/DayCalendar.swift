@@ -66,5 +66,29 @@ public struct DayCalendar: Sendable {
         return result
     }
 
+    /// Whole logical days between two keys; negative when `to` precedes `from`.
+    public func days(from: DayKey, to: DayKey) -> Int {
+        calendar.dateComponents([.day], from: dayStart(for: from), to: dayStart(for: to)).day ?? 0
+    }
+
+    /// First day of the week `key` falls in, honouring the calendar's `firstWeekday`
+    /// (Monday in most of Europe, Sunday in the US).
+    public func startOfWeek(for key: DayKey) -> DayKey {
+        let offset = (weekday(for: key) - calendar.firstWeekday + 7) % 7
+        return self.key(byAdding: -offset, to: key)
+    }
+
+    public func startOfMonth(for key: DayKey) -> DayKey {
+        guard let (y, m, _) = key.components else { return key }
+        return DayKey(year: y, month: m, day: 1)
+    }
+
+    public func endOfMonth(for key: DayKey) -> DayKey {
+        guard let (y, m, _) = key.components,
+              let length = calendar.range(of: .day, in: .month, for: dayStart(for: key))?.count
+        else { return key }
+        return DayKey(year: y, month: m, day: length)
+    }
+
     public func today(now: Date = Date()) -> DayKey { dayKey(for: now) }
 }

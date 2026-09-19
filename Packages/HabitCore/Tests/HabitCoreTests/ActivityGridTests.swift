@@ -24,9 +24,9 @@ struct ActivityGridTests {
         }
 
         @discardableResult
-        func habit(_ name: String, createdDaysAgo: Int = 60, scheduleMask: Int = Habit.everyDayMask) throws -> Habit {
+        func habit(_ name: String, createdDaysAgo: Int = 60, schedule: HabitSchedule = .everyDay) throws -> Habit {
             let created = calendar.dayStart(for: calendar.key(byAdding: -createdDaysAgo, to: today))
-            let habit = Habit(name: name, rule: .manual, scheduleMask: scheduleMask, createdAt: created)
+            let habit = Habit(name: name, rule: .manual, schedule: schedule, createdAt: created)
             repository.insert(habit)
             try repository.save()
             return habit
@@ -85,7 +85,7 @@ struct ActivityGridTests {
     @Test func unscheduledWeekdaysAreOffDaysNotMisses() throws {
         let fixture = try Fixture()
         // Weekdays only: bit 0 is Sunday, bit 6 is Saturday.
-        try fixture.habit("Gym", scheduleMask: 0b011_1110)
+        try fixture.habit("Gym", schedule: .weekdays(mask: 0b011_1110))
         let summary = try fixture.build()
         // Take the most recent of each weekday: the earliest columns predate the habit and are
         // off days for a different reason.
@@ -148,7 +148,7 @@ struct ActivityGridTests {
 
     @Test func offDaysDoNotBreakTheStreak() throws {
         let fixture = try Fixture()
-        let gym = try fixture.habit("Gym", scheduleMask: 0b011_1110)  // weekdays only
+        let gym = try fixture.habit("Gym", schedule: .weekdays(mask: 0b011_1110))  // weekdays only
         // 2026-09-12 is Saturday: yesterday Friday, and 09-06 is a Sunday inside the run.
         try fixture.complete(gym, daysAgo: [1, 2, 3, 4, 5, 8, 9])
         let summary = try fixture.build()
@@ -158,7 +158,7 @@ struct ActivityGridTests {
     @Test func aTickOnAnUnscheduledDayStillCountsAsActivity() throws {
         let fixture = try Fixture()
         // Weekdays only, but the person marked it done on a Saturday.
-        let gym = try fixture.habit("Gym", scheduleMask: 0b011_1110)
+        let gym = try fixture.habit("Gym", schedule: .weekdays(mask: 0b011_1110))
         try fixture.complete(gym, daysAgo: [0])   // 2026-09-12 is a Saturday
 
         let summary = try fixture.build()

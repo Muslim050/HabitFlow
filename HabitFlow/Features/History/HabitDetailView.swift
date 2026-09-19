@@ -64,15 +64,17 @@ struct HabitDetailView: View {
             }
 
             Section("Stats") {
-                StatRow(title: "Current streak", value: String(localized: "\(stats.currentStreak.length) days"),
+                // A streak is counted in the schedule's own unit: three times a week makes weeks,
+                // not days, so the number is meaningless without the word beside it.
+                StatRow(title: "Current streak", value: SchedulePeriodText.length(stats.currentStreak.length, stats.period),
                         detail: stats.currentStreak.gracesUsed > 0 ? String(localized: "\(stats.currentStreak.gracesUsed) forgiven misses") : nil)
-                StatRow(title: "Best streak", value: String(localized: "\(stats.bestStreak) days"), detail: nil)
+                StatRow(title: "Best streak", value: SchedulePeriodText.length(stats.bestStreak, stats.period), detail: nil)
                 StatRow(title: "Consistency",
                         value: stats.consistency.score.map { String(localized: "\($0) / 100") } ?? String(localized: "Warming up"),
                         detail: stats.consistency.score == nil
-                            ? String(localized: "\(stats.consistency.historyDays)/\(ConsistencyScore.minimumHistoryDays) days of history")
-                            : String(localized: "Last 30 days, recent days weigh more"))
-                StatRow(title: "Completed", value: String(localized: "\(stats.completedDays) of \(stats.scheduledDays)"), detail: nil)
+                            ? String(localized: "\(stats.consistency.history) of \(stats.consistency.minimum) needed")
+                            : String(localized: "Recent periods weigh more"))
+                StatRow(title: "Completed", value: String(localized: "\(stats.completedCount) of \(stats.requiredCount)"), detail: nil)
             }
 
             Section("Last 16 weeks") {

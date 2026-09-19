@@ -22,11 +22,11 @@ struct HabitMatrixTests {
 
         @discardableResult
         func habit(_ name: String, createdDaysAgo: Int = 60,
-                   scheduleMask: Int = Habit.everyDayMask, colorHex: String = "#4F8EF7") throws -> Habit {
+                   schedule: HabitSchedule = .everyDay, colorHex: String = "#4F8EF7") throws -> Habit {
             let created = calendar.dayStart(for: calendar.key(byAdding: -createdDaysAgo, to: today))
             let habit = Habit(name: name, emoji: "✅", colorHex: colorHex,
                               rule: .healthQuantity(metric: .steps, target: 8000),
-                              scheduleMask: scheduleMask, createdAt: created)
+                              schedule: schedule, createdAt: created)
             repository.insert(habit)
             try repository.save()
             return habit
@@ -81,7 +81,7 @@ struct HabitMatrixTests {
     @Test func unscheduledAndPreCreationDaysAreOff() throws {
         let fixture = try Fixture()
         // Weekdays only; today (Saturday) is not due.
-        let gym = try fixture.habit("Gym", createdDaysAgo: 3, scheduleMask: 0b011_1110)
+        let gym = try fixture.habit("Gym", createdDaysAgo: 3, schedule: .weekdays(mask: 0b011_1110))
         let row = try #require(try fixture.build(days: 7).rows.first)
 
         #expect(row.states.last == .off, "Saturday is not scheduled")
@@ -92,7 +92,7 @@ struct HabitMatrixTests {
 
     @Test func countsOnlyCountDueDays() throws {
         let fixture = try Fixture()
-        let walk = try fixture.habit("Walk", scheduleMask: 0b011_1110)   // weekdays
+        let walk = try fixture.habit("Walk", schedule: .weekdays(mask: 0b011_1110))   // weekdays
         try fixture.log(walk, daysAgo: 1, progress: 9000, completed: true)   // Friday
         try fixture.log(walk, daysAgo: 2, progress: 9000, completed: true)   // Thursday
 
@@ -103,7 +103,7 @@ struct HabitMatrixTests {
 
     @Test func aTickOnAnOffDayStillShowsAsDone() throws {
         let fixture = try Fixture()
-        let gym = try fixture.habit("Gym", scheduleMask: 0b011_1110)
+        let gym = try fixture.habit("Gym", schedule: .weekdays(mask: 0b011_1110))
         try fixture.log(gym, daysAgo: 0, progress: 1, completed: true)   // Saturday, not due
 
         let row = try #require(try fixture.build(days: 7).rows.first)
