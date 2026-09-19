@@ -1,8 +1,12 @@
 import Foundation
 
-/// Manual toggles made from the interactive widget. The widget process writes the store itself so the
-/// widget re-renders instantly; the app replays the queue on foreground so its own (possibly stale)
-/// `ModelContext` ends up with the same state. Replaying is idempotent.
+/// Manual toggles made from the interactive widget. The widget is a separate process: it writes
+/// the store itself so the widget re-renders instantly, and the app replays the queue on
+/// foreground so its own (possibly stale) `ModelContext` ends up with the same state. Replaying
+/// is idempotent.
+///
+/// Shortcuts do not go through here — an app-target intent runs inside the app's own process and
+/// has already written through its context.
 public struct WidgetAction: Codable, Sendable, Equatable {
     public var habitID: UUID
     public var completed: Bool

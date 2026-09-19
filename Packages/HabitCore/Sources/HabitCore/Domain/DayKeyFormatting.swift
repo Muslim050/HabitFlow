@@ -1,7 +1,6 @@
 import Foundation
-import HabitCore
 
-extension DayKey {
+public extension DayKey {
     /// A logical day written the way the reader's locale writes dates. The raw `yyyy-MM-dd`
     /// is a storage key, never something to put in front of a person.
     func formatted(_ style: Date.FormatStyle.DateStyle = .abbreviated, calendar: DayCalendar) -> String {

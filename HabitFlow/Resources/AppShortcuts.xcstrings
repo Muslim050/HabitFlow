@@ -1,0 +1,76 @@
+{
+  "sourceLanguage": "en",
+  "version": "1.0",
+  "strings": {
+    "Clear a habit in ${applicationName}": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Снять отметку в ${applicationName}"
+          }
+        }
+      }
+    },
+    "Log a habit in ${applicationName}": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записать привычку в ${applicationName}"
+          }
+        }
+      }
+    },
+    "Mark a habit done in ${applicationName}": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отметить привычку в ${applicationName}"
+          }
+        }
+      }
+    },
+    "Pause a habit in ${applicationName}": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приостановить привычку в ${applicationName}"
+          }
+        }
+      }
+    },
+    "Take a break from a habit in ${applicationName}": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сделать перерыв в ${applicationName}"
+          }
+        }
+      }
+    },
+    "Tick off a habit in ${applicationName}": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Закрыть привычку в ${applicationName}"
+          }
+        }
+      }
+    },
+    "Undo a habit in ${applicationName}": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отменить отметку в ${applicationName}"
+          }
+        }
+      }
+    }
+  }
+}

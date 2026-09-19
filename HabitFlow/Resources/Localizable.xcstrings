@@ -38,6 +38,56 @@
         }
       }
     },
+    "%@ is a plain tick, so there is no value to set.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — это просто галочка, значение задавать нечему."
+          }
+        }
+      }
+    },
+    "%@ is done.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — выполнено."
+          }
+        }
+      }
+    },
+    "%@ is no longer marked.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "С «%@» снята отметка."
+          }
+        }
+      }
+    },
+    "%@ is paused until %@.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» на паузе до %@."
+          }
+        }
+      }
+    },
+    "%@ is paused until you resume it.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» на паузе, пока не возобновите."
+          }
+        }
+      }
+    },
     "%@ is the weakest day: %@ completed": {
       "localizations": {
         "en": {
@@ -1124,6 +1174,16 @@
         }
       }
     },
+    "Clears a habit's mark for today or a past day.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Снимает отметку привычки за сегодня или за прошлый день."
+          }
+        }
+      }
+    },
     "Color %@": {
       "localizations": {
         "ru": {
@@ -1675,6 +1735,16 @@
         }
       }
     },
+    "For habits that measure something, such as steps or minutes.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для привычек, которые что-то измеряют: шаги, минуты и так далее."
+          }
+        }
+      }
+    },
     "Freezes per month: %lld": {
       "localizations": {
         "ru": {
@@ -2107,6 +2177,26 @@
         }
       }
     },
+    "Leave empty for today.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оставьте пустым для сегодня."
+          }
+        }
+      }
+    },
+    "Leave empty to pause until you resume it.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оставьте пустым, чтобы пауза длилась до возобновления."
+          }
+        }
+      }
+    },
     "Let auto-tracking decide": {
       "localizations": {
         "ru": {
@@ -2167,12 +2257,52 @@
         }
       }
     },
+    "Mark ${habit} done": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отметить ${habit} выполненной"
+          }
+        }
+      }
+    },
+    "Mark ${habit} not done": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Снять отметку с ${habit}"
+          }
+        }
+      }
+    },
     "Mark done": {
       "localizations": {
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Отметить выполненной"
+          }
+        }
+      }
+    },
+    "Mark habit done": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отметить привычку"
+          }
+        }
+      }
+    },
+    "Mark habit not done": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Снять отметку с привычки"
           }
         }
       }
@@ -2203,6 +2333,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Снять отметку за сегодня"
+          }
+        }
+      }
+    },
+    "Marks a habit done, optionally on a past day or with a measured value.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отмечает привычку выполненной — можно за прошлый день и с измеренным значением."
           }
         }
       }
@@ -2457,12 +2597,32 @@
         }
       }
     },
+    "Pause ${habit}": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приостановить ${habit}"
+          }
+        }
+      }
+    },
     "Pause everything": {
       "localizations": {
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Приостановить всё"
+          }
+        }
+      }
+    },
+    "Pause habit": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приостановить привычку"
           }
         }
       }
@@ -2664,6 +2824,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Недавние периоды весят больше"
+          }
+        }
+      }
+    },
+    "Recorded %@ for %@.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записано %@ для «%@»."
           }
         }
       }
@@ -2929,6 +3099,16 @@
         }
       }
     },
+    "Stops asking for a habit until a date, or until you resume it. Paused days are not counted against you.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перестаёт спрашивать про привычку до указанной даты или до возобновления. Дни на паузе не идут в минус."
+          }
+        }
+      }
+    },
     "Storage unavailable — data will not be saved.": {
       "localizations": {
         "ru": {
@@ -3015,6 +3195,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Этот день вне диапазона, доступного для правки."
+          }
+        }
+      }
+    },
+    "That day is outside the range you can still edit.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Этот день вне диапазона, доступного для правки."
+          }
+        }
+      }
+    },
+    "That habit no longer exists.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Такой привычки больше нет."
           }
         }
       }
